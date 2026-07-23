@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ZENVNEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
+        
+        /* هدر مینیمال سبک اسپیس‌اکس */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); width: 100%; }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        
+        /* استایل کانتینر دکمه‌های هدر برای چیدمان کنار هم */
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .logout-btn, .home-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .logout-btn:hover, .home-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+        /* بخش اصلی اسلایدی / محتوایی */
+        .hero-section { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 50px; max-width: 800px; position: relative; overflow: hidden; }
+        
+        .subtitle { font-size: 14px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 15px; }
+        h1 { font-size: 48px; font-weight: 700; line-height: 1.1; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #fff; }
+        p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 40px; font-weight: 300; }
+
+        /* دکمه اختصاصی سبک SpaceX */
+        .btn-spacex { display: inline-flex; align-items: center; justify-content: space-between; background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 16px 28px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; width: 220px; transition: 0.3s; }
+        .btn-spacex:hover { background: #fff; color: #000; border-color: #fff; padding-right: 32px; }
+        .btn-spacex span { font-size: 16px; transition: 0.3s; }
+
+        /* بخش کارت‌ها یا بخش‌های پایین‌تر برای محتواهای آینده */
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 50px 60px 50px; }
+        .card { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 30px; transition: 0.3s; }
+        .card:hover { border-color: rgba(255,255,255,0.5); }
+        .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .card p { font-size: 14px; margin-bottom: 25px; color: rgba(255,255,255,0.5); }
+        .card-link { color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #fff; padding-bottom: 3px; }
+
+        @media(max-width: 768px) {
+            .header { padding: 20px; flex-direction: column; gap: 15px; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: space-between; }
+            .hero-section { padding: 40px 20px; }
+            h1 { font-size: 32px; }
+            .content-grid { padding: 0 20px 40px 20px; }
+        }
+
+        /* ---- انیمیشن پرواز کبوتر سفید روی مسیر منحنی ---- */
+        .flying-bird-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          overflow: hidden;
+          z-index: 1;
+        }
+
+        .white-dove {
+          position: absolute;
+          width: 45px;
+          height: auto;
+          filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+          opacity: 0;
+          animation: flyAlongArc 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes flyAlongArc {
+          0% {
+            left: -10%;
+            top: 15%;
+            transform: rotate(15deg) scale(0.7);
+            opacity: 0;
+          }
+          15% {
+            opacity: 1;
+          }
+          50% {
+            left: 45%;
+            top: 2%;
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+          }
+          85% {
+            opacity: 1;
+          }
+          100% {
+            left: 105%;
+            top: 22%;
+            transform: rotate(-15deg) scale(0.8);
+            opacity: 0;
+          }
+        }
+
+        .white-dove svg {
+          width: 100%;
+          height: auto;
+          animation: flapWings 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes flapWings {
+          0% { transform: scaleY(1); }
+          100% { transform: scaleY(0.4) skewX(-10deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر سایت -->
+    <div class="header">
+        <a href="#" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="index.html" class="home-btn">Home</a>
+            <button class="logout-btn" id="logoutBtn">Log Out</button>
+        </div>
+    </div>
+
+    <!-- بخش اصلی با استایل مدرن و بزرگ (مشابه اسپیس اکس) -->
+    <div class="hero-section">
+        <div class="flying-bird-container">
+          <div class="white-dove">
+            <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#ffffff" d="M50 30
+                C 40 10, 15 8, 2 18
+                C 15 20, 25 24, 32 30
+                C 25 30, 12 34, 2 44
+                C 18 42, 38 40, 48 34
+                C 55 40, 70 44, 90 42
+                C 76 36, 65 32, 58 30
+                C 68 26, 80 22, 92 20
+                C 75 14, 55 16, 50 30 Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="subtitle">FEATURED MODULE</div>
+        <h1>DEVELOPING ORBITAL LEARNING SYSTEMS</h1>
+        <p>پلتفرم پیشرفته آموزشی برای یادگیری اصولی و مقیاس‌پذیر مهارت‌های آینده. از اینجا مسیر خود را شروع کنید.</p>
+        <a href="#" class="btn-spacex">
+            START LESSON 
+            <span>→</span>
+        </a>
+    </div>
+
+<!-- بخش کارت‌ها برای آموزش‌ها -->
+    <div class="content-grid">
+        <div class="card">
+            <h3>انگلیسی</h3>
+            <p>آموزش زبان انگلیسی از مبتدی تا حرفه ای.</p>
+            <a href="english.html" class="card-link">EXPLORE →</a>
+        </div>
+        <div class="card">
+            <h3>ریاضی</h3>
+            <p>آموزش گام به گام ریاضی تمام پایه ها.</p>
+            <a href="math.html" class="card-link">EXPLORE →</a>
+        </div>
+        <div class="card">
+            <h3>فرانسوی</h3>
+            <p>آموزش زبان فرانسوی از مبتدی تا حرفه ای.</p>
+            <a href="french.html" class="card-link">EXPLORE →</a>
+        </div>
+    </div>
+
+<!-- اسکریپت فایربیس برای خروج -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+    authDomain: "zenvnex.firebaseapp.com",
+    projectId: "zenvnex",
+    storageBucket: "zenvnex.firebasestorage.app",
+    messagingSenderId: "145639804249",
+    appId: "1:145639804249:web:d8d216db1c713986aad048",
+    measurementId: "G-B554BNES3M"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+      firebase.auth().signOut().then(() => {
+          window.location.href = "index.html";
+      });
+  });
+</script>
+</body>
+</html>

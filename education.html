@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Access - ZENVNEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-space: #050505;
+    --panel-space: #0c0d10;
+    --border-space: #22262e;
+    --text-main: #f0f2f5;
+    --text-muted: #9ba1a6;
+    --accent: #ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg-space); color:var(--text-main); font-family:'Inter', sans-serif; line-height:1.6; min-height:100vh; overflow-x:hidden;}
+
+  header{position:fixed; top:0; left:0; right:0; z-index:20; background:rgba(5,5,5,0.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--border-space); padding:20px 0;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; align-items:center;}
+  .logo{font-family:'Inter', sans-serif; font-size:20px; font-weight:700; letter-spacing:0.15em; color:#fff; text-decoration:none; display:flex; flex-direction:column; gap:2px;}
+  .logo .tagline{font-family:'Share Tech Mono',sans-serif; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted);}
+
+  /* ---- Video stage ---- */
+  .stage{position:relative; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#000;}
+  
+  #welcomeVideo{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* اصلاح شده برای نمایش کامل ویدیو بدون برش در حالت عمودی */
+    object-position: center;
+    display: block;
+    background-color: #000;
+  }
+
+  .play-overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); cursor:pointer; transition:opacity 0.4s ease;}
+  .play-overlay.hidden{opacity:0; pointer-events:none;}
+
+  .play-btn{width:84px; height:84px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 30px rgba(0,0,0,0.6); transition:transform 0.2s ease;}
+  .play-overlay:hover .play-btn{transform:scale(1.08);}
+  .play-btn svg{margin-left:4px;}
+
+  .play-label{position:absolute; bottom:110px; text-align:center; width:100%; font-family:'Share Tech Mono', monospace; font-size:14px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); text-shadow:0 2px 10px rgba(0,0,0,0.8); pointer-events:none;}
+
+  /* ---- Skip / Next button ---- */
+  #skipBtn{position:absolute; bottom:40px; right:40px; z-index:10; background:var(--panel-space); color:var(--text-main); border:1px solid var(--border-space); padding:12px 28px; font-family:'Share Tech Mono',monospace; font-weight:600; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:all 0.2s;}
+  #skipBtn:hover{background:#fff; color:#000; border-color:#fff;}
+
+  /* ---- Auth modal (SpaceX Dark Theme) ---- */
+  .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; z-index:30; opacity:0; pointer-events:none; transition:opacity 0.3s ease;}
+  .modal-backdrop.visible{opacity:1; pointer-events:auto;}
+
+  .modal{background:var(--panel-space); color:var(--text-main); border:1px solid var(--border-space); border-radius:0px; padding:45px 35px; width:100%; max-width:420px; text-align:center;}
+  .modal h3{font-family:'Inter', sans-serif; font-size:24px; font-weight:700; letter-spacing:-0.02em; margin-bottom:8px; color:#fff; text-transform:uppercase;}
+  .modal p{color:var(--text-muted); font-size:14px; margin-bottom:24px;}
+
+  .auth-input{width:100%; padding:14px 16px; margin-bottom:14px; background:#050505; border-radius:0px; border:1px solid var(--border-space); color:#fff; font-family:'Inter',sans-serif; font-size:14px; outline:none; transition:border-color 0.2s;}
+  .auth-input:focus{border-color:#fff;}
+
+  .modal-btn{display:block; width:100%; padding:14px; border-radius:0px; font-family:'Share Tech Mono',monospace; font-weight:600; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; margin-bottom:14px; border:1px solid var(--border-space); background:#fff; color:#000; transition:all 0.2s;}
+  .modal-btn.primary{background:#fff; color:#000; border:none;}
+  .modal-btn:hover{background:var(--text-muted); border-color:var(--text-muted);}
+
+  .switch-text{font-size:13px; color:var(--text-muted); margin-top:18px; font-family:'Inter', sans-serif;}
+  .switch-text span{color:#fff; font-weight:600; text-decoration:underline; cursor:pointer;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      ZENVNEX<span class="tagline">The New Life</span>
+    </a>
+  </div>
+</header>
+
+<div class="stage">
+  <!-- صدای ویدیو فعال است -->
+  <video id="welcomeVideo" src="education-intro.mp4" playsinline webkit-playsinline></video>
+  <div class="play-label">Welcome to Education Access</div>
+  <div class="play-overlay" id="playOverlay">
+    <div class="play-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+  <button id="skipBtn">Next →</button>
+</div>
+
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <h3 id="modalTitle">Welcome Back</h3>
+    <p id="modalDesc">Sign in to continue your education journey.</p>
+    
+    <input type="email" id="emailInput" class="auth-input" placeholder="Email address">
+    <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
+
+    <button class="modal-btn primary" id="actionBtn">Log In</button>
+    
+    <div class="switch-text" id="switchModeText">
+      <span id="switchPrompt">Don't have an account?</span> <span id="switchBtn">Sign up</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+    authDomain: "zenvnex.firebaseapp.com",
+    projectId: "zenvnex",
+    storageBucket: "zenvnex.firebasestorage.app",
+    messagingSenderId: "145639804249",
+    appId: "1:145639804249:web:d8d216db1c713986aad048",
+    measurementId: "G-B554BNES3M"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  const video = document.getElementById('welcomeVideo');
+  const playOverlay = document.getElementById('playOverlay');
+  const skipBtn = document.getElementById('skipBtn');
+  const authModal = document.getElementById('authModal');
+  
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const actionBtn = document.getElementById('actionBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const switchModeText = document.getElementById('switchModeText');
+  const switchBtn = document.getElementById('switchBtn');
+
+  let isSignUp = false;
+
+  playOverlay.addEventListener('click', () => {
+    video.play();
+    playOverlay.classList.add('hidden');
+    skipBtn.classList.add('visible');
+  });
+
+  video.addEventListener('ended', () => {
+    skipBtn.classList.add('visible');
+  });
+
+  skipBtn.addEventListener('click', () => {
+    video.pause();
+    authModal.classList.add('visible');
+  });
+
+  switchBtn.addEventListener('click', () => {
+    isSignUp = !isSignUp;
+    const promptSpan = document.getElementById('switchPrompt');
+    
+    if (isSignUp) {
+      modalTitle.innerText = "Create Account";
+      modalDesc.innerText = "Sign up to start learning.";
+      actionBtn.innerText = "Sign Up";
+      promptSpan.innerText = "Already have an account?";
+      switchBtn.innerText = "Log in";
+    } else {
+      modalTitle.innerText = "Welcome Back";
+      modalDesc.innerText = "Sign in to continue your education journey.";
+      actionBtn.innerText = "Log In";
+      promptSpan.innerText = "Don't have an account?";
+      switchBtn.innerText = "Sign up";
+    }
+  });
+
+  actionBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (!email || !password) {
+      alert("لطفاً ایمیل و رمز عبور را وارد کنید.");
+      return;
+    }
+
+    try {
+      if (isSignUp) {
+        await auth.createUserWithEmailAndPassword(email, password);
+        alert("حساب کاربری با موفقیت ساخته شد!");
+        window.location.href = "dashboard.html";
+      } else {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert("با موفقیت وارد شدید!");
+        window.location.href = "dashboard.html";
+      }
+    } catch (error) {
+      alert("خطا: " + error.message);
+    }
+  });
+</script>
+
+</body>
+</html>

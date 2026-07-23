@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stories - ZENVNEX</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
+  
+  /* هدر مینیمال سبک اسپیس‌اکس */
+  .header { display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); width: 100%; }
+  .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+  .logo img { height: 32px; object-fit: contain; }
+
+  .home-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; }
+  .home-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+  /* بخش اصلی (Hero Section) */
+  .hero-section { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+  
+  .subtitle { font-size: 14px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 15px; }
+  h1 { font-size: 38px; font-weight: 700; line-height: 1.2; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #fff; }
+  p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 35px; font-weight: 300; }
+
+  /* فوتر */
+  footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: rgba(255,255,255,0.4); font-size: 13px; letter-spacing: 1px; }
+
+  @media(max-width: 768px) {
+      .header { padding: 20px; }
+      h1 { font-size: 26px; }
+      .hero-section { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- هدر سایت -->
+<div class="header">
+    <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo">ZENVNEX
+    </a>
+    <a href="index.html" class="home-btn">Home</a>
+</div>
+
+<!-- بخش محتوای اصلی -->
+<div class="hero-section">
+    <div class="subtitle">STORES & ARCHIVES</div>
+    <h1>More stories will be added here soon</h1>
+    <p>We are currently loading content...</p>
+    
+    <div style="width: 60px; height: 1px; background: rgba(255,255,255,0.2); margin: 25px auto;"></div>
+
+    <h1 style="font-size: 32px; margin-bottom: 15px;">به زودی داستان‌های بیشتری اینجا قرار می‌گیرد</h1>
+    <p>در حال بارگذاری محتوا هستیم...</p>
+</div>
+
+<!-- فوتر -->
+<footer>
+    <p>©️ 2026 ZENVNEX - All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
