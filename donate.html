@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Our Mission - ZENVNEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
+        
+        /* هدر مینیمال سبک اسپیس‌اکس */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); width: 100%; }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        
+        /* استایل کانتینر دکمه‌های هدر */
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .home-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .home-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+        /* بخش اصلی محتوا */
+        .hero-section { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 50px; max-width: 850px; position: relative; overflow: hidden; }
+        
+        .subtitle { font-size: 14px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 15px; }
+        h1 { font-size: 48px; font-weight: 700; line-height: 1.1; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; color: #fff; }
+        p { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
+
+        /* بخش کارت‌ها برای گزینه‌ها */
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 0 50px 60px 50px; }
+        .card { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 30px; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .card:hover { border-color: rgba(255,255,255,0.5); }
+        .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .card p { font-size: 13px; margin-bottom: 25px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+        .card-link { color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #fff; padding-bottom: 3px; width: fit-content; transition: 0.3s; }
+        .card-link:hover { opacity: 0.7; }
+
+        @media(max-width: 768px) {
+            .header { padding: 20px; flex-direction: column; gap: 15px; align-items: flex-start; }
+            .header-actions { width: 100%; justify-content: flex-end; }
+            .hero-section { padding: 40px 20px; }
+            h1 { font-size: 32px; }
+            .content-grid { padding: 0 20px 40px 20px; }
+        }
+
+        /* ---- انیمیشن پرواز کبوتر سفید روی مسیر منحنی ---- */
+        .flying-bird-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          overflow: hidden;
+          z-index: 1;
+        }
+
+        .white-dove {
+          position: absolute;
+          width: 45px;
+          height: auto;
+          filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+          opacity: 0;
+          animation: flyAlongArc 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes flyAlongArc {
+          0% {
+            left: -10%;
+            top: 15%;
+            transform: rotate(15deg) scale(0.7);
+            opacity: 0;
+          }
+          15% {
+            opacity: 1;
+          }
+          50% {
+            left: 45%;
+            top: 2%;
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+          }
+          85% {
+            opacity: 1;
+          }
+          100% {
+            left: 105%;
+            top: 22%;
+            transform: rotate(-15deg) scale(0.8);
+            opacity: 0;
+          }
+        }
+
+        .white-dove svg {
+          width: 100%;
+          height: auto;
+          animation: flapWings 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes flapWings {
+          0% { transform: scaleY(1); }
+          100% { transform: scaleY(0.4) skewX(-10deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر سایت -->
+    <div class="header">
+        <a href="index.html" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="index.html" class="home-btn">Home</a>
+        </div>
+    </div>
+
+    <!-- بخش اصلی با همان استایل و انیمیشن کبوتر -->
+    <div class="hero-section">
+        <div class="flying-bird-container">
+          <div class="white-dove">
+            <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#ffffff" d="M50 30
+                C 40 10, 15 8, 2 18
+                C 15 20, 25 24, 32 30
+                C 25 30, 12 34, 2 44
+                C 18 42, 38 40, 48 34
+                C 55 40, 70 44, 90 42
+                C 76 36, 65 32, 58 30
+                C 68 26, 80 22, 92 20
+                C 75 14, 55 16, 50 30 Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="subtitle">ORGANIZATIONAL STATUS</div>
+        <h1>SUPPORT OUR MISSION</h1>
+        <p>
+            <strong>ZENVNEX</strong> is currently in the process of establishing its official organizational structure.
+        </p>
+        <p>
+            Our donation system is not yet active. Once our organization is officially established and the necessary systems are in place, this page will be updated with secure and transparent ways to support our projects.
+        </p>
+    </div>
+
+    <!-- بخش کارت‌های گزینه‌ها (Stay Updated / Actions) -->
+    <div class="content-grid">
+        <div class="card">
+            <div>
+                <h3>STAY UPDATED</h3>
+                <p>If you would like to be informed when our official donation system becomes available, follow our latest news.</p>
+            </div>
+            <a href="index.html#updates" class="card-link">FOLLOW OUR UPDATES →</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <h3>GET IN TOUCH</h3>
+                <p>Have questions about our mission or want to reach out directly to our team?</p>
+            </div>
+            <a href="contact.html" class="card-link">CONTACT US →</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <h3>PARTNERSHIP</h3>
+                <p>Collaborate with us early to help build scalable educational and humanitarian systems.</p>
+            </div>
+            <a href="partner.html" class="card-link">BECOME A PARTNER →</a>
+        </div>
+    </div>
+
+</body>
+</html>
