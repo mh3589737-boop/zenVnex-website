@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Your Story — ZENVNEX</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-space: #050505;
+    --panel-space: #0c0d10;
+    --border-space: #22262e;
+    --text-main: #f0f2f5;
+    --text-muted: #9ba1a6;
+    --accent-gold: #c5a880;
+    --maxw:900px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg-space);
+    color: var(--text-main);
+    font-family:'Inter', sans-serif;
+    line-height:1.7;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  header{
+    position:sticky; top:0; z-index:100;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom: 1px solid var(--border-space);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:78px; max-width:1180px;
+  }
+  .logo{
+    font-size:20px; font-weight:700; letter-spacing:0.15em; color: #fff; text-decoration:none;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 24px; font-weight:600; font-size:13px;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor:pointer;
+    border:1px solid var(--border-space); background: var(--panel-space); color: var(--text-main);
+    text-decoration: none; transition:all .22s ease;
+  }
+  .btn:hover{border-color:#fff;}
+  
+  .story-container{
+    padding: 60px 0 100px 0;
+  }
+  .story-hero{
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .story-hero h1{
+    font-size: 32px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .story-hero p{
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .security-notice{
+    background: var(--panel-space);
+    border: 1px solid var(--border-space);
+    border-left: 3px solid var(--accent-gold);
+    padding: 28px;
+    margin-bottom: 40px;
+    text-align: right;
+    direction: rtl;
+  }
+  .security-notice h3{
+    font-size: 17px;
+    margin-bottom: 14px;
+    color: var(--text-main);
+    letter-spacing: 0.03em;
+  }
+  .security-notice p{
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .action-box{
+    background: var(--panel-space);
+    border: 1px solid var(--border-space);
+    padding: 40px;
+    text-align: center;
+  }
+  .action-box h2{
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .action-box p{
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .btn-primary{
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    font-weight: 700;
+  }
+  .btn-primary:hover{
+    background: #e0e0e0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">ZENVNEX</a>
+    <a href="index.html" class="btn">← Back Home</a>
+  </nav>
+</header>
+
+<main class="wrap story-container">
+  <div class="story-hero">
+    <h1>Voices of Resilience & Truth</h1>
+    <p>روایت‌های پنهان، رنج‌ها، مبارزات و داستان زندگی زنان و دخترانی که در برابر ظلم و تاریکی ایستادگی کرده‌اند.</p>
+  </div>
+
+  <div class="security-notice">
+    <h3>حفاظت از حریم خصوصی و امنیت شما</h3>
+    <p>ما به خوبی می‌دانیم شرایط چقدر حساس و خطرناک است. به همین دلیل، تمامی حساب‌های کاربری و روایت‌ها با بالاترین استانداردهای امنیتی رمزنگاری می‌شوند تا هیچ‌گونه خطری امنیت شما را تهدید نکند. شما می‌توانید با نام مستعار و از طریق حساب امن خود، داستان واقعی‌تان را با جهان به اشتراک بگذارید.</p>
+    <p>تنها با اجازه و تأیید صریح شما، می‌توانیم صدای شما و داستان زندگی‌تان را با حفظ کامل حریم خصوصی و کرامت انسانی‌تان با جهان به اشتراک بگذاریم؛ تا مردم سراسر دنیا از واقعیت جنایت‌ها و بی‌عدالتی‌های گسترده‌ای که زنان در افغانستان با آن مواجه‌اند، آگاه شوند.</p>
+  </div>
+
+  <div class="action-box">
+    <h2>آماده‌اید داستان خود را بنویسید؟</h2>
+    <p>برای شروع و ارسال امن روایت خود، ابتدا باید وارد حساب کاربری خود شوید یا حساب جدیدی بسازید.</p>
+    <!-- تغییر آدرس ثابت به حالت هوشمند -->
+    <a href="javascript:void(0)" id="storyActionBtn" class="btn btn-primary">در حال بررسی حساب کاربری...</a>
+  </div>
+</main>
+
+<!-- کتابخانه‌های فایربیس -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<script>
+  // اطلاعات واقعی فایربیس پروژه zenvnex
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+    authDomain: "zenvnex.firebaseapp.com",
+    projectId: "zenvnex",
+    storageBucket: "zenvnex.firebasestorage.app",
+    messagingSenderId: "145639804249",
+    appId: "1:145639804249:web:d8d216db1c713986aad048",
+    measurementId: "G-B554BNES3M"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const actionBtn = document.getElementById('storyActionBtn');
+  let targetUrl = "dashboard.html"; // مقصد پیش‌فرض
+
+  // مدیریت کلیک دکمه بر اساس آخرین وضعیت ثبت شده
+  actionBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = targetUrl;
+  });
+
+  // بررسی هوشمند وضعیت ورود کاربر
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      actionBtn.innerText = "ثبت و نوشتن داستان شما";
+      targetUrl = "submit-story.html";
+    } else {
+      actionBtn.innerText = "ورود یا ساخت حساب کاربری امن";
+      targetUrl = "dashboard.html";
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ارسال امن داستان — ZENVNEX</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-space: #050505;
+    --panel-space: #0c0d10;
+    --border-space: #22262e;
+    --text-main: #f0f2f5;
+    --text-muted: #9ba1a6;
+    --accent-gold: #c5a880;
+    --maxw:750px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg-space);
+    color: var(--text-main);
+    font-family:'Inter', system-ui, -apple-system, sans-serif;
+    line-height:1.7;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:40px 20px;}
+  header{
+    border-bottom: 1px solid var(--border-space);
+    padding: 20px 0;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo{ font-size:20px; font-weight:700; color: #fff; text-decoration:none; letter-spacing: 2px;}
+  .btn-back{
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid var(--border-space);
+    padding: 8px 16px;
+    transition: 0.2s;
+  }
+  .btn-back:hover{ border-color: #fff; color: #fff; }
+
+  .form-card{
+    background: var(--panel-space);
+    border: 1px solid var(--border-space);
+    padding: 32px;
+  }
+  .form-card h1{
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .form-card p{
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .form-group{
+    margin-bottom: 20px;
+  }
+  .form-group label{
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-main);
+  }
+  .form-control{
+    width: 100%;
+    background: #050505;
+    border: 1px solid var(--border-space);
+    padding: 12px 16px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-control:focus{
+    border-color: var(--accent-gold);
+  }
+  textarea.form-control{
+    resize: vertical;
+    min-height: 180px;
+  }
+
+  .checkbox-group{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .checkbox-group input{
+    margin-top: 5px;
+  }
+  .checkbox-group label{
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .btn-submit{
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+  }
+  .btn-submit:hover{
+    background: #e0e0e0;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a href="index.html" class="logo">ZENVNEX</a>
+    <a href="lifestory.html" class="btn-back">بازگشت ←</a>
+  </header>
+
+  <main>
+    <div class="form-card">
+      <h1>ارسال امن روایت شما</h1>
+      <p>داستان شما به‌صورت کاملاً محرمانه و رمزنگاری‌شده ارسال می‌شود.</p>
+
+      <form id="storyForm">
+        <div class="form-group">
+          <label for="pseudonym">نام مستعار (جهت حفظ امنیت شما)</label>
+          <input type="text" id="pseudonym" class="form-control" placeholder="مثلاً: دختر خورشید یا ناشناس" required>
+        </div>
+
+        <div class="form-group">
+          <label for="title">عنوان داستان</label>
+          <input type="text" id="title" class="form-control" placeholder="یک عنوان برای روایت خود انتخاب کنید" required>
+        </div>
+
+        <div class="form-group">
+          <label for="storyContent">متن اصلی داستان / اتفاقات رخ داده</label>
+          <textarea id="storyContent" class="form-control" placeholder="داستان، چالش‌ها و اتفاقاتی که تجربه کرده‌اید را بنویسید..." required></textarea>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="consentPublic">
+          <label for="consentPublic">اجازه می‌دهم داستانم پس از بررسی، به‌صورت کاملاً ناشناس در وب‌سایت برای آگاهی عموم منتشر شود.</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="consentPrivate" checked>
+          <label for="consentPrivate">اطلاعات من کاملاً محرمانه بماند و فقط تیم مدیریتی ZENVNEX آن را مطالعه کند.</label>
+        </div>
+
+        <button type="submit" class="btn-submit">ارسال امن داستان</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- کتابخانه‌های فایربیس -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+    authDomain: "zenvnex.firebaseapp.com",
+    projectId: "zenvnex",
+    storageBucket: "zenvnex.firebasestorage.app",
+    messagingSenderId: "145639804249",
+    appId: "1:145639804249:web:d8d216db1c713986aad048",
+    measurementId: "G-B554BNES3M"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const db = firebase.firestore();
+
+  // مدیریت ارسال فرم
+  const storyForm = document.getElementById('storyForm');
+
+  storyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const user = firebase.auth().currentUser;
+    
+    // اگر کاربر لاگین نبود، شناسه ناشناس ثبت می‌کند تا فرم تست شود
+    const userId = user ? user.uid : "anonymous_local_user";
+
+    const pseudonym = document.getElementById('pseudonym').value;
+    const title = document.getElementById('title').value;
+    const storyContent = document.getElementById('storyContent').value;
+    const consentPublic = document.getElementById('consentPublic').checked;
+    const consentPrivate = document.getElementById('consentPrivate').checked;
+
+    try {
+      await db.collection('stories').add({
+        userId: userId,
+        pseudonym: pseudonym,
+        title: title,
+        content: storyContent,
+        allowPublic: consentPublic,
+        keepPrivate: consentPrivate,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      alert("داستان شما با موفقیت و به‌صورت کاملاً امن دریافت شد.");
+      storyForm.reset();
+      window.location.href = "lifestory.html";
+
+    } catch (error) {
+      console.error("خطا در ارسال داستان:", error);
+      alert("خطایی رخ داد. لطفاً دوباره تلاش کنید.");
+    }
+  });
+</script>
+
+</body>
+</html>
