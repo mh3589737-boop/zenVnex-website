@@ -112,6 +112,17 @@
   .btn-primary:hover{
     background: #e0e0e0;
   }
+
+  /* ---- ورود / ثبت‌نام (اضافه‌شده تا دکمه‌ی ورود واقعاً کار کند) ---- */
+  .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; z-index:200; opacity:0; pointer-events:none; transition:opacity 0.3s ease;}
+  .modal-backdrop.visible{opacity:1; pointer-events:auto;}
+  .modal{background:var(--panel-space); border:1px solid var(--border-space); padding:40px 32px; width:100%; max-width:380px; text-align:center; margin:20px;}
+  .modal h3{font-size:22px; margin-bottom:8px; color:#fff;}
+  .modal p{color:var(--text-muted); font-size:14px; margin-bottom:22px;}
+  .auth-input{width:100%; padding:12px 14px; margin-bottom:12px; background:#050505; border:1px solid var(--border-space); color:#fff; font-family:inherit; font-size:14px; outline:none; transition:border-color 0.2s;}
+  .auth-input:focus{border-color:var(--accent-gold);}
+  .switch-text{font-size:13px; color:var(--text-muted); margin-top:16px;}
+  .switch-text span{color:#fff; font-weight:600; text-decoration:underline; cursor:pointer;}
 </style>
 </head>
 <body>
@@ -143,9 +154,22 @@
   </div>
 </main>
 
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <h3 id="modalTitle">Welcome Back</h3>
+    <p id="modalDesc">Sign in to continue.</p>
+    <input type="email" id="emailInput" class="auth-input" placeholder="Email address">
+    <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
+    <button class="btn btn-primary" id="actionBtn" style="width:100%; justify-content:center;">Log In</button>
+    <div class="switch-text" id="switchModeText">
+      <span id="switchPrompt">Don't have an account?</span> <span id="switchBtn">Sign up</span>
+    </div>
+  </div>
+</div>
+
 <!-- کتابخانه‌های فایربیس -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
   // اطلاعات واقعی فایربیس پروژه zenvnex
@@ -163,23 +187,75 @@
     firebase.initializeApp(firebaseConfig);
   }
 
-  const actionBtn = document.getElementById('storyActionBtn');
-  let targetUrl = "dashboard.html"; // مقصد پیش‌فرض
+  const storyActionBtn = document.getElementById('storyActionBtn');
+  const authModal = document.getElementById('authModal');
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const actionBtn = document.getElementById('actionBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const switchPrompt = document.getElementById('switchPrompt');
+  const switchBtn = document.getElementById('switchBtn');
 
-  // مدیریت کلیک دکمه بر اساس آخرین وضعیت ثبت شده
-  actionBtn.addEventListener('click', (e) => {
+  let isLoggedIn = false;
+  let isSignUp = false;
+
+  // کلیک روی دکمه‌ی اصلی: اگر کاربر واردشده، مستقیم به فرم داستان می‌رود؛ در غیر این صورت مودال ورود باز می‌شود
+  storyActionBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    window.location.href = targetUrl;
+    if (isLoggedIn) {
+      window.location.href = "submit-story.html";
+    } else {
+      authModal.classList.add('visible');
+    }
+  });
+
+  authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) authModal.classList.remove('visible');
+  });
+
+  switchBtn.addEventListener('click', () => {
+    isSignUp = !isSignUp;
+    if (isSignUp) {
+      modalTitle.innerText = "Create Account";
+      actionBtn.innerText = "Sign Up";
+      switchPrompt.innerText = "Already have an account?";
+      switchBtn.innerText = "Log in";
+    } else {
+      modalTitle.innerText = "Welcome Back";
+      actionBtn.innerText = "Log In";
+      switchPrompt.innerText = "Don't have an account?";
+      switchBtn.innerText = "Sign up";
+    }
+  });
+
+  actionBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    if (!email || !password) {
+      alert("لطفاً ایمیل و رمز عبور را وارد کنید.");
+      return;
+    }
+    try {
+      if (isSignUp) {
+        await firebase.auth().createUserWithEmailAndPassword(email, password);
+      } else {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      }
+      authModal.classList.remove('visible');
+    } catch (error) {
+      alert("خطا: " + error.message);
+    }
   });
 
   // بررسی هوشمند وضعیت ورود کاربر
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      actionBtn.innerText = "ثبت و نوشتن داستان شما";
-      targetUrl = "submit-story.html";
+      isLoggedIn = true;
+      storyActionBtn.innerText = "ثبت و نوشتن داستان شما";
     } else {
-      actionBtn.innerText = "ورود یا ساخت حساب کاربری امن";
-      targetUrl = "dashboard.html";
+      isLoggedIn = false;
+      storyActionBtn.innerText = "ورود یا ساخت حساب کاربری امن";
     }
   });
 </script>

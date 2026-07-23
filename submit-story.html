@@ -165,9 +165,9 @@
 </div>
 
 <!-- کتابخانه‌های فایربیس -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
   const firebaseConfig = {
@@ -186,6 +186,13 @@
 
   const db = firebase.firestore();
 
+  // اجازه‌ی دسترسی به این صفحه فقط برای کاربران واردشده
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "lifestory.html";
+    }
+  });
+
   // مدیریت ارسال فرم
   const storyForm = document.getElementById('storyForm');
 
@@ -193,9 +200,14 @@
     e.preventDefault();
 
     const user = firebase.auth().currentUser;
-    
-    // اگر کاربر لاگین نبود، شناسه ناشناس ثبت می‌کند تا فرم تست شود
-    const userId = user ? user.uid : "anonymous_local_user";
+
+    if (!user) {
+      alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+      window.location.href = "lifestory.html";
+      return;
+    }
+
+    const userId = user.uid;
 
     const pseudonym = document.getElementById('pseudonym').value;
     const title = document.getElementById('title').value;

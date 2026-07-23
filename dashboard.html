@@ -178,6 +178,12 @@
   };
   firebase.initializeApp(firebaseConfig);
 
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "index.html";
+    }
+  });
+
   document.getElementById('logoutBtn').addEventListener('click', () => {
       firebase.auth().signOut().then(() => {
           window.location.href = "index.html";
