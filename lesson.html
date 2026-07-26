@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتخاب درس - ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{
+            background:#000; 
+            color:#fff; 
+            font-family:'Inter', sans-serif; 
+            min-height:100vh; 
+            display:flex; 
+            flex-direction:column;
+        }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 30px 50px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+        .logo { 
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            color: #fff; 
+            text-decoration: none; 
+        }
+        .header-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        .home-btn, .dashboard-btn { 
+            background: transparent; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            color: #fff; 
+            padding: 10px 24px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 12px; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            text-decoration: none; 
+            transition: 0.3s; 
+        }
+        .home-btn:hover, .dashboard-btn:hover { 
+            background: #fff; 
+            color: #000; 
+            border-color: #fff; 
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 80px 50px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .subject-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 28px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            border-color: #fff;
+            transform: translateY(-4px);
+            background: #111;
+        }
+
+        .subject-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media(max-width: 768px) {
+            .header { padding: 20px; }
+            .main-content { padding: 60px 20px 40px; }
+            .title { font-size: 32px; }
+            .subjects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر -->
+    <div class="header">
+        <a href="index.html" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="dashboard.html" class="dashboard-btn">Dashboard</a>
+            <a href="index.html" class="home-btn">Home</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 class="title">زبان مورد نظر خود را انتخاب کنید</h1>
+        <p class="subtitle">دوره‌های آموزشی متنوع برای پیشرفت شما</p>
+<div class="subjects-grid">
+    <a href="subject.html?subject=english" class="subject-card" style="text-decoration: none; color: inherit;">انگلیسی</a>
+    <a href="subject.html?subject=german" class="subject-card" style="text-decoration: none; color: inherit;">آلمانی</a>
+    <a href="subject.html?subject=spanish" class="subject-card" style="text-decoration: none; color: inherit;">اِسپانیایی</a>
+    <a href="subject.html?subject=art" class="subject-card" style="text-decoration: none; color: inherit;">هنر</a>
+    <a href="subject.html?subject=dari" class="subject-card" style="text-decoration: none; color: inherit;">دری</a>
+    <a href="subject.html?subject=pashto" class="subject-card" style="text-decoration: none; color: inherit;">پشتو</a>
+</div>
+
+        <p style="margin-top: 60px; color: rgba(255,255,255,0.5); font-size: 14px;">
+            به زودی محتوای کامل هر درس اضافه خواهد شد
+        </p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+            authDomain: "zenvnex.firebaseapp.com",
+            projectId: "zenvnex",
+            storageBucket: "zenvnex.firebasestorage.app",
+            messagingSenderId: "145639804249",
+            appId: "1:145639804249:web:d8d216db1c713986aad048",
+            measurementId: "G-B554BNES3M"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+
+</body>
+</html>

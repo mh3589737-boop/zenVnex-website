@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
+        
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        .btn { 
+            background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; 
+            padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; 
+            font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; 
+            transition: 0.3s; 
+        }
+        .btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+        .main-content { flex: 1; padding: 80px 50px; text-align: center; max-width: 900px; margin: 0 auto; }
+        .title { font-size: 42px; font-weight: 700; margin-bottom: 20px; }
+        .subtitle { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 60px; }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .level-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 40px 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .level-card:hover {
+            border-color: #fff;
+            transform: translateY(-8px);
+        }
+        .level-card h3 { font-size: 24px; margin-bottom: 8px; }
+        .level-card .eng { font-size: 18px; color: rgba(255,255,255,0.7); }
+
+        .coming-soon {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 40px;
+        }
+
+        @media(max-width: 768px) {
+            .levels-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="logo">ZENVNEX</a>
+        <div>
+            <a href="lesson.html" class="btn">بازگشت به انتخاب درس</a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </div>
+
+    <div class="main-content" id="content">
+        <!-- JavaScript اینجا محتوا رو پر می‌کنه -->
+    </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+      authDomain: "zenvnex.firebaseapp.com",
+      projectId: "zenvnex",
+      storageBucket: "zenvnex.firebasestorage.app",
+      messagingSenderId: "145639804249",
+      appId: "1:145639804249:web:d8d216db1c713986aad048",
+      measurementId: "G-B554BNES3M"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get('subject');
+    const content = document.getElementById('content');
+
+    if (subject === 'english') {
+        content.innerHTML = `
+            <h1 class="title">انگلیسی</h1>
+            <p class="subtitle">سطح مناسب خود را انتخاب کنید</p>
+            <div class="levels-grid">
+                <a href="lesson-view.html?level=beginner" class="level-card" style="text-decoration:none; color:inherit;">
+                    <h3>مبتدی</h3>
+                    <div class="eng">Beginner</div>
+                </a>
+                
+                <a href="lesson-view.html?level=intermediate" class="level-card" style="text-decoration:none; color:inherit;">
+                    <h3>متوسط</h3>
+                    <div class="eng">Intermediate</div>
+                </a>
+                
+                <a href="lesson-view.html?level=advanced" class="level-card" style="text-decoration:none; color:inherit;">
+                    <h3>پیشرفته</h3>
+                    <div class="eng">Advanced</div>
+                </a>
+            </div>
+        `;
+    } else {
+        // برای بقیه درس‌ها
+        content.innerHTML = `
+            <h1 class="title">${getSubjectName(subject)}</h1>
+            <p class="coming-soon">به زودی محتوای کامل این درس اضافه خواهد شد.<br>در حال آماده‌سازی هستیم.</p>
+        `;
+    }
+
+    function getSubjectName(key) {
+        const names = {
+           
+            dari: "دری",
+            spanish: "اِسپانیایی",
+            art: "هنر",
+            german: "آلمانی",
+            pashto: "پشتو"
+        };
+        return names[key] || "درس";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس ۱ - حروف الفبا | انگلیسی - ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{
+            background:#000; 
+            color:#fff; 
+            font-family:'Inter', sans-serif; 
+            min-height:100vh; 
+            display:flex; 
+            flex-direction:column;
+        }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 25px 50px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+        .logo { 
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            color: #fff; 
+            text-decoration: none; 
+        }
+        .btn { 
+            background: transparent; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            color: #fff; 
+            padding: 10px 22px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 13px; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+            text-decoration: none; 
+            transition: 0.3s; 
+            margin-left: 10px;
+        }
+        .btn:hover { 
+            background: #fff; 
+            color: #000; 
+            border-color: #fff; 
+        }
+
+        .main-content { 
+            flex: 1; 
+            padding: 60px 50px; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+        }
+        .lesson-header { 
+            margin-bottom: 50px; 
+            text-align: center; 
+        }
+        .lesson-title { 
+            font-size: 38px; 
+            font-weight: 700; 
+            margin-bottom: 10px; 
+        }
+        .lesson-subtitle { 
+            font-size: 19px; 
+            color: rgba(255,255,255,0.75); 
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+        }
+        .option-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+        .option-card:hover {
+            border-color: #fff;
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.08);
+        }
+        .option-card h3 { 
+            font-size: 23px; 
+            margin-bottom: 14px; 
+        }
+        .option-card p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="logo">ZENVNEX</a>
+        <div>
+            <a href="lesson.html" class="btn">انتخاب درس</a>
+            <a href="subject.html?subject=english" class="btn">سطوح انگلیسی</a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="lesson-header">
+            <h1 class="lesson-title">درس ۱ - حروف الفبا</h1>
+            <p class="lesson-subtitle">انگلیسی — سطح <span id="level-name">مبتدی</span></p>
+        </div>
+
+        <div class="card-grid">
+            <a href="alphabet.html" class="option-card" style="text-decoration: none; color: inherit;">
+    <h3>آموزش کامل حروف الفبای انگلیسی</h3>
+    <p>یادگیری حروف + تلفظ صحیح با مثال‌های واقعی</p>
+</a>
+
+           <a href="quiz.html" class="option-card" style="text-decoration: none; color: inherit;">
+    <h3>کوئیز و تمرین</h3>
+    <p>تست دانش خود از حروف الفبا</p>
+</a>
+        </div>
+
+        <div style="text-align:center; margin-top: 80px; color: rgba(255,255,255,0.5); font-size: 15px;">
+            درس ۲ به زودی اضافه خواهد شد
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+            authDomain: "zenvnex.firebaseapp.com",
+            projectId: "zenvnex",
+            storageBucket: "zenvnex.firebasestorage.app",
+            messagingSenderId: "145639804249",
+            appId: "1:145639804249:web:d8d216db1c713986aad048",
+            measurementId: "G-B554BNES3M"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const level = params.get('level');
+        const levelName = document.getElementById('level-name');
+
+        if (level === 'intermediate') {
+            levelName.textContent = 'متوسط';
+        } else if (level === 'advanced') {
+            levelName.textContent = 'پیشرفته';
+        }
+    </script>
+</body>
+</html>

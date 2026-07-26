@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ارسال امن داستان — ZENVNEX</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg-space: #050505;
@@ -14,92 +14,116 @@
     --text-main: #f0f2f5;
     --text-muted: #9ba1a6;
     --accent-gold: #c5a880;
-    --maxw:750px;
+    --maxw: 720px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     background: var(--bg-space);
     color: var(--text-main);
-    font-family:'Inter', system-ui, -apple-system, sans-serif;
-    line-height:1.7;
+    font-family: 'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:40px 20px;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:48px 24px;}
+  
   header{
     border-bottom: 1px solid var(--border-space);
-    padding: 20px 0;
-    margin-bottom: 30px;
+    padding: 18px 0 24px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .logo{ font-size:20px; font-weight:700; color: #fff; text-decoration:none; letter-spacing: 2px;}
+  .logo{ 
+    font-size: 18px; 
+    font-weight: 700; 
+    color: #fff; 
+    text-decoration:none; 
+    letter-spacing: 3px;
+    font-family: 'Inter', sans-serif;
+  }
   .btn-back{
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     border: 1px solid var(--border-space);
-    padding: 8px 16px;
-    transition: 0.2s;
+    padding: 8px 18px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
   }
-  .btn-back:hover{ border-color: #fff; color: #fff; }
+  .btn-back:hover{ 
+    border-color: #fff; 
+    color: #fff; 
+  }
 
   .form-card{
     background: var(--panel-space);
     border: 1px solid var(--border-space);
-    padding: 32px;
+    padding: 42px 36px;
   }
   .form-card h1{
-    font-size: 24px;
-    margin-bottom: 8px;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
     color: #fff;
+    letter-spacing: -0.3px;
   }
-  .form-card p{
+  .form-card > p{
     color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 24px;
+    font-size: 15px;
+    margin-bottom: 36px;
+    line-height: 1.7;
   }
 
   .form-group{
-    margin-bottom: 20px;
+    margin-bottom: 26px;
   }
   .form-group label{
     display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 10px;
     color: var(--text-main);
   }
   .form-control{
     width: 100%;
     background: #050505;
     border: 1px solid var(--border-space);
-    padding: 12px 16px;
+    padding: 14px 18px;
     color: #fff;
-    font-family: inherit;
-    font-size: 14px;
+    font-family: 'Vazirmatn', inherit;
+    font-size: 15px;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.25s ease;
+    border-radius: 0;
   }
   .form-control:focus{
     border-color: var(--accent-gold);
   }
+  .form-control::placeholder{
+    color: #666;
+  }
   textarea.form-control{
     resize: vertical;
-    min-height: 180px;
+    min-height: 200px;
+    line-height: 1.8;
   }
 
   .checkbox-group{
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 18px;
   }
   .checkbox-group input{
     margin-top: 5px;
+    accent-color: var(--accent-gold);
   }
   .checkbox-group label{
-    font-size: 13px;
+    font-size: 13.5px;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.6;
+    cursor: pointer;
   }
 
   .btn-submit{
@@ -107,15 +131,26 @@
     background: #fff;
     color: #000;
     border: none;
-    padding: 14px;
+    padding: 16px;
     font-weight: 700;
     font-size: 15px;
     cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 10px;
+    transition: all 0.25s ease;
+    margin-top: 18px;
+    letter-spacing: 0.3px;
+    font-family: 'Vazirmatn', sans-serif;
   }
   .btn-submit:hover{
-    background: #e0e0e0;
+    background: #e8e8e8;
+  }
+  .btn-submit:active{
+    transform: scale(0.99);
+  }
+
+  @media (max-width: 600px) {
+    .wrap{padding: 30px 16px;}
+    .form-card{padding: 28px 20px;}
+    .form-card h1{font-size: 22px;}
   }
 </style>
 </head>
@@ -130,7 +165,7 @@
   <main>
     <div class="form-card">
       <h1>ارسال امن روایت شما</h1>
-      <p>داستان شما به‌صورت کاملاً محرمانه و رمزنگاری‌شده ارسال می‌شود.</p>
+      <p>داستان شما به‌صورت کاملاً محرمانه و رمزنگاری‌شده ارسال می‌شود. تیم ما با دقت و احترام به حریم خصوصی شما آن را بررسی خواهد کرد.</p>
 
       <form id="storyForm">
         <div class="form-group">
@@ -140,12 +175,12 @@
 
         <div class="form-group">
           <label for="title">عنوان داستان</label>
-          <input type="text" id="title" class="form-control" placeholder="یک عنوان برای روایت خود انتخاب کنید" required>
+          <input type="text" id="title" class="form-control" placeholder="یک عنوان کوتاه و معنادار انتخاب کنید" required>
         </div>
 
         <div class="form-group">
           <label for="storyContent">متن اصلی داستان / اتفاقات رخ داده</label>
-          <textarea id="storyContent" class="form-control" placeholder="داستان، چالش‌ها و اتفاقاتی که تجربه کرده‌اید را بنویسید..." required></textarea>
+          <textarea id="storyContent" class="form-control" placeholder="داستان، چالش‌ها و اتفاقاتی که تجربه کرده‌اید را با جزئیات بنویسید..." required></textarea>
         </div>
 
         <div class="checkbox-group">
@@ -164,7 +199,6 @@
   </main>
 </div>
 
-<!-- کتابخانه‌های فایربیس -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -186,14 +220,12 @@
 
   const db = firebase.firestore();
 
-  // اجازه‌ی دسترسی به این صفحه فقط برای کاربران واردشده
   firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
       window.location.href = "lifestory.html";
     }
   });
 
-  // مدیریت ارسال فرم
   const storyForm = document.getElementById('storyForm');
 
   storyForm.addEventListener('submit', async (e) => {
@@ -208,10 +240,9 @@
     }
 
     const userId = user.uid;
-
-    const pseudonym = document.getElementById('pseudonym').value;
-    const title = document.getElementById('title').value;
-    const storyContent = document.getElementById('storyContent').value;
+    const pseudonym = document.getElementById('pseudonym').value.trim();
+    const title = document.getElementById('title').value.trim();
+    const storyContent = document.getElementById('storyContent').value.trim();
     const consentPublic = document.getElementById('consentPublic').checked;
     const consentPrivate = document.getElementById('consentPrivate').checked;
 

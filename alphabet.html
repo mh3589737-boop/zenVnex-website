@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Alphabet | ZENVNEX Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#050505;
+            --surface:#0b0b0b;
+            --border:rgba(255,255,255,.1);
+            --border-strong:rgba(255,255,255,.2);
+            --text:#fff;
+            --muted:rgba(255,255,255,.55);
+            --soft:rgba(255,255,255,.75);
+            --gold:#c5a880;
+            --gold-soft:rgba(197,168,128,.15);
+        }
+        body{
+            min-height:100vh;
+            background:radial-gradient(circle at 50% -15%,rgba(197,168,128,.08),transparent 40%),var(--bg);
+            color:var(--text);
+            font-family:'Vazirmatn','Inter',sans-serif;
+            overflow-x:hidden;
+        }
+        button,a{font-family:inherit}
+        button{cursor:pointer;border:none;background:none}
+
+        /* Header */
+        .header{
+            height:78px;display:flex;align-items:center;justify-content:space-between;
+            padding:0 48px;border-bottom:1px solid var(--border);
+            position:sticky;top:0;z-index:100;
+            background:rgba(5,5,5,.82);backdrop-filter:blur(18px);
+        }
+        .brand{color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:18px;font-weight:800;letter-spacing:3.5px}
+        .header-actions{display:flex;gap:10px;align-items:center}
+        .nav-btn{
+            color:var(--soft);text-decoration:none;padding:9px 16px;
+            border:1px solid var(--border);border-radius:8px;font-size:12.5px;font-weight:500;
+            transition:.25s;
+        }
+        .nav-btn:hover{background:#fff;color:#000;border-color:#fff}
+
+        /* Main */
+        .page{max-width:1180px;margin:0 auto;padding:50px 32px 80px}
+
+        /* Hero */
+        .hero{text-align:center;margin-bottom:40px}
+        .eyebrow{
+            display:inline-flex;align-items:center;gap:8px;
+            padding:6px 14px;border:1px solid var(--border);border-radius:999px;
+            color:var(--muted);font-size:11px;letter-spacing:1px;margin-bottom:18px;
+        }
+        .eyebrow-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px var(--gold)}
+        .hero h1{font-size:clamp(30px,5vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:12px;font-family:'Inter',sans-serif}
+        .hero h1 span{color:rgba(255,255,255,.35)}
+        .hero p{max-width:560px;margin:0 auto;color:var(--muted);font-size:15px;line-height:1.8}
+
+        /* Progress */
+        .progress-section{margin-bottom:32px}
+        .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+        .progress-label{font-size:13px;color:var(--soft)}
+        .progress-count{font-size:13px;color:var(--muted)}
+        .progress-track{height:5px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden}
+        .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#e8d4b0);border-radius:inherit;transition:width .45s ease}
+
+        /* Learning Card */
+        .learning-card{
+            display:grid;grid-template-columns:1fr 1.15fr;
+            border:1px solid var(--border);border-radius:20px;overflow:hidden;
+            background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+            box-shadow:0 30px 80px rgba(0,0,0,.45);margin-bottom:48px;
+        }
+
+        /* Letter Visual */
+        .letter-visual{
+            min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+            border-left:1px solid var(--border);
+            background:radial-gradient(circle at center,rgba(197,168,128,.07),transparent 60%);
+            position:relative;
+        }
+        .letter-number{position:absolute;top:24px;left:28px;color:rgba(255,255,255,.18);font-size:12px;letter-spacing:1.5px;font-family:'Inter',sans-serif}
+        .big-letter{
+            font-family:'Inter',sans-serif;font-size:clamp(120px,16vw,200px);font-weight:800;
+            line-height:.85;letter-spacing:-12px;
+            background:linear-gradient(180deg,#fff,rgba(255,255,255,.3));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            transition:opacity .2s ease,transform .2s ease;user-select:none;
+        }
+        .letter-name{margin-top:28px;color:var(--muted);font-size:13px;letter-spacing:1.5px;font-family:'Inter',sans-serif}
+
+        /* Details */
+        .letter-details{padding:42px;display:flex;flex-direction:column;justify-content:center}
+        .detail-kicker{color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+        .detail-title{font-size:28px;font-weight:700;margin-bottom:6px;font-family:'Inter',sans-serif}
+        .pronunciation{color:var(--soft);font-size:18px;margin-bottom:26px}
+        .pronunciation strong{color:#fff}
+        .examples-title{color:var(--muted);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+        .examples{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+        .word-chip{
+            display:flex;align-items:center;gap:8px;
+            padding:10px 16px;border:1px solid var(--border);border-radius:30px;
+            background:rgba(255,255,255,.03);cursor:pointer;transition:.22s;font-size:13.5px;
+        }
+        .word-chip:hover{border-color:var(--gold);background:var(--gold-soft)}
+        .word-chip .en{font-family:'Inter',sans-serif;font-weight:600}
+        .word-chip .fa{color:var(--muted);font-size:12.5px}
+        .word-chip .icon{color:var(--gold);font-size:13px}
+
+        /* Actions */
+        .action-row{display:flex;flex-wrap:wrap;gap:10px}
+        .action-btn{
+            display:inline-flex;align-items:center;justify-content:center;gap:7px;
+            min-height:44px;padding:0 18px;border:1px solid var(--border);border-radius:8px;
+            background:transparent;color:#fff;font-size:13px;font-weight:500;transition:.25s;
+        }
+        .action-btn:hover{background:#fff;color:#000;border-color:#fff}
+        .action-btn.primary{background:var(--gold);color:#000;border-color:var(--gold)}
+        .action-btn.primary:hover{background:transparent;color:var(--gold)}
+        .action-btn.speaking{animation:pulse .8s ease infinite}
+
+        /* Letter Grid */
+        .section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+        .section-heading h2{font-size:17px;font-weight:600}
+        .section-heading span{color:var(--muted);font-size:12px}
+        .letters-grid{display:grid;grid-template-columns:repeat(13,1fr);gap:10px}
+        .letter-btn{
+            min-height:58px;border:1px solid var(--border);border-radius:10px;
+            background:rgba(255,255,255,.02);color:var(--soft);font-size:19px;font-weight:600;
+            font-family:'Inter',sans-serif;transition:.22s;position:relative;
+        }
+        .letter-btn:hover{transform:translateY(-3px);color:#fff;border-color:var(--border-strong);background:rgba(255,255,255,.05)}
+        .letter-btn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+        .letter-btn.seen::after{
+            content:"•";position:absolute;top:5px;right:7px;font-size:10px;color:var(--gold);opacity:.8
+        }
+        .letter-btn.active.seen::after{color:#000}
+
+        .keyboard-hint{margin-top:26px;text-align:center;color:rgba(255,255,255,.3);font-size:12.5px}
+        kbd{padding:2px 7px;border:1px solid var(--border);border-radius:4px;color:var(--soft);font-size:11px;font-family:'Inter',sans-serif}
+
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(197,168,128,.45)}50%{box-shadow:0 0 0 8px transparent}}
+
+        /* Responsive */
+        @media(max-width:900px){
+            .header{padding:0 20px}
+            .page{padding:40px 18px 60px}
+            .learning-card{grid-template-columns:1fr}
+            .letter-visual{min-height:300px;border-left:none;border-bottom:1px solid var(--border)}
+            .letter-details{padding:30px 22px}
+            .letters-grid{grid-template-columns:repeat(8,1fr)}
+        }
+        @media(max-width:600px){
+            .brand{font-size:15px;letter-spacing:2.5px}
+            .header{height:68px}
+            .header-actions .nav-btn:nth-child(2){display:none}
+            .hero h1{font-size:32px}
+            .big-letter{font-size:130px;letter-spacing:-8px}
+            .letters-grid{grid-template-columns:repeat(6,1fr);gap:8px}
+            .letter-btn{min-height:50px;font-size:17px}
+            .action-row{flex-direction:column}
+            .action-btn{width:100%}
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="brand">ZENVNEX</a>
+    <div class="header-actions">
+        <a href="lesson-view.html" class="nav-btn">بازگشت به درس</a>
+        <a href="subject.html?subject=english" class="nav-btn">سطوح انگلیسی</a>
+        <a href="dashboard.html" class="nav-btn">Dashboard</a>
+    </div>
+</header>
+
+<main class="page">
+    <section class="hero">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ZENVNEX ACADEMY</div>
+        <h1>English <span>Alphabet</span></h1>
+        <p>حروف الفبای انگلیسی را یاد بگیر، تلفظ صحیح را بشنو و با کلمات واقعی تمرین کن.</p>
+    </section>
+
+    <section class="progress-section">
+        <div class="progress-top">
+            <span class="progress-label">پیشرفت شما</span>
+            <span class="progress-count" id="progress-count">۰ از ۲۶ حرف</span>
+        </div>
+        <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+    </section>
+
+    <section class="learning-card">
+        <div class="letter-visual">
+            <div class="letter-number" id="letter-number">LETTER 01 / 26</div>
+            <div class="big-letter" id="big-letter">Aa</div>
+            <div class="letter-name" id="letter-name">The Letter A</div>
+        </div>
+
+        <div class="letter-details">
+            <div class="detail-kicker">Learn the letter</div>
+            <h2 class="detail-title" id="detail-title">A — a</h2>
+            <div class="pronunciation" id="pronunciation">تلفظ: <strong>/eɪ/</strong></div>
+
+            <div class="examples-title">Example Words</div>
+            <div class="examples" id="examples"></div>
+
+            <div class="action-row">
+                <button class="action-btn primary" id="listen-btn">🔊 شنیدن تلفظ</button>
+                <button class="action-btn" id="learn-btn">✓ یاد گرفتم</button>
+                <button class="action-btn" id="prev-btn">← قبلی</button>
+                <button class="action-btn" id="next-btn">بعدی →</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-heading">
+        <h2>انتخاب حرف</h2>
+        <span>A — Z</span>
+    </div>
+    <div class="letters-grid" id="letters-grid"></div>
+
+    <div class="keyboard-hint">
+        از کلیدهای <kbd>A</kbd> تا <kbd>Z</kbd> و فلش‌های <kbd>←</kbd> <kbd>→</kbd> و <kbd>Space</kbd> استفاده کنید
+    </div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+        authDomain: "zenvnex.firebaseapp.com",
+        projectId: "zenvnex",
+        storageBucket: "zenvnex.firebasestorage.app",
+        messagingSenderId: "145639804249",
+        appId: "1:145639804249:web:d8d216db1c713986aad048",
+        measurementId: "G-B554BNES3M"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) window.location.href = "index.html";
+    });
+
+    const alphabet = [
+        {letter:"A",lower:"a",ipa:"/eɪ/",name:"The Letter A",words:[["Apple","سیب"],["Ant","مورچه"],["Airplane","هواپیما"]]},
+        {letter:"B",lower:"b",ipa:"/biː/",name:"The Letter B",words:[["Ball","توپ"],["Book","کتاب"],["Banana","موز"]]},
+        {letter:"C",lower:"c",ipa:"/siː/",name:"The Letter C",words:[["Cat","گربه"],["Car","ماشین"],["Cake","کیک"]]},
+        {letter:"D",lower:"d",ipa:"/diː/",name:"The Letter D",words:[["Dog","سگ"],["Door","در"],["Desk","میز"]]},
+        {letter:"E",lower:"e",ipa:"/iː/",name:"The Letter E",words:[["Egg","تخم‌مرغ"],["Elephant","فیل"],["Ear","گوش"]]},
+        {letter:"F",lower:"f",ipa:"/ɛf/",name:"The Letter F",words:[["Fish","ماهی"],["Flower","گل"],["Friend","دوست"]]},
+        {letter:"G",lower:"g",ipa:"/dʒiː/",name:"The Letter G",words:[["Goat","بز"],["Girl","دختر"],["Garden","باغ"]]},
+        {letter:"H",lower:"h",ipa:"/eɪtʃ/",name:"The Letter H",words:[["House","خانه"],["Hat","کلاه"],["Hand","دست"]]},
+        {letter:"I",lower:"i",ipa:"/aɪ/",name:"The Letter I",words:[["Ice","یخ"],["Insect","حشره"],["Island","جزیره"]]},
+        {letter:"J",lower:"j",ipa:"/dʒeɪ/",name:"The Letter J",words:[["Juice","آب‌میوه"],["Jump","پریدن"],["Jacket","ژاکت"]]},
+        {letter:"K",lower:"k",ipa:"/keɪ/",name:"The Letter K",words:[["Kite","بادبادک"],["King","پادشاه"],["Key","کلید"]]},
+        {letter:"L",lower:"l",ipa:"/ɛl/",name:"The Letter L",words:[["Lion","شیر"],["Lamp","چراغ"],["Leaf","برگ"]]},
+        {letter:"M",lower:"m",ipa:"/ɛm/",name:"The Letter M",words:[["Monkey","میمون"],["Moon","ماه"],["Milk","شیر"]]},
+        {letter:"N",lower:"n",ipa:"/ɛn/",name:"The Letter N",words:[["Nose","بینی"],["Night","شب"],["Nest","آشیانه"]]},
+        {letter:"O",lower:"o",ipa:"/oʊ/",name:"The Letter O",words:[["Orange","پرتقال"],["Owl","جغد"],["Ocean","اقیانوس"]]},
+        {letter:"P",lower:"p",ipa:"/piː/",name:"The Letter P",words:[["Pen","خودکار"],["Pizza","پیتزا"],["Plane","هواپیما"]]},
+        {letter:"Q",lower:"q",ipa:"/kjuː/",name:"The Letter Q",words:[["Queen","ملکه"],["Quiet","ساکت"],["Question","سوال"]]},
+        {letter:"R",lower:"r",ipa:"/ɑːr/",name:"The Letter R",words:[["Rabbit","خرگوش"],["Rain","باران"],["Rose","رز"]]},
+        {letter:"S",lower:"s",ipa:"/ɛs/",name:"The Letter S",words:[["Sun","خورشید"],["Star","ستاره"],["School","مدرسه"]]},
+        {letter:"T",lower:"t",ipa:"/tiː/",name:"The Letter T",words:[["Tree","درخت"],["Table","میز"],["Tiger","ببر"]]},
+        {letter:"U",lower:"u",ipa:"/juː/",name:"The Letter U",words:[["Umbrella","چتر"],["Up","بالا"],["Under","زیر"]]},
+        {letter:"V",lower:"v",ipa:"/viː/",name:"The Letter V",words:[["Violin","ویولن"],["Van","ون"],["Vegetable","سبزی"]]},
+        {letter:"W",lower:"w",ipa:"/ˈdʌbəl.juː/",name:"The Letter W",words:[["Water","آب"],["Window","پنجره"],["Watch","ساعت"]]},
+        {letter:"X",lower:"x",ipa:"/ɛks/",name:"The Letter X",words:[["X-ray","اشعه ایکس"],["Box","جعبه"],["Fox","روباه"]]},
+        {letter:"Y",lower:"y",ipa:"/waɪ/",name:"The Letter Y",words:[["Yellow","زرد"],["Yo-yo","یویو"],["Yacht","قایق بادبانی"]]},
+        {letter:"Z",lower:"z",ipa:"/ziː/",name:"The Letter Z",words:[["Zebra","گورخر"],["Zoo","باغ‌وحش"],["Zero","صفر"]]}
+    ];
+
+    const STORAGE_KEY = "zenvnex_alphabet_progress";
+    let currentIndex = 0;
+    let learned = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+
+    const grid = document.getElementById("letters-grid");
+    const bigLetter = document.getElementById("big-letter");
+    const letterName = document.getElementById("letter-name");
+    const letterNumber = document.getElementById("letter-number");
+    const detailTitle = document.getElementById("detail-title");
+    const pronunciation = document.getElementById("pronunciation");
+    const examples = document.getElementById("examples");
+    const progressBar = document.getElementById("progress-bar");
+    const progressCount = document.getElementById("progress-count");
+    const learnBtn = document.getElementById("learn-btn");
+    const listenBtn = document.getElementById("listen-btn");
+
+    const persian = n => String(n).replace(/\d/g,d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
+    // Build grid
+    alphabet.forEach((item,i) => {
+        const btn = document.createElement("button");
+        btn.className = "letter-btn";
+        btn.textContent = item.letter;
+        btn.dataset.index = i;
+        btn.addEventListener("click",() => selectLetter(i));
+        grid.appendChild(btn);
+    });
+
+    function selectLetter(index){
+        currentIndex = (index + alphabet.length) % alphabet.length;
+        const item = alphabet[currentIndex];
+
+        // Animate letter
+        bigLetter.style.opacity = "0";
+        bigLetter.style.transform = "scale(0.92)";
+        setTimeout(() => {
+            bigLetter.textContent = item.letter + item.lower;
+            bigLetter.style.opacity = "1";
+            bigLetter.style.transform = "scale(1)";
+        },140);
+
+        letterName.textContent = item.name;
+        letterNumber.textContent = `LETTER ${String(currentIndex+1).padStart(2,"0")} / 26`;
+        detailTitle.textContent = `${item.letter} — ${item.lower}`;
+        pronunciation.innerHTML = `تلفظ: <strong>${item.ipa}</strong>`;
+
+        // Examples
+        examples.innerHTML = "";
+        item.words.forEach(([en,fa]) => {
+            const chip = document.createElement("div");
+            chip.className = "word-chip";
+            chip.innerHTML = `<span class="icon">🔊</span><span class="en">${en}</span><span class="fa">${fa}</span>`;
+            chip.addEventListener("click",() => speak(en));
+            examples.appendChild(chip);
+        });
+
+        // Active state
+        document.querySelectorAll(".letter-btn").forEach((b,i) => {
+            b.classList.toggle("active", i === currentIndex);
+            b.classList.toggle("seen", learned.has(alphabet[i].letter));
+        });
+
+        updateLearnButton();
+        speak(item.letter);
+    }
+
+    function speak(text){
+        if(!("speechSynthesis" in window)) return;
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "en-US";
+        u.rate = 0.8;
+        listenBtn.classList.add("speaking");
+        u.onend = () => listenBtn.classList.remove("speaking");
+        speechSynthesis.speak(u);
+    }
+
+    function toggleLearned(){
+        const letter = alphabet[currentIndex].letter;
+        if(learned.has(letter)) learned.delete(letter);
+        else learned.add(letter);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...learned]));
+        updateProgress();
+        updateLearnButton();
+        document.querySelectorAll(".letter-btn").forEach((b,i) => {
+            b.classList.toggle("seen", learned.has(alphabet[i].letter));
+        });
+    }
+
+    function updateLearnButton(){
+        const isLearned = learned.has(alphabet[currentIndex].letter);
+        learnBtn.innerHTML = isLearned ? "✓ یادگیری کامل شد" : "✓ یاد گرفتم";
+        learnBtn.classList.toggle("primary", isLearned);
+    }
+
+    function updateProgress(){
+        const pct = (learned.size / alphabet.length) * 100;
+        progressBar.style.width = pct + "%";
+        progressCount.textContent = `${persian(learned.size)} از ${persian(26)} حرف`;
+    }
+
+    // Buttons
+    listenBtn.addEventListener("click",() => speak(alphabet[currentIndex].letter));
+    learnBtn.addEventListener("click", toggleLearned);
+    document.getElementById("next-btn").addEventListener("click",() => selectLetter(currentIndex+1));
+    document.getElementById("prev-btn").addEventListener("click",() => selectLetter(currentIndex-1));
+
+    // Keyboard
+    document.addEventListener("keydown", e => {
+        const key = e.key.toUpperCase();
+        const idx = alphabet.findIndex(a => a.letter === key);
+        if(idx !== -1){ selectLetter(idx); return; }
+        if(e.key === "ArrowLeft") selectLetter(currentIndex+1);
+        if(e.key === "ArrowRight") selectLetter(currentIndex-1);
+        if(e.key === " "){ e.preventDefault(); speak(alphabet[currentIndex].letter); }
+    });
+
+    // Init
+    selectLetter(0);
+    updateProgress();
+</script>
+</body>
+</html>

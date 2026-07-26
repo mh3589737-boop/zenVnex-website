@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کوئیز حروف الفبا | ZENVNEX Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#050505;
+            --surface:#0b0b0b;
+            --border:rgba(255,255,255,.1);
+            --text:#fff;
+            --muted:rgba(255,255,255,.55);
+            --soft:rgba(255,255,255,.75);
+            --gold:#c5a880;
+            --gold-soft:rgba(197,168,128,.15);
+            --success:#4ade80;
+            --error:#f87171;
+        }
+        body{
+            min-height:100vh;
+            background:radial-gradient(circle at 50% -15%,rgba(197,168,128,.07),transparent 40%),var(--bg);
+            color:var(--text);
+            font-family:'Vazirmatn','Inter',sans-serif;
+        }
+        button,a{font-family:inherit}
+        button{cursor:pointer;border:none;background:none}
+
+        .header{
+            height:78px;display:flex;align-items:center;justify-content:space-between;
+            padding:0 48px;border-bottom:1px solid var(--border);
+            position:sticky;top:0;z-index:100;
+            background:rgba(5,5,5,.85);backdrop-filter:blur(18px);
+        }
+        .brand{color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:18px;font-weight:800;letter-spacing:3.5px}
+        .header-actions{display:flex;gap:10px}
+        .nav-btn{
+            color:var(--soft);text-decoration:none;padding:9px 16px;
+            border:1px solid var(--border);border-radius:8px;font-size:12.5px;font-weight:500;transition:.25s;
+        }
+        .nav-btn:hover{background:#fff;color:#000;border-color:#fff}
+
+        .page{max-width:720px;margin:0 auto;padding:50px 24px 80px}
+
+        .quiz-progress{margin-bottom:30px}
+        .progress-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;color:var(--muted)}
+        .progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+        .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#e8d4b0);border-radius:inherit;transition:width .4s ease}
+
+        .quiz-card{
+            background:var(--surface);
+            border:1px solid var(--border);
+            border-radius:20px;
+            padding:40px 32px;
+            box-shadow:0 25px 60px rgba(0,0,0,.4);
+        }
+        .question-type{font-size:12px;color:var(--gold);letter-spacing:.5px;margin-bottom:12px;font-weight:600}
+        .question-text{font-size:24px;font-weight:700;margin-bottom:8px;line-height:1.4}
+        .question-sub{color:var(--muted);font-size:15px;margin-bottom:32px}
+
+        .big-display{
+            font-family:'Inter',sans-serif;
+            font-size:90px;font-weight:800;
+            text-align:center;margin:20px 0 30px;
+            background:linear-gradient(180deg,#fff,rgba(255,255,255,.3));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+
+        .options{display:grid;gap:12px}
+        .option-btn{
+            padding:16px 20px;
+            border:1px solid var(--border);
+            border-radius:12px;
+            background:rgba(255,255,255,.03);
+            color:#fff;font-size:16px;font-weight:500;
+            text-align:right;transition:.25s;
+            display:flex;align-items:center;justify-content:space-between;
+        }
+        .option-btn:hover:not(:disabled){border-color:var(--gold);background:var(--gold-soft)}
+        .option-btn.correct{border-color:var(--success);background:rgba(74,222,128,.12);color:var(--success)}
+        .option-btn.wrong{border-color:var(--error);background:rgba(248,113,113,.12);color:var(--error)}
+        .option-btn:disabled{cursor:default}
+
+        .actions{margin-top:32px;display:flex;gap:12px;justify-content:flex-end}
+        .btn{
+            padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;transition:.25s;
+        }
+        .btn-primary{background:var(--gold);color:#000}
+        .btn-primary:hover{opacity:.9}
+        .btn-secondary{border:1px solid var(--border);color:#fff}
+        .btn-secondary:hover{background:rgba(255,255,255,.08)}
+
+        .result-screen{text-align:center;padding:20px 0}
+        .result-score{
+            font-size:72px;font-weight:800;font-family:'Inter',sans-serif;
+            background:linear-gradient(180deg,var(--gold),#e8d4b0);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+            margin:20px 0 10px;
+        }
+        .result-text{font-size:20px;margin-bottom:8px}
+        .result-sub{color:var(--muted);margin-bottom:36px}
+
+        .listen-btn{
+            display:inline-flex;align-items:center;gap:8px;
+            padding:10px 18px;border:1px solid var(--gold);border-radius:30px;
+            color:var(--gold);font-size:14px;margin-bottom:20px;transition:.25s;
+        }
+        .listen-btn:hover{background:var(--gold-soft)}
+
+        @media(max-width:600px){
+            .header{padding:0 18px;height:68px}
+            .page{padding:30px 16px 60px}
+            .quiz-card{padding:28px 20px}
+            .question-text{font-size:20px}
+            .big-display{font-size:70px}
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="brand">ZENVNEX</a>
+    <div class="header-actions">
+        <a href="lesson-view.html" class="nav-btn">بازگشت به درس</a>
+        <a href="alphabet.html" class="nav-btn">آموزش حروف</a>
+        <a href="dashboard.html" class="nav-btn">Dashboard</a>
+    </div>
+</header>
+
+<main class="page">
+    <div class="quiz-progress" id="progress-section">
+        <div class="progress-top">
+            <span id="question-counter">سؤال ۱ از ۱۲</span>
+            <span id="score-live">امتیاز: ۰</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+        </div>
+    </div>
+
+    <div class="quiz-card" id="quiz-card"></div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+        authDomain: "zenvnex.firebaseapp.com",
+        projectId: "zenvnex",
+        storageBucket: "zenvnex.firebasestorage.app",
+        messagingSenderId: "145639804249",
+        appId: "1:145639804249:web:d8d216db1c713986aad048",
+        measurementId: "G-B554BNES3M"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) window.location.href = "index.html";
+    });
+
+    // حروف + تلفظ فارسی
+    const letters = [
+        {l:"A", lower:"a", fa:"ای", words:["Apple","Ant","Airplane"]},
+        {l:"B", lower:"b", fa:"بی", words:["Ball","Book","Banana"]},
+        {l:"C", lower:"c", fa:"سی", words:["Cat","Car","Cake"]},
+        {l:"D", lower:"d", fa:"دی", words:["Dog","Door","Desk"]},
+        {l:"E", lower:"e", fa:"ای", words:["Egg","Elephant","Ear"]},
+        {l:"F", lower:"f", fa:"اِف", words:["Fish","Flower","Friend"]},
+        {l:"G", lower:"g", fa:"جی", words:["Goat","Girl","Garden"]},
+        {l:"H", lower:"h", fa:"اِچ", words:["House","Hat","Hand"]},
+        {l:"I", lower:"i", fa:"آی", words:["Ice","Insect","Island"]},
+        {l:"J", lower:"j", fa:"جِی", words:["Juice","Jump","Jacket"]},
+        {l:"K", lower:"k", fa:"کِی", words:["Kite","King","Key"]},
+        {l:"L", lower:"l", fa:"اِل", words:["Lion","Lamp","Leaf"]},
+        {l:"M", lower:"m", fa:"اِم", words:["Monkey","Moon","Milk"]},
+        {l:"N", lower:"n", fa:"اِن", words:["Nose","Night","Nest"]},
+        {l:"O", lower:"o", fa:"او", words:["Orange","Owl","Ocean"]},
+        {l:"P", lower:"p", fa:"پی", words:["Pen","Pizza","Plane"]},
+        {l:"Q", lower:"q", fa:"کیو", words:["Queen","Quiet","Question"]},
+        {l:"R", lower:"r", fa:"آر", words:["Rabbit","Rain","Rose"]},
+        {l:"S", lower:"s", fa:"اِس", words:["Sun","Star","School"]},
+        {l:"T", lower:"t", fa:"تی", words:["Tree","Table","Tiger"]},
+        {l:"U", lower:"u", fa:"یو", words:["Umbrella","Up","Under"]},
+        {l:"V", lower:"v", fa:"وی", words:["Violin","Van","Vegetable"]},
+        {l:"W", lower:"w", fa:"دابلیو", words:["Water","Window","Watch"]},
+        {l:"X", lower:"x", fa:"اِکس", words:["X-ray","Box","Fox"]},
+        {l:"Y", lower:"y", fa:"وای", words:["Yellow","Yo-yo","Yacht"]},
+        {l:"Z", lower:"z", fa:"زی", words:["Zebra","Zoo","Zero"]}
+    ];
+
+    const TOTAL_QUESTIONS = 12;
+    let questions = [];
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    // ساخت سوالات کاملاً تصادفی در هر بار ورود
+    function generateQuestions() {
+        // کپی و شافل کامل حروف
+        const shuffled = [...letters].sort(() => Math.random() - 0.5);
+        questions = [];
+
+        // ۴ سوال شنیداری
+        for (let i = 0; i < 4; i++) {
+            const correct = shuffled[i];
+            questions.push({
+                type: "listen",
+                question: "این صدا مربوط به کدام حرف است؟",
+                speak: correct.l,
+                correct: correct.l,
+                options: generateOptions(correct.l, "l")
+            });
+        }
+
+        // ۴ سوال تلفظ (با متن فارسی)
+        for (let i = 4; i < 8; i++) {
+            const correct = shuffled[i];
+            questions.push({
+                type: "sound",
+                question: `تلفظ صحیح حرف ${correct.l} کدام است؟`,
+                display: correct.l + correct.lower,
+                correct: correct.fa,
+                options: generateOptions(correct.fa, "fa")
+            });
+        }
+
+        // ۴ سوال کلمه → حرف اول
+        for (let i = 8; i < 12; i++) {
+            const correct = shuffled[i];
+            const word = correct.words[Math.floor(Math.random() * correct.words.length)];
+            questions.push({
+                type: "word",
+                question: `کلمه «${word}» با کدام حرف شروع می‌شود؟`,
+                correct: correct.l,
+                options: generateOptions(correct.l, "l")
+            });
+        }
+
+        // شافل نهایی سوالات تا ترتیب انواع هم تصادفی شود
+        questions = questions.sort(() => Math.random() - 0.5);
+    }
+
+    function generateOptions(correctValue, key) {
+        const opts = new Set([correctValue]);
+        while (opts.size < 4) {
+            const randomItem = letters[Math.floor(Math.random() * 26)];
+            opts.add(randomItem[key]);
+        }
+        return [...opts].sort(() => Math.random() - 0.5);
+    }
+
+    function speak(text) {
+        if (!("speechSynthesis" in window)) return;
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "en-US";
+        u.rate = 0.8;
+        speechSynthesis.speak(u);
+    }
+
+    function renderQuestion() {
+        const q = questions[current];
+        const card = document.getElementById("quiz-card");
+        answered = false;
+
+        document.getElementById("question-counter").textContent = `سؤال ${current + 1} از ${TOTAL_QUESTIONS}`;
+        document.getElementById("score-live").textContent = `امتیاز: ${score}`;
+        document.getElementById("progress-bar").style.width = (current / TOTAL_QUESTIONS * 100) + "%";
+
+        let html = `<div class="question-type">${q.type === "listen" ? "شنیداری" : q.type === "sound" ? "تلفظ" : "کلمه"}</div>`;
+        html += `<div class="question-text">${q.question}</div>`;
+
+        if (q.type === "listen") {
+            html += `<button class="listen-btn" onclick="speak('${q.speak}')">🔊 پخش صدا</button>`;
+        }
+
+        if (q.type === "sound") {
+            html += `<div class="big-display">${q.display}</div>`;
+        }
+
+        html += `<div class="options">`;
+        q.options.forEach(opt => {
+            html += `<button class="option-btn" onclick="checkAnswer('${opt}', this)">${opt}</button>`;
+        });
+        html += `</div>`;
+
+        html += `<div class="actions" id="actions" style="display:none">
+                    <button class="btn btn-primary" onclick="nextQuestion()">سؤال بعدی</button>
+                 </div>`;
+
+        card.innerHTML = html;
+
+        if (q.type === "listen") {
+            setTimeout(() => speak(q.speak), 350);
+        }
+    }
+
+    function checkAnswer(selected, btn) {
+        if (answered) return;
+        answered = true;
+
+        const q = questions[current];
+        const allBtns = document.querySelectorAll(".option-btn");
+
+        allBtns.forEach(b => {
+            b.disabled = true;
+            if (b.textContent === q.correct) b.classList.add("correct");
+        });
+
+        if (selected === q.correct) {
+            score++;
+            btn.classList.add("correct");
+        } else {
+            btn.classList.add("wrong");
+        }
+
+        document.getElementById("score-live").textContent = `امتیاز: ${score}`;
+        document.getElementById("actions").style.display = "flex";
+    }
+
+    function nextQuestion() {
+        current++;
+        if (current >= TOTAL_QUESTIONS) {
+            showResult();
+        } else {
+            renderQuestion();
+        }
+    }
+
+    function showResult() {
+        document.getElementById("progress-section").style.display = "none";
+        const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+        let message = "";
+        if (percent >= 90) message = "عالی! تسلط کامل داری 🔥";
+        else if (percent >= 70) message = "خیلی خوبه! فقط کمی تمرین بیشتر";
+        else if (percent >= 50) message = "متوسطه. دوباره تمرین کن";
+        else message = "نیاز به تمرین بیشتر داری. برگرد به آموزش حروف";
+
+        document.getElementById("quiz-card").innerHTML = `
+            <div class="result-screen">
+                <div style="font-size:14px;color:var(--gold);margin-bottom:10px">نتیجه کوئیز</div>
+                <div class="result-score">${score}/${TOTAL_QUESTIONS}</div>
+                <div class="result-text">${percent}٪ پاسخ صحیح</div>
+                <div class="result-sub">${message}</div>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                    <button class="btn btn-primary" onclick="location.reload()">شروع مجدد کوئیز</button>
+                    <a href="alphabet.html" class="btn btn-secondary" style="text-decoration:none">بازگشت به آموزش</a>
+                </div>
+            </div>
+        `;
+    }
+
+    // هر بار صفحه باز می‌شود سوالات از نو ساخته می‌شوند
+    generateQuestions();
+    renderQuestion();
+</script>
+</body>
+</html>

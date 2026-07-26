@@ -5,7 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Share Your Story — ZENVNEX</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg-space: #050505;
@@ -60,32 +62,39 @@
     letter-spacing: 0.05em;
   }
   .story-hero p{
+    font-family:'Vazirmatn', sans-serif;
+    font-weight: 500;
     color: var(--text-muted);
-    font-size: 16px;
+    font-size: 17px;
     max-width: 700px;
     margin: 0 auto;
+    direction: rtl;
   }
   
   .security-notice{
     background: var(--panel-space);
     border: 1px solid var(--border-space);
     border-left: 3px solid var(--accent-gold);
-    padding: 28px;
+    padding: 32px;
     margin-bottom: 40px;
     text-align: right;
     direction: rtl;
+    font-family:'Vazirmatn', sans-serif;
   }
   .security-notice h3{
-    font-size: 17px;
-    margin-bottom: 14px;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 16px;
     color: var(--text-main);
-    letter-spacing: 0.03em;
+    letter-spacing: normal;
   }
   .security-notice p{
+    font-weight: 400;
     color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.8;
+    font-size: 15.5px;
+    line-height: 2;
     margin-bottom: 16px;
+    letter-spacing: normal;
   }
 
   .action-box{
@@ -95,13 +104,19 @@
     text-align: center;
   }
   .action-box h2{
-    font-size: 22px;
+    font-family:'Vazirmatn', sans-serif;
+    font-weight: 700;
+    font-size: 23px;
     margin-bottom: 12px;
+    direction: rtl;
   }
   .action-box p{
+    font-family:'Vazirmatn', sans-serif;
+    font-weight: 400;
     color: var(--text-muted);
-    font-size: 15px;
+    font-size: 15.5px;
     margin-bottom: 30px;
+    direction: rtl;
   }
   .btn-primary{
     background: #fff;
@@ -121,6 +136,10 @@
   .modal p{color:var(--text-muted); font-size:14px; margin-bottom:22px;}
   .auth-input{width:100%; padding:12px 14px; margin-bottom:12px; background:#050505; border:1px solid var(--border-space); color:#fff; font-family:inherit; font-size:14px; outline:none; transition:border-color 0.2s;}
   .auth-input:focus{border-color:var(--accent-gold);}
+  .password-wrap{position:relative;}
+  .password-wrap .auth-input{padding-right:64px;}
+  .toggle-pw{position:absolute; top:12px; right:14px; background:none; border:none; color:var(--text-muted); font-size:11px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; padding:0;}
+  .toggle-pw:hover{color:#fff;}
   .switch-text{font-size:13px; color:var(--text-muted); margin-top:16px;}
   .switch-text span{color:#fff; font-weight:600; text-decoration:underline; cursor:pointer;}
 </style>
@@ -159,7 +178,10 @@
     <h3 id="modalTitle">Welcome Back</h3>
     <p id="modalDesc">Sign in to continue.</p>
     <input type="email" id="emailInput" class="auth-input" placeholder="Email address">
-    <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
+    <div class="password-wrap">
+      <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
+      <button type="button" class="toggle-pw" id="togglePw">Show</button>
+    </div>
     <button class="btn btn-primary" id="actionBtn" style="width:100%; justify-content:center;">Log In</button>
     <div class="switch-text" id="switchModeText">
       <span id="switchPrompt">Don't have an account?</span> <span id="switchBtn">Sign up</span>
@@ -196,6 +218,13 @@
   const modalDesc = document.getElementById('modalDesc');
   const switchPrompt = document.getElementById('switchPrompt');
   const switchBtn = document.getElementById('switchBtn');
+  const togglePw = document.getElementById('togglePw');
+
+  togglePw.addEventListener('click', () => {
+    const isHidden = passwordInput.type === 'password';
+    passwordInput.type = isHidden ? 'text' : 'password';
+    togglePw.textContent = isHidden ? 'Hide' : 'Show';
+  });
 
   let isLoggedIn = false;
   let isSignUp = false;
