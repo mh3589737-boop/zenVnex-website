@@ -1,145 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-<link rel="icon" type="image/png" href="logo.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Women's Rights & Freedom - ZENVNEX</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-space: #050505;
-    --panel-space: #0c0d10;
-    --border-space: #22262e;
-    --text-main: #f0f2f5;
-    --text-muted: #9ba1a6;
-    --maxw:1180px;
-  }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درخواست پشتیبانی | Request Support - ZENVNEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-space: #050505;
+      --panel-space: #0c0d10;
+      --border-space: #22262e;
+      --text-main: #f0f2f5;
+      --text-muted: #9ba1a6;
+      --maxw: 780px;
+    }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background: var(--bg-space);
-    color: var(--text-main);
-    font-family:'Inter', -apple-system, sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-space);
+      color: var(--text-main);
+      font-family: 'Vazirmatn', 'Inter', -apple-system, sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
 
-  a{color:inherit; text-decoration:none;}
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(5,5,5,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-space);
+    }
+    .wrap {
+      max-width: 1180px; margin: 0 auto; padding: 0 32px;
+      display: flex; justify-content: space-between; align-items: center; height: 78px;
+    }
+    .logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px; font-weight: 700; letter-spacing: 0.15em;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 2px; color: #fff;
+    }
+    .logo .tagline {
+      font-family: 'Share Tech Mono', sans-serif;
+      font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
+    }
+    .btn-back {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); border: 1px solid var(--border-space);
+      padding: 10px 20px; background: var(--panel-space); transition: all 0.2s;
+    }
+    .btn-back:hover { color: #fff; border-color: #fff; }
 
-  header{
-    position:sticky; top:0; z-index:100;
-    background: rgba(5,5,5,0.85);
-    backdrop-filter:blur(12px);
-    border-bottom: 1px solid var(--border-space);
-  }
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; align-items:center; height:78px;}
-  
-  .logo{
-    font-family:'Inter', sans-serif;
-    font-size:20px;
-    font-weight:700;
-    letter-spacing:0.15em;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:2px;
-    color: #fff;
-  }
-  .logo .tagline{
-    font-family:'Share Tech Mono',sans-serif;
-    font-size:9.5px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--text-muted);
-  }
+    main {
+      padding: 70px 20px 100px;
+      display: flex;
+      justify-content: center;
+    }
 
-  .btn-back{
-    font-family:'Share Tech Mono', monospace;
-    font-size:12px;
-    font-weight:650;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color: var(--text-muted);
-    border: 1px solid var(--border-space);
-    padding: 10px 20px;
-    background: var(--panel-space);
-    transition: all 0.2s;
-  }
-  .btn-back:hover{color:#fff; border-color:#fff;}
+    .content-box {
+      background: var(--panel-space);
+      border: 1px solid var(--border-space);
+      padding: 48px 40px;
+      max-width: var(--maxw);
+      width: 100%;
+    }
 
-  main{
-    min-height: 75vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-  }
+    .eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before {
+      content: ''; width: 6px; height: 6px; background: #fff; flex-shrink: 0;
+    }
 
-  .content-box{
-    background: var(--panel-space);
-    border: 1px solid var(--border-space);
-    padding: 50px 40px;
-    max-width: 760px;
-    width: 100%;
-  }
+    h1 {
+      font-size: clamp(24px, 3vw, 30px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .h1-en {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 22px;
+      letter-spacing: 0.03em;
+    }
 
-  .eyebrow{
-    font-family:'Share Tech Mono', monospace;
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .eyebrow::before{
-    content:'';
-    width:6px; height:6px;
-    background: #fff;
-    flex-shrink:0;
-  }
+    .intro {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .intro-en {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      opacity: 0.85;
+    }
 
-  h2{
-    font-family:'Inter', sans-serif;
-    font-size:clamp(22px, 2.8vw, 30px);
-    font-weight:700;
-    letter-spacing:-0.02em;
-    color: #fff;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-  }
+    .disclaimer {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-space);
+      padding: 16px 18px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .disclaimer strong { color: #fff; }
+    .disclaimer-en {
+      display: block;
+      margin-top: 8px;
+      font-size: 12.5px;
+      opacity: 0.8;
+    }
 
-  p{
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .label-en {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 6px;
+      display: block;
+    }
 
-  .divider{
-    width: 100%;
-    height: 1px;
-    background: var(--border-space);
-    margin: 30px 0;
-  }
+    select, textarea, input[type="text"] {
+      width: 100%;
+      background: var(--bg-space);
+      border: 1px solid var(--border-space);
+      color: #fff;
+      padding: 14px 16px;
+      font-family: 'Vazirmatn', 'Inter', sans-serif;
+      font-size: 14.5px;
+      margin-bottom: 22px;
+      transition: border-color 0.2s;
+      direction: rtl;
+    }
+    select:focus, textarea:focus, input:focus {
+      outline: none;
+      border-color: #fff;
+    }
+    textarea { min-height: 150px; resize: vertical; }
 
-  footer{
-    padding: 50px 0;
-    border-top: 1px solid var(--border-space);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-family: 'Share Tech Mono', monospace;
-    letter-spacing: 0.05em;
-    background: var(--bg-space);
-  }
-</style>
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+    .checkbox-group input {
+      margin-top: 4px;
+      accent-color: #fff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 16px;
+      font-family: 'Vazirmatn', 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-message h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .success-message .en {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .success-message p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border-space);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: 'Share Tech Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 0 20px; }
+      .content-box { padding: 32px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -154,25 +244,143 @@
 
 <main>
   <div class="content-box">
-    <div class="eyebrow">Core Pillar — Human Rights</div>
-    
-    <div>
-      <h2>حقوق و آزادی زنان</h2>
-      <p>ما در زنووکس معتقدیم که دفاع از حقوق اساسی، حق کار، آزادی بیان و حق آموزش زنان و دختران در افغانستان، یک ضرورت حیاتی و انسانی است. از طریق آگاهی‌رسانی، ایجاد شبکه‌های حمایتی و مستندسازی چالش‌ها، در کنار زنان شجاع افغانستان ایستاده‌ایم تا صدای آن‌ها در سطح جهانی شنیده شود.</p>
-    </div>
-    
-    <div class="divider"></div>
 
-    <div>
-      <h2>Women's Rights & Freedom</h2>
-      <p>We believe that defending the fundamental rights, right to work, freedom of speech, and access to education for women and girls in Afghanistan is an absolute humanitarian imperative. Through advocacy, secure support networks, and amplifying vital stories, we stand firmly alongside the resilient women of Afghanistan to ensure their voices echo globally.</p>
+    <!-- فرم -->
+    <div id="form-section">
+      <div class="eyebrow">Support Request</div>
+      
+      <h1>درخواست پشتیبانی</h1>
+      <div class="h1-en">Request Support</div>
+
+      <p class="intro">
+        در کنار تو هستیم. درخواستت را بنویس تا در حد توان راهنمایی‌ات کنیم و در این مسیر تنها نباشی.
+      </p>
+      <p class="intro-en">
+        We are by your side. Write your request so we can guide you as much as we can, and so you won’t be alone on this path.
+      </p>
+
+      <div class="disclaimer">
+        <strong>توجه مهم:</strong> این بخش جایگزین خدمات اضطراری نیست. ما نمی‌توانیم نیروی پلیس یا اورژانس اعزام کنیم. 
+        در حد توان‌مان راهنمایی، اطلاعات و حمایت روحی ارائه می‌دهیم.
+        <span class="disclaimer-en">
+          <strong>Important:</strong> This is not an emergency rescue service. We cannot send police or medical teams. 
+          We offer guidance, information, and emotional support within our capacity.
+        </span>
+      </div>
+
+      <form id="supportForm">
+        <label for="category">به چه نوع پشتیبانی نیاز داری؟</label>
+        <span class="label-en">What kind of support do you need?</span>
+        <select id="category" required>
+          <option value="" disabled selected>یک گزینه را انتخاب کنید</option>
+          <option value="guidance">راهنمایی و مشاوره</option>
+          <option value="emotional">حمایت روحی / نیاز به حرف زدن</option>
+          <option value="information">اطلاعات و منابع</option>
+          <option value="education">مربوط به آموزش</option>
+          <option value="other">سایر موارد</option>
+        </select>
+
+        <label for="message">پیام شما</label>
+        <span class="label-en">Your message</span>
+        <textarea id="message" placeholder="هر چیزی که می‌خواهی بنویس... (می‌توانی کوتاه یا کامل بنویسی)" required></textarea>
+
+        <div class="form-row">
+          <div>
+            <label for="name">نام (اختیاری)</label>
+            <span class="label-en">Name (optional)</span>
+            <input type="text" id="name" placeholder="می‌توانی خالی بگذاری">
+          </div>
+          <div>
+            <label for="contact">راه ارتباطی (اختیاری)</label>
+            <span class="label-en">Preferred contact (optional)</span>
+            <input type="text" id="contact" placeholder="ایمیل، تلگرام و...">
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="anonymous" checked>
+          <label for="anonymous" style="margin:0; font-weight:400;">
+            ترجیح می‌دهم ناشناس بمانم. فقط پیامم در اختیار تیم پشتیبانی قرار بگیرد.
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">ارسال درخواست</button>
+      </form>
     </div>
+
+    <!-- پیام موفقیت -->
+    <div class="success-message" id="successMessage">
+      <h2>درخواست شما دریافت شد</h2>
+      <div class="en">Your request has been received</div>
+      <p>
+        از اینکه با ما در میان گذاشتی سپاسگزاریم.<br>
+        تیم ما پیام‌ات را بررسی می‌کند و در حد توان در اسرع وقت پاسخ خواهد داد.<br><br>
+        تنها نیستی.
+      </p>
+      <br>
+      <a href="index.html" class="btn-back" style="display:inline-block; margin-top:10px;">← بازگشت به صفحه اصلی</a>
+    </div>
+
   </div>
 </main>
 
 <footer>
   <p>© 2026 ZENVNEX e.V. · All Rights Reserved</p>
 </footer>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+    authDomain: "zenvnex.firebaseapp.com",
+    projectId: "zenvnex",
+    storageBucket: "zenvnex.firebasestorage.app",
+    messagingSenderId: "145639804249",
+    appId: "1:145639804249:web:d8d216db1c713986aad048",
+    measurementId: "G-B554BNES3M"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.getElementById('supportForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSection = document.getElementById('form-section');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'در حال ارسال...';
+
+    const data = {
+      category: document.getElementById('category').value,
+      message: document.getElementById('message').value.trim(),
+      name: document.getElementById('name').value.trim() || null,
+      contact: document.getElementById('contact').value.trim() || null,
+      anonymous: document.getElementById('anonymous').checked,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      status: 'new',
+      userAgent: navigator.userAgent
+    };
+
+    try {
+      await db.collection('support_requests').add(data);
+      
+      formSection.style.display = 'none';
+      successMessage.style.display = 'block';
+    } catch (error) {
+      console.error('Error:', error);
+      alert('مشکلی پیش آمد. لطفاً بعداً دوباره تلاش کنید.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ارسال درخواست';
+    }
+  });
+</script>
 
 </body>
 </html>
