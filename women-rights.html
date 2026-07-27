@@ -371,8 +371,6 @@
     try {
       await db.collection('support_requests').add(data);
       
-sendTelegramNotification(data.name  'ناشناس', data.contact  'بدون اطلاعات تماس', data.message);
-
       formSection.style.display = 'none';
       successMessage.style.display = 'block';
     } catch (error) {
@@ -382,30 +380,7 @@ sendTelegramNotification(data.name  'ناشناس', data.contact  'بدون اط
       submitBtn.textContent = 'ارسال درخواست';
     }
   });
-
-  // ۱. تابع ارسال پیام به ربات تلگرام
-  function sendTelegramNotification(name, email, message) {
-    const botToken = '8868424454:AAEo-u3D3w4Mt11oLP-j_xc24vIDzbaq8MI';
-    const chatId = '8469884700';
-
-    const text = 📬 **پیام جدید در سایت ZENVNEX**\n\n +
-                 👤 **نام:** ${name}\n +
-                 📧 **ایمیل:** ${email}\n +
-                 💬 **متن پیام:**\n${message};
-
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: text,
-        parse_mode: 'Markdown'
-      })
-    })
-    .then(res => res.json())
-    .then(data => console.log('ارسال شد به تلگرام!', data))
-    .catch(err => console.error('خطا در ارسال به تلگرام:', err));
-  }
 </script>
+
 </body>
 </html>
