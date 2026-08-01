@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ریاضی صنف ۷ | ZENVNEX Academy</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2C6B4C;
+            --primary-hover: #3d8b63;
+            --accent: #06b6d4;
+            --bg-dark: #000000;
+            --card-bg: #0a0a0a;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-border-hover: rgba(255, 255, 255, 0.25);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.55);
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header Nav */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            max-width: 620px;
+            line-height: 1.7;
+        }
+
+        /* Progress Bar */
+        .progress-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .progress-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .progress-info strong {
+            color: #fff;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            max-width: 280px;
+            min-width: 160px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 25%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 12px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* View Content Sections */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Chapters Grid Layout */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .chapter-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .chapter-card:hover {
+            border-color: var(--card-border-hover);
+            transform: translateY(-3px);
+            background: #0f0f0f;
+        }
+
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .chapter-card:hover::before {
+            opacity: 1;
+        }
+
+        .chapter-number {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .chapter-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .chapter-title-en {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 12px;
+        }
+
+        .chapter-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .chapter-status {
+            margin-top: 18px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-hover);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Section Detail Cards */
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .section-card h2 {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 12px;
+        }
+
+        .section-card h2 i {
+            color: var(--primary-hover);
+        }
+
+        .section-card p, .section-card ul {
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .section-card ul {
+            padding-right: 1.5rem;
+        }
+
+        .section-card li {
+            margin-bottom: 6px;
+        }
+
+        .rule-box {
+            background: rgba(44, 107, 76, 0.12);
+            border-right: 3px solid var(--primary-hover);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+
+        /* Mini Grid inside details */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .mini-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .mini-card h4 {
+            color: #a7f3d0;
+            margin-bottom: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Interactive Tools Component */
+        .interactive-tool {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .interactive-tool h3 {
+            color: var(--accent);
+            font-size: 15px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 180px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent);
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .result-box {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px dashed var(--card-border);
+            font-size: 13px;
+            color: var(--success);
+            min-height: 48px;
+        }
+
+        .note {
+            margin-top: 56px;
+            padding: 18px 22px;
+            background: rgba(44, 107, 76, 0.08);
+            border: 1px solid rgba(44, 107, 76, 0.2);
+            border-radius: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 20px; }
+            .container { padding: 32px 20px 60px; }
+            .page-header h1 { font-size: 26px; }
+            .chapters-grid { grid-template-columns: 1fr; }
+            .progress-box { flex-direction: column; align-items: flex-start; }
+            .tabs-nav { flex-wrap: nowrap; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <div class="header">
+        <a href="dashboard.html" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="grade.html?grade=7" class="btn"><i class="fa-solid fa-arrow-right"></i> بازگشت به صنف ۷</a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="eyebrow">صنف ۷ · ریاضی</div>
+            <h1>ریاضی صنف ۷</h1>
+            <p>
+                دوره رسمی ریاضی صنف ۷ بر اساس کتاب وزارت معارف افغانستان.<br>
+                ساختار دقیق، مرحله‌به‌مرحله، همراه با یادگیری مفهومی و ابزارهای محاسباتی هوشمند.
+            </p>
+        </div>
+
+        <!-- Progress Box -->
+        <div class="progress-box">
+            <div class="progress-info">پیشرفت شما: <strong>۲ از ۸ فصل در دسترس</strong></div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Tab Controls -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openView(event, 'chapters-view')">
+                <i class="fa-solid fa-grid-2"></i> فهرست تمام فصل‌ها
+            </button>
+            <button class="tab-btn" onclick="openView(event, 'ch1-view')">
+                <i class="fa-solid fa-layer-group"></i> فصل ۱: ست‌ها
+            </button>
+            <button class="tab-btn" onclick="openView(event, 'ch2-view')">
+                <i class="fa-solid fa-list-ol"></i> فصل ۲: اعداد طبیعی
+            </button>
+            <button class="tab-btn" onclick="openView(event, 'tools-view')">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> آزمایشگاه تعاملی
+            </button>
+        </div>
+
+        <!-- VIEW 1: CHAPTERS OVERVIEW LIST -->
+        <div id="chapters-view" class="tab-content active">
+            <div class="chapters-grid">
+
+                <!-- فصل ۱ -->
+                <div class="chapter-card" onclick="switchTab('ch1-view')">
+                    <div class="chapter-number">CHAPTER 01</div>
+                    <div class="chapter-title">ست</div>
+                    <div class="chapter-title-en">Sets</div>
+                    <div class="chapter-desc">مفهوم ست، عناصر و روش‌های نوشتن، ست‌های مساوی و معادل، ست فرعی، تقاطع و اتحاد، تفاضل ست‌ها، ست کلی و مکمله.</div>
+                    <div class="chapter-status">مطالعه فصل و ابزارها ←</div>
+                </div>
+
+                <!-- فصل ۲ -->
+                <div class="chapter-card" onclick="switchTab('ch2-view')">
+                    <div class="chapter-number">CHAPTER 02</div>
+                    <div class="chapter-title">اعداد طبیعی</div>
+                    <div class="chapter-title-en">Natural Numbers</div>
+                    <div class="chapter-desc">قابلیت‌های تقسیم، تجزیه به اعداد اولیه، طاقت و قوانین آن، روش علمی عدد نویسی، ب.م.م (G.C.D)، ک.م.م (L.C.M)، مربع و جذر مربع.</div>
+                    <div class="chapter-status">مطالعه فصل و ابزارها ←</div>
+                </div>
+
+                <!-- فصل ۳ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 03</div>
+                    <div class="chapter-title">اعداد تام</div>
+                    <div class="chapter-title-en">Integers</div>
+                    <div class="chapter-desc">اعداد مثبت و منفی، نمایش روی محور اعداد، قیمت مطلقه، چهار عمل اصلی و خواص آن‌ها، و محاسبه قیمت افاده‌های حسابی.</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+                <!-- فصل ۴ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 04</div>
+                    <div class="chapter-title">اعداد نسبتی</div>
+                    <div class="chapter-title-en">Rational Numbers</div>
+                    <div class="chapter-desc">مفهوم اعداد نسبتی، مقایسه، انجام چهار عمل اصلی، بررسی خواص عملیه‌ها و تبدیل اعداد نسبتی به اعداد اعشاری.</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+                <!-- فصل ۵ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 05</div>
+                    <div class="chapter-title">مثلث‌ها و چندضلعی‌ها</div>
+                    <div class="chapter-title-en">Triangles & Polygons</div>
+                    <div class="chapter-desc">اقسام مثلث، میانه، ارتفاع و ناصف‌الزاویه، مجموع زوایای داخلی و خارجی، روابط بین اضلاع، چندضلعی‌ها و انطباق‌پذیری.</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+                <!-- فصل ۶ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 06</div>
+                    <div class="chapter-title">خطوط موازی و عمود</div>
+                    <div class="chapter-title-en">Parallel & Perpendicular Lines</div>
+                    <div class="chapter-desc">زوایای متبادله و متوافقه، زوایای متممه داخلی، آشنایی با انواع چهارضلعی‌ها (متوازی‌الاضلاع، مستطیل، مربع، معین، ذوزنقه).</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+                <!-- فصل ۷ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 07</div>
+                    <div class="chapter-title">احصائیه</div>
+                    <div class="chapter-title-en">Statistics</div>
+                    <div class="chapter-desc">روش‌های جمع‌آوری اطلاعات، جامعه و نمونه تصادفی، انواع متحول تصادفی، جدول کثرت (فریکونسی)، گراف تصویری، مد (Mode) و اوسط.</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+                <!-- فصل ۸ -->
+                <div class="chapter-card">
+                    <div class="chapter-number">CHAPTER 08</div>
+                    <div class="chapter-title">احتمالات</div>
+                    <div class="chapter-title-en">Probability</div>
+                    <div class="chapter-desc">مفهوم چانس و احتمال، تجربه تصادفی، فضای نتیجه (نمونه) و محاسبه احتمال نظری اتفاقات.</div>
+                    <div class="chapter-status" style="color: var(--text-muted);">به زودی...</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW 2: CHAPTER 1 DETAILS -->
+        <div id="ch1-view" class="tab-content">
+            <div class="section-card">
+                <h2><i class="fa-solid fa-shapes"></i> ۱. مفهوم ست و روش‌های ارائه آن</h2>
+                <p><strong>ست (Set):</strong> هر دسته مشخص و معین از اشیا، اعداد یا مفاهیم را یک ست می‌نامند و هر یک از آن‌ها را عنصر ست می‌گویند.</p>
+                <div class="rule-box">
+                    نماد عضویت: $x \in A$ (عنصر $x$ شامل ست $A$ است) | $y \notin A$ (عنصر $y$ شامل نیست)
+                </div>
+                <h3 style="font-size: 14px; margin: 12px 0 8px; color: #fff;">طرق نوشتن ست:</h3>
+                <ul>
+                    <li><strong>روش تفصیلی (لست کردن):</strong> $A = \{1, 2, 3, 4, 5\}$</li>
+                    <li><strong>روش توصیفی (اجمالی):</strong> $A = \{\text{اعداد طبیعی کوچک‌تر از ۶}\}$</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2><i class="fa-solid fa-object-group"></i> ۲. عملیه‌ها بر روی ست‌ها</h2>
+                <div class="grid-2">
+                    <div class="mini-card">
+                        <h4><i class="fa-solid fa-circle-nodes"></i> اتحاد دو ست ($A \cup B$)</h4>
+                        <p>ستی است شامل تمام عناصری که در $A$ یا در $B$ یا در هر دو وجود دارند (عناصر تکراری ۱ بار نوشته می‌شوند).</p>
+                    </div>
+                    <div class="mini-card">
+                        <h4><i class="fa-solid fa-intersection"></i> تقاطع دو ست ($A \cap B$)</h4>
+                        <p>ستی است شامل عناصری که هم‌زمان هم در $A$ و هم در $B$ حضور دارند.</p>
+                    </div>
+                    <div class="mini-card">
+                        <h4><i class="fa-solid fa-minus"></i> تفاضل دو ست ($A - B$)</h4>
+                        <p>ستی است شامل عناصری که در $A$ وجود دارند اما در $B$ شامل نیستند.</p>
+                    </div>
+                    <div class="mini-card">
+                        <h4><i class="fa-solid fa-square-full"></i> ست کلی و مکمله ($\bar{A}$)</h4>
+                        <p>اگر $U$ ست کلی باشد، مکمله $A$ یعنی عناصری از $U$ که در $A$ نیستند: $\bar{A} = U - A$.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: CHAPTER 2 DETAILS -->
+        <div id="ch2-view" class="tab-content">
+            <div class="section-card">
+                <h2><i class="fa-solid fa-square-root-variable"></i> ۱. قابلیت‌های تقسیم و تجزیه اعداد</h2>
+                <p>قواعد تقسیم‌پذیری سریع برای حل کسرها و دریافت مخرج مشترک:</p>
+                <ul>
+                    <li><strong>بر ۲:</strong> رقم یک‌ها جفت (0, 2, 4, 6, 8) باشد.</li>
+                    <li><strong>بر ۳:</strong> مجموع ارقام بر ۳ پوره قابل تقسیم باشد.</li>
+                    <li><strong>بر ۵:</strong> رقم یک‌ها ۰ یا ۵ باشد.</li>
+                    <li><strong>بر ۶:</strong> هم‌زمان بر ۲ و ۳ پوره قابل تقسیم باشد.</li>
+                    <li><strong>بر ۹:</strong> مجموع ارقام بر ۹ پوره تقسیم شود.</li>
+                </ul>
+            </div>
+
+            <div class="section-card">
+                <h2><i class="fa-solid fa-calculator"></i> ۲. بزرگ‌ترین قاسم مشترک (G.C.D) و کوچک‌ترین مضرب مشترک (L.C.M)</h2>
+                <div class="grid-2">
+                    <div class="mini-card">
+                        <h4>بزرگ‌ترین قاسم مشترک (G.C.D)</h4>
+                        <p>بزرگ‌ترین عددی که اعداد داده شده بر آن پوره تقسیم شوند. ضرب اجزای ضربی اولیه مشترک با کوچک‌ترین توان.</p>
+                    </div>
+                    <div class="mini-card">
+                        <h4>کوچک‌ترین مضرب مشترک (L.C.M)</h4>
+                        <p>کوچک‌ترین عددی که بر تمام اعداد داده شده پوره تقسیم شود. ضرب اجزای مشترک با بزرگ‌ترین توان در اجزای غیرمشترک.</p>
+                    </div>
+                </div>
+                <div class="rule-box">
+                    رابطه طلایی بین L.C.M و G.C.D دو عدد $a$ و $b$: <br>
+                    <strong>$L \times G = a \times b$</strong>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2><i class="fa-solid fa-superscript"></i> ۳. طاقت و جذر مربع</h2>
+                <p><strong>روش علمی عددنویسی:</strong> نمایش اعداد بزرگ به صورت $a \times 10^n$ که در آن $1 \le a < 10$ است.</p>
+                <p><strong>جذر مربع تام:</strong> یکی از دو جزء ضربی مساوی یک عدد (مثلاً $\sqrt{144} = 12$).</p>
+            </div>
+        </div>
+
+        <!-- VIEW 4: INTERACTIVE TOOLS -->
+        <div id="tools-view" class="tab-content">
+            <!-- Tool 1: G.C.D & L.C.M -->
+            <div class="interactive-tool">
+                <h3><i class="fa-solid fa-gears"></i> ۱. محاسبه‌گر هوشمند G.C.D و L.C.M دو عدد</h3>
+                <div class="input-group">
+                    <input type="number" id="num1" placeholder="عدد اول (مثلاً 24)">
+                    <input type="number" id="num2" placeholder="عدد دوم (مثلاً 36)">
+                    <button class="action-btn" onclick="calculateGcdLcm()">محاسبه کن</button>
+                </div>
+                <div class="result-box" id="gcdLcmResult">نتیجه محاسبه اینجا نمایش داده می‌شود...</div>
+            </div>
+
+            <!-- Tool 2: Prime Factorization -->
+            <div class="interactive-tool">
+                <h3><i class="fa-solid fa-microchip"></i> ۲. تجزیه هوشمند عدد به عوامل اولیه</h3>
+                <div class="input-group">
+                    <input type="number" id="primeNum" placeholder="یک عدد وارد کنید (مثلاً 72)">
+                    <button class="action-btn" onclick="factorizeNumber()">تجزیه به اعداد اولیه</button>
+                </div>
+                <div class="result-box" id="primeResult">عوامل اولیه عدد...</div>
+            </div>
+
+            <!-- Tool 3: Set Operations -->
+            <div class="interactive-tool">
+                <h3><i class="fa-solid fa-vial"></i> ۳. محاسبه‌گر اتحاد و تقاطع ست‌ها</h3>
+                <div class="input-group">
+                    <input type="text" id="setA" placeholder="ست A (مثلاً: 1,2,3,4)">
+                    <input type="text" id="setB" placeholder="ست B (مثلاً: 3,4,5,6)">
+                    <button class="action-btn" onclick="calculateSets()">محاسبه ست‌ها</button>
+                </div>
+                <div class="result-box" id="setResult">نتایج عملیات ست‌ها...</div>
+            </div>
+        </div>
+
+        <!-- Bottom Note -->
+        <div class="note">
+            این ساختار دقیقاً بر اساس کتاب رسمی ریاضی صنف ۷ وزارت معارف افغانستان طراحی شده است.<br>
+            محتوا به صورت مرحله‌به‌مرحله و با بالاترین کیفیت آموزشی تکمیل می‌گردد.
+        </div>
+
+    </div>
+
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <!-- Interactive Scripts -->
+    <script>
+        function openView(evt, viewId) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(viewId).classList.add("active");
+            if (evt) evt.currentTarget.classList.add("active");
+        }
+
+        function switchTab(viewId) {
+            const btns = document.getElementsByClassName("tab-btn");
+            for (let btn of btns) {
+                if (btn.getAttribute('onclick').includes(viewId)) {
+                    btn.click();
+                    break;
+                }
+            }
+        }
+
+        /* G.C.D Helper */
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        /* Logic 1: G.C.D and L.C.M */
+        function calculateGcdLcm() {
+            const n1 = parseInt(document.getElementById('num1').value);
+            const n2 = parseInt(document.getElementById('num2').value);
+            const resBox = document.getElementById('gcdLcmResult');
+
+            if (isNaN(n1) || isNaN(n2) || n1 <= 0 || n2 <= 0) {
+                resBox.innerHTML = "<span style='color: var(--danger);'>لطفاً دو عدد طبیعی و مثبت وارد کنید!</span>";
+                return;
+            }
+
+            const g = gcd(n1, n2);
+            const l = (n1 * n2) / g;
+
+            resBox.innerHTML = `
+                <strong>بزرگ‌ترین قاسم مشترک (G.C.D):</strong> ${g} <br>
+                <strong>کوچک‌ترین مضرب مشترک (L.C.M):</strong> ${l} <br>
+                <small style="color: var(--text-muted)">چک کردن رابطه: ${n1} × ${n2} = ${g} × ${l} = ${n1 * n2}</small>
+            `;
+        }
+
+        /* Logic 2: Prime Factorization */
+        function factorizeNumber() {
+            let n = parseInt(document.getElementById('primeNum').value);
+            const resBox = document.getElementById('primeResult');
+
+            if (isNaN(n) || n <= 1) {
+                resBox.innerHTML = "<span style='color: var(--danger);'>لطفاً عددی بزرگ‌تر از ۱ وارد کنید!</span>";
+                return;
+            }
+
+            let temp = n;
+            let factors = [];
+            for (let i = 2; i <= Math.sqrt(temp); i++) {
+                while (temp % i === 0) {
+                    factors.push(i);
+                    temp /= i;
+                }
+            }
+            if (temp > 1) factors.push(temp);
+
+            resBox.innerHTML = `تجزیه عدد <strong>${n}</strong> به اجزای اولیه: <br> 
+                <span style="font-size: 1.1rem; color: var(--accent);">${n} = ${factors.join(' × ')}</span>`;
+        }
+
+        /* Logic 3: Set Operations */
+        function calculateSets() {
+            const rawA = document.getElementById('setA').value.trim();
+            const rawB = document.getElementById('setB').value.trim();
+            const resBox = document.getElementById('setResult');
+
+            if (!rawA || !rawB) {
+                resBox.innerHTML = "<span style='color: var(--danger);'>لطفاً اعضای هر دو ست را وارد کنید!</span>";
+                return;
+            }
+
+            const arrA = Array.from(new Set(rawA.split(',').map(s => s.trim())));
+            const arrB = Array.from(new Set(rawB.split(',').map(s => s.trim())));
+
+            const union = Array.from(new Set([...arrA, ...arrB]));
+            const intersection = arrA.filter(x => arrB.includes(x));
+            const diffA_B = arrA.filter(x => !arrB.includes(x));
+
+            resBox.innerHTML = `
+                <strong>اتحاد (A ∪ B):</strong> { ${union.join(', ')} } <br>
+                <strong>تقاطع (A ∩ B):</strong> { ${intersection.length ? intersection.join(', ') : '∅ (ست خالی)'} } <br>
+                <strong>تفاضل (A - B):</strong> { ${diffA_B.length ? diffA_B.join(', ') : '∅'} }
+            `;
+        }
+    </script>
+</body>
+</html>

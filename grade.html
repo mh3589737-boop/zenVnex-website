@@ -29,6 +29,31 @@
         .message { 
             font-size: 20px; color: rgba(255,255,255,0.8); margin-bottom: 60px; line-height: 1.6; 
         }
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto 0;
+}
+.subject-card {
+    background: #0a0a0a;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 28px 20px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.subject-card:hover {
+    border-color: #fff;
+    transform: translateY(-4px);
+    background: #111;
+}
+@media(max-width: 768px) {
+    .subjects-grid { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -69,17 +94,74 @@
 
         const content = document.getElementById('content');
 
-        if (grade) {
-            content.innerHTML = `
-                <h1 class="title">صنف ${grade}</h1>
-                <p class="message">
-                    به زودی درس‌های کامل این صنف اضافه خواهد شد.<br>
-                    در حال حاضر در حال آماده‌سازی محتوای باکیفیت برای شما هستیم.
-                </p>
-            `;
-        } else {
-            content.innerHTML = `<h1 class="title">خطا</h1><p>صنف مورد نظر پیدا نشد.</p>`;
-        }
+      const allowedGrades = ['7', '8', '9'];
+
+const subject = params.get('subject');
+
+const subjects = [
+    { key: "math", name: "ریاضی" },
+    { key: "dari", name: "دری" },
+    { key: "english", name: "انگلیسی" },
+    { key: "physics", name: "فیزیک" },
+    { key: "history", name: "تاریخ" },
+    { key: "geography", name: "جغرافیا" },
+    { key: "biology", name: "بیولوژی" },
+    { key: "arabic", name: "عربی" },
+    { key: "chemistry", name: "کیمیا" }
+];
+
+if (grade && allowedGrades.includes(grade)) {
+    if (subject) {
+        const subjectName = subjects.find(s => s.key === subject)?.name || "این مضمون";
+        content.innerHTML = `
+            <h1 class="title">${subjectName} — صنف ${grade}</h1>
+            <p class="message">
+                به زودی محتوای کامل این مضمون اضافه خواهد شد.<br>
+                در حال حاضر در حال آماده‌سازی محتوای باکیفیت برای شما هستیم.
+            </p>
+        `;
+    } else {
+const cardsHtml = subjects.map(s => {
+
+    if (s.key === "english") {
+        return `<a href="english-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "math") {
+        return `<a href="math-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "dari") {
+        return `<a href="dari-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "physics" || s.key === "physic") {
+        return `<a href="physic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "history") {
+        return `<a href="history-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "biology" || s.key === "biologiy") {
+        return `<a href="biology-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "chemistry" || s.key === "kimia" || s.key === "chem") {
+        return `<a href="chemistry-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "arabic" || s.key === "arabi") {
+        return `<a href="arabic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    if (s.key === "geography" || s.key === "geographia" || s.key === "geo") {
+        return `<a href="geography-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+    }
+    return `<a href="grade.html?grade=${grade}&subject=${s.key}" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+}).join("");
+
+        content.innerHTML = `
+            <h1 class="title">صنف ${grade}</h1>
+            <p class="message">مضمون مورد نظر خود را انتخاب کنید</p>
+            <div class="subjects-grid">${cardsHtml}</div>
+        `;
+    }
+} else {
+    content.innerHTML = `<h1 class="title">خطا</h1><p>صنف مورد نظر پیدا نشد.</p>`;
+}
     </script>
 </body>
 </html>

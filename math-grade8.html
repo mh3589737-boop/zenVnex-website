@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ریاضی صنف هشتم | ZENVNEX</title>
+    <!-- CSS Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Vazirmatn Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- MathJax for rendering math formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Chart.js for Statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #06b6d4;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --accent-gold: #f59e0b;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(6, 182, 212, 0.9)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .chapter-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 12px 25px rgba(6, 182, 212, 0.25);
+        }
+
+        .chapter-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            opacity: 0.9;
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .interactive-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border-right: 4px solid var(--accent-gold);
+            margin: 15px 0;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--text-light);
+            border-radius: 10px;
+            margin: 0 5px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="hero-header text-center text-white">
+        <div class="container">
+            <a href="grade.html" class="btn btn-outline-light mb-4 rounded-pill px-4">
+                <i class="fas fa-arrow-right me-2"></i> بازگشت به لیست صنف‌ها
+            </a>
+            <h1 class="fw-extrabold display-4">ریاضی صنف هشتم (Grade 8 Math)</h1>
+            <p class="lead mt-3 text-light">دوره جامع آموزشی مطابق با آخرین نصاب تعلیمی معارف افغانستان و متدهای پیشرفته بین‌المللی</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <span class="badge bg-primary fs-6 px-3 py-2"><i class="fas fa-book-open me-1"></i> ۱۱ فصل کامل</span>
+                <span class="badge bg-info fs-6 px-3 py-2"><i class="fas fa-calculator me-1"></i> ابزارهای تعاملی</span>
+                <span class="badge bg-warning text-dark fs-6 px-3 py-2"><i class="fas fa-certificate me-1"></i> ZENVNEX Standard</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container my-5">
+        
+        <!-- Interactive Tools Highlights -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-3">
+                <div class="interactive-box">
+                    <h4><i class="fas fa-square-root-variable text-warning me-2"></i> ماشین‌حساب تعاملی جذر تقریبی (فصل ۱)</h4>
+                    <p class="small text-muted">استخراج جذر مربع تقریبی اعداد به روش اوسط و عمومی</p>
+                    <div class="input-group mb-2">
+                        <input type="number" id="rootInput" class="form-control bg-dark text-white border-secondary" placeholder="یک عدد وارد کنید (مثلاً: 5)">
+                        <button class="btn btn-custom" onclick="calculateSquareRoot()">محاسبه جذر</button>
+                    </div>
+                    <div id="rootResult" class="fw-bold text-info mt-2"></div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="interactive-box">
+                    <h4><i class="fas fa-chart-line text-info me-2"></i> محاسبه ربح ساده و مرکب (فصل ۲)</h4>
+                    <p class="small text-muted">محاسبه آنلاین محاسبات مالی $P = A(1+r)^n$</p>
+                    <div class="row g-2">
+                        <div class="col-6"><input type="number" id="principal" class="form-control bg-dark text-white border-secondary" placeholder="سرمایه اصلی"></div>
+                        <div class="col-3"><input type="number" id="rate" class="form-control bg-dark text-white border-secondary" placeholder="نرخ %"></div>
+                        <div class="col-3"><input type="number" id="years" class="form-control bg-dark text-white border-secondary" placeholder="سال"></div>
+                    </div>
+                    <button class="btn btn-custom w-100 mt-2" onclick="calculateInterest()">محاسبه ربح مرکب</button>
+                    <div id="interestResult" class="fw-bold text-success mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Curriculum Grid (11 Chapters) -->
+        <h2 class="text-center mb-4 fw-bold"><i class="fas fa-layer-group text-primary me-2"></i> سرفصل‌های آموزشی</h2>
+        <div class="row g-4">
+
+            <!-- Chapter 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-infinity"></i></div>
+                    <h5>فصل اول: اعداد حقیقی</h5>
+                    <p class="text-muted small">مفهوم اعداد گنگ ($\mathbb{Q}'$)، اعداد حقیقی ($\mathbb{R}$)، جذر مربع تقریبی، محاسبات اعداد توان‌دار و ناطق‌سازی کسرها.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> نمایش $\sqrt{2}$ روی محور اعداد</li>
+                        <li><i class="fas fa-check text-success me-2"></i> خواص جمع و ضرب اعداد حقیقی</li>
+                        <li><i class="fas fa-check text-success me-2"></i> توان‌های کسری و قوانین آن</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-coins"></i></div>
+                    <h5>فصل دوم: محاسبات مالی</h5>
+                    <p class="text-muted small">نسبت و تناسب، تقسیم به اجزای متناسبه، فیصدی، روش احدیت، تخفیف، و محاسبه ربح ساده و مرکب.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> تناسب مستقیم و معکوس</li>
+                        <li><i class="fas fa-check text-success me-2"></i> تناسب مرکب (Compound Proportion)</li>
+                        <li><i class="fas fa-check text-success me-2"></i> فرمول ربح مرکب: $P = A(1+r)^n$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-shapes"></i></div>
+                    <h5>فصل سوم: مشابهت‌ها</h5>
+                    <p class="text-muted small">مضلعات متشابه، قضیه خطوط موازی و فاصله‌های مساوی، قضیه تالس (Thales Theorem) و حالت‌های تشابه مثلث‌ها.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> نسبت تشابه مضلعات</li>
+                        <li><i class="fas fa-check text-success me-2"></i> قضیه تالس در مثلث</li>
+                        <li><i class="fas fa-check text-success me-2"></i> حالت‌های تشابه (ض‌ض‌ض، ز‌ز، ض‌ز‌ض)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-draw-polygon"></i></div>
+                    <h5>فصل چهارم: تناظر (Symmetry)</h5>
+                    <p class="text-muted small">مفهوم انطباق و تناظر، تناظر محوری (Axial Symmetry) و تناظر مرکزی (Central Symmetry) در مستوی.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> محور تناظر اشکال هندسی</li>
+                        <li><i class="fas fa-check text-success me-2"></i> مرکز تناظر و خواص آن</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-ruler-combined"></i></div>
+                    <h5>فصل پنجم: قضایای مثلث</h5>
+                    <p class="text-muted small">مثلث متساوی‌الساقین، قضیه فیثاغورث و عکس آن، زوایای $30^\circ$ و $60^\circ$، ناصف‌الزاویه، ارتفاع و میانه.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> اثبات قضیه فیثاغورث: $a^2 + b^2 = c^2$</li>
+                        <li><i class="fas fa-check text-success me-2"></i> نقطه تقاطع میانه‌ها و ارتفاعات</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-cube"></i></div>
+                    <h5>فصل ششم: مساحت‌ها و احجام</h5>
+                    <p class="text-muted small">مساحت و حجم مکعب مستطیل، منشور، استوانه، هرم، مخروط و کره هندسی.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> محاسبه قطر مکعب مستطیل</li>
+                        <li><i class="fas fa-check text-success me-2"></i> حجم کره $V = \frac{4}{3}\pi r^3$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 7 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-square-root-variable"></i></div>
+                    <h5>فصل هفتم: افاده‌های الجبری</h5>
+                    <p class="text-muted small">متحول، ساده‌سازی، ضرب و تقسیم افاده‌های یک‌حده و چندحده، مطابقت‌ها و تجزیه.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> مربع مجموع و تفاضل دو افاده</li>
+                        <li><i class="fas fa-check text-success me-2"></i> مطابقت $a^2 - b^2 = (a-b)(a+b)$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 8 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-equals"></i></div>
+                    <h5>فصل هشتم: معادلات</h5>
+                    <p class="text-muted small">مفهوم معادله، عملیات روی مساوات، معادلات درجه اول یک مجهوله و تشکیل معادلات برای مسائل کلامی.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> حل معادلات عمومی $ax + b = c$</li>
+                        <li><i class="fas fa-check text-success me-2"></i> معادلات معادل (Equivalent Equations)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 9 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-chart-line"></i></div>
+                    <h5>فصل نهم: رابطه و تابع</h5>
+                    <p class="text-muted small">مستوی مختصات قائم، نقاط و زوج‌های مرتب، مفهوم رابطه، رابطه خطی و تشکیل تابع.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> نمایش نقطه در مستوی $(x, y)$</li>
+                        <li><i class="fas fa-check text-success me-2"></i> گراف رابطه خطی $y = mx + b$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 10 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h5>فصل دهم: احصائیه (Statistics)</h5>
+                    <p class="text-muted small">جدول کثرت، کثرت تجمعی و نسبی، گراف میله‌ای، گراف خط منکسر و محاسبه اوسط دیتا.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> دیتای متمادی و غیر متمادی</li>
+                        <li><i class="fas fa-check text-success me-2"></i> محاسبه اوسط دیتای آماری</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chapter 11 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="chapter-card p-4">
+                    <div class="chapter-icon"><i class="fas fa-dice"></i></div>
+                    <h5>فصل یازدهم: احتمال (Probability)</h5>
+                    <p class="text-muted small">کثرت نسبی و احتمال، چانس برابر و نابرابر، فضای نمونه، حادثه اتفاقی و دیاگرام درختی.</p>
+                    <hr class="border-secondary">
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-2"></i> قاعده اول مسیر (حاصل ضرب)</li>
+                        <li><i class="fas fa-check text-success me-2"></i> محاسبه احتمال حوادث $P(A) = \frac{n(A)}{n(S)}$</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Visual Interactive Demonstration (Chart) -->
+        <div class="row my-5">
+            <div class="col-12">
+                <div class="chapter-card p-4">
+                    <h4 class="mb-3"><i class="fas fa-chart-area text-info me-2"></i> نمونه تعاملی فصل دهم: رسم گراف خط منکسر احصائیوی</h4>
+                    <canvas id="mathChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-muted border-top border-secondary mt-5">
+        <p class="mb-0">طراحی شده برای پلتفرم آموزشی <strong>ZENVNEX</strong> | تمامی حقوق محفوظ است ۲۰۲۶</p>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Square Root Calculator
+        function calculateSquareRoot() {
+            const num = parseFloat(document.getElementById('rootInput').value);
+            const resultDiv = document.getElementById('rootResult');
+            if (isNaN(num) || num < 0) {
+                resultDiv.innerHTML = "لطفاً یک عدد مثبت و معتبر وارد کنید.";
+                return;
+            }
+            const approx = Math.sqrt(num).toFixed(4);
+            resultDiv.innerHTML = `جذر تقریبی عدد ${num} برابر است با: <strong>${approx}</strong>`;
+        }
+
+        // Compound Interest Calculator
+        function calculateInterest() {
+            const A = parseFloat(document.getElementById('principal').value);
+            const r = parseFloat(document.getElementById('rate').value) / 100;
+            const n = parseFloat(document.getElementById('years').value);
+            const resultDiv = document.getElementById('interestResult');
+
+            if (isNaN(A) || isNaN(r) || isNaN(n)) {
+                resultDiv.innerHTML = "لطفاً تمام مقادیر را درست وارد کنید.";
+                return;
+            }
+
+            const P = A * Math.pow((1 + r), n);
+            resultDiv.innerHTML = `سرمایه کل همراه با ربح مرکب: <strong>${P.toFixed(2)} افغانی</strong>`;
+        }
+
+        // Chart.js Sample Graph
+        const ctx = document.getElementById('mathChart').getContext('2d');
+        const mathChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه'],
+                datasets: [{
+                    label: 'تغییرات دیتا (گراف خط منکسر)',
+                    data: [12, 19, 3, 5, 2, 15],
+                    borderColor: '#06b6d4',
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { color: '#ffffff' } }
+                },
+                scales: {
+                    x: { ticks: { color: '#ffffff' } },
+                    y: { ticks: { color: '#ffffff' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

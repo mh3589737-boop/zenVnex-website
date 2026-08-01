@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ریاضی صنف نهم - ZENVNEX</title>
+    <!-- ZENVNEX Core & Unified Math Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- KaTeX for High-Performance Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --card-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.15);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header & Navigation */
+        .page-header {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(79, 70, 229, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateX(3px);
+        }
+
+        /* Course Hero Banner */
+        .course-hero {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-hero h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+        }
+
+        .course-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0;
+        }
+
+        /* Curriculum Section & Accordion */
+        .chapter-card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .chapter-header {
+            padding: 24px;
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid transparent;
+            user-select: none;
+        }
+
+        .chapter-header:hover {
+            background: #f8fafc;
+        }
+
+        .chapter-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chapter-badge {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .chapter-content {
+            display: none;
+            padding: 30px;
+            border-top: 1px solid var(--border-color);
+            background: #fafafa;
+        }
+
+        .chapter-card.active .chapter-content {
+            display: block;
+        }
+
+        .chapter-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Content Blocks */
+        .block-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .block-box.activity { border-right-color: var(--accent-amber); }
+        .block-box.theorem { border-right-color: var(--accent-green); }
+        .block-box.exercise { border-right-color: #ec4899; }
+
+        .block-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .block-title i { font-size: 1rem; }
+
+        /* Formula & List Style */
+        .katex-display {
+            margin: 1em 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 10px 0;
+        }
+
+        ul, ol {
+            padding-right: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header class="page-header">
+        <div class="container header-content">
+            <a href="grade.html" class="back-btn">
+                <i class="fa-solid fa-arrow-right"></i> بازگشت به لیست صنف‌ها
+            </a>
+            <div style="font-weight: 700; color: var(--primary-color);">پلتفرم آموزشی ZENVNEX</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Main Course Hero Banner -->
+        <section class="course-hero">
+            <h1>ریاضی صنف نهم</h1>
+            <p>آموزش کاملاً استاندارد، تشریحی و گام‌به‌گام تمام مفاهیم، قضایا، تعاریف و تمرینات کتاب درسی ریاضی صنف ۹ معارف افغانستان[span_3](start_span)[span_3](end_span).</p>
+        </section>
+
+        <!-- Chapter 1 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۱</div>
+                    <div>
+                        <h3 style="margin:0;">فصل اول: دایره (Circle)</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">عناصر دایره، حالات مستقیم با دایره، موقعیت دو دایره، زوایای مرکزی و محیطی[span_4](start_span)[span_4](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-book-open" style="color:var(--primary-color);"></i> تعاریف و عناصر دایره</div>
+                    <p><strong>دایره:</strong> ست تمام نقاط یک مستوی که از یک نقطه ثابت (مرکز $O$) به فاصله مساوی ($r$) قرار داشته باشند[span_5](start_span)[span_5](end_span). به شکل $C(O,r)$ نمایش داده می‌شود[span_6](start_span)[span_6](end_span).</p>
+                    <ul>
+                        <li><strong>قوس (Arc):</strong> قسمتی از محیط دایره[span_7](start_span)[span_7](end_span).</li>
+                        <li><strong>وتر (Chord):</strong> قطعه‌خطی که دو نقطه محیط دایره را به هم وصل کند[span_8](start_span)[span_8](end_span).</li>
+                        <li><strong>قطر (Diameter):</strong> وتری که از مرکز دایره بگذرد ($d = 2r$)[span_9](start_span)[span_9](end_span).</li>
+                        <li><strong>قطاع (Sector):</strong> قسمتی از سطح دایره که توسط دو شعاع و قوس مربوطه جدا شده است[span_10](start_span)[span_10](end_span).</li>
+                        <li><strong>قطعه (Segment):</strong> قسمتی از سطح دایره که توسط یک وتر جدا شده باشد[span_11](start_span)[span_11](end_span).</li>
+                    </ul>
+                </div>
+
+                <div class="block-box theorem">
+                    <div class="block-title"><i class="fa-solid fa-certificate" style="color:var(--accent-green);"></i> قضایای اصلی دایره</div>
+                    <p><strong>قضیه وتر و قطر:</strong> در هر دایره، قطری که بر یک وتر عمود باشد، آن وتر و قوس‌های مربوط به آن را تنصیف می‌کند[span_12](start_span)[span_12](end_span).</p>
+                    <p><strong>قضیه شعاع و مماس:</strong> شعاع دایره در نقطه تماس، بر خط مماس عمود است[span_13](start_span)[span_13](end_span).</p>
+                    <p><strong>زاویه مرکزی:</strong> زاویه‌ای که رأس آن در مرکز دایره باشد[span_14](start_span)[span_14](end_span). اندازه آن بر حسب درجه مساوی با قوس مقابل آن است: $\hat{AOB} = \hat{AB}$[span_15](start_span)[span_15](end_span).</p>
+                    <p><strong>زاویه محیطی:</strong> زاویه‌ای که رأس آن روی محیط دایره باشد و اضلاع آن دو وتر دایره باشند[span_16](start_span)[span_16](end_span). وسعت زاویه محیطی برابر است با نصف قوس مقابل: $\hat{ABC} = \frac{1}{2}\hat{AC}$[span_17](start_span)[span_17](end_span).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۲</div>
+                    <div>
+                        <h3 style="margin:0;">فصل دوم: روابط بین دایره و خطوط مستقیم</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">روابط طولی، طاقت نقطه، مماس، زوایای داخلی و خارجی، دایره محاطی و محیطی[span_18](start_span)[span_18](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box theorem">
+                    <div class="block-title"><i class="fa-solid fa-square-root-variable" style="color:var(--accent-green);"></i> قضیه قاطع‌ها و طاقت نقطه</div>
+                    <p>هرگاه از یک نقطه خارجی $P$ دو قاطع $PAB$ و $PCD$ رسم گردد[span_19](start_span)[span_19](end_span)، داریم:</p>
+                    $$PA \cdot PB = PC \cdot PD$$
+                    <p><strong>طاقت نقطه (Power of a Point):</strong> اگر فاصله نقطه $P$ از مرکز دایره $d$ و شعاع $r$ باشد[span_20](start_span)[span_20](end_span)، مقدار ثابت طاقت نقطه برابر است با:</p>
+                    $$P_{(O)} = d^2 - r^2$$
+                </div>
+
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-shapes" style="color:var(--primary-color);"></i> محیط و مساحت دایره</div>
+                    <p>محیط دایره: $C = 2\pi r$[span_21](start_span)[span_21](end_span)</p>
+                    <p>مساحت دایره: $A = \pi r^2$[span_22](start_span)[span_22](end_span)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۳</div>
+                    <div>
+                        <h3 style="margin:0;">فصل سوم: هندسه تحلیلی (Analytic Geometry)</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">فاصله دو نقطه، نقطه وسطی، میل خط مستقیم، معادله خط مستقیم[span_23](start_span)[span_23](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-calculator" style="color:var(--primary-color);"></i> فرمول‌های کلیدی هندسه تحلیلی</div>
+                    <p><strong>۱. فاصله بین دو نقطه $A(x_1, y_1)$ و $B(x_2, y_2)$:</strong>[span_24](start_span)[span_24](end_span)</p>
+                    $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+                    
+                    <p><strong>۲. مختصات نقطه وسطی قطعه‌خط ($M$):</strong>[span_25](start_span)[span_25](end_span)</p>
+                    $$M\left(\frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2}\right)$$
+
+                    <p><strong>۳. میل خط مستقیم ($m$):</strong>[span_26](start_span)[span_26](end_span)</p>
+                    $$m = \frac{y_2 - y_1}{x_2 - x_1}$$
+
+                    <p><strong>۴. شرط موازی و عمود بودن دو خط:</strong>[span_27](start_span)[span_27](end_span)</p>
+                    <ul>
+                        <li>دو خط موازی: $m_1 = m_2$[span_28](start_span)[span_28](end_span)</li>
+                        <li>دو خط عمود برهم: $m_1 \cdot m_2 = -1$[span_29](start_span)[span_29](end_span)</li>
+                    </ul>
+
+                    <p><strong>۵. معادله خط مستقیم با داشتن دو نقطه:</strong>[span_30](start_span)[span_30](end_span)</p>
+                    $$y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)$$
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۴</div>
+                    <div>
+                        <h3 style="margin:0;">فصل چهارم: مثلثات (Trigonometry)</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">قضیه تالس، نسبت‌های مثلثاتی، جدول مثلثاتی و حل مثلث‌های قائم‌الزاویه[span_31](start_span)[span_31](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-triangle-exclamation" style="color:var(--primary-color);"></i> نسبت‌های اصلی مثلثاتی</div>
+                    <p>در یک مثلث قائم‌الزاویه با زاویه حاده $\theta$[span_32](start_span)[span_32](end_span):</p>
+                    $$\sin\theta = \frac{\text{ضلع مقابل}}{\text{وتر}}, \quad \cos\theta = \frac{\text{ضلع مجاور}}{\text{وتر}}, \quad \tan\theta = \frac{\text{ضلع مقابل}}{\text{ضلع مجاور}}$$
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۵</div>
+                    <div>
+                        <h3 style="margin:0;">فصل پنجم: افاده‌های الجبری</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">تجزیه به فکتور، ضرب افاده‌ها، کوچکترین مضرب مشترک و تقسیم افاده‌ها[span_33](start_span)[span_33](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box theorem">
+                    <div class="block-title"><i class="fa-solid fa-atom" style="color:var(--accent-green);"></i> مطابقت‌های مهم (Factorization)</div>
+                    <p>مجموع و تفاضل مکعبات دو حد[span_34](start_span)[span_34](end_span):</p>
+                    $$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$
+                    $$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۶</div>
+                    <div>
+                        <h3 style="margin:0;">فصل ششم: نامساوات (Inequalities)</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">حل نامساوات‌های خطی، انتروال‌ها، تعیین اشاره بینوم و نامساوات‌های کسری[span_35](start_span)[span_35](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-less-than-equal" style="color:var(--primary-color);"></i> انتروال‌ها و تعیین اشاره</div>
+                    <p>تعیین اشاره بینوم درجه اول $P(x) = ax + b$ با جذر $x = -\frac{b}{a}$[span_36](start_span)[span_36](end_span):</p>
+                    <ul>
+                        <li>برای مقادیر بزرگتر از جذر: موافق اشاره $a$[span_37](start_span)[span_37](end_span)</li>
+                        <li>برای مقادیر کوچکتر از جذر: مخالف اشاره $a$[span_38](start_span)[span_38](end_span)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 7 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۷</div>
+                    <div>
+                        <h3 style="margin:0;">فصل هفتم: معادلات درجه دوم</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">روش‌های هندسی، تکمیل مربع، فرمول عمومی (محمد بن موسی خوارزمی)[span_39](start_span)[span_39](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box theorem">
+                    <div class="block-title"><i class="fa-solid fa-square-root-variable" style="color:var(--accent-green);"></i> فرمول عمومی حل معادله درجه دوم</div>
+                    <p>معادله به فرم کلی $ax^2 + bx + c = 0$[span_40](start_span)[span_40](end_span):</p>
+                    $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+                    <p>که در آن $\Delta = b^2 - 4ac$ مبین (دلتا) معادله است[span_41](start_span)[span_41](end_span).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 8 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۸</div>
+                    <div>
+                        <h3 style="margin:0;">فصل هشتم: احصائیه (Statistics)</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">دسته بندی Data، اوسط وزنی، گراف‌ها، میانه و انحراف اوسط[span_42](start_span)[span_42](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-chart-column" style="color:var(--primary-color);"></i> اوسط وزنی (Weighted Mean)</div>
+                    $$W_m = \frac{\sum (w_i \cdot x_i)}{\sum w_i}$$
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapter 9 -->
+        <div class="chapter-card">
+            <div class="chapter-header" onclick="toggleChapter(this)">
+                <div class="chapter-title">
+                    <div class="chapter-badge">۹</div>
+                    <div>
+                        <h3 style="margin:0;">فصل نهم: تیوری احتمالات</h3>
+                        <span style="font-size: 0.9rem; color: var(--text-muted);">حوادث اتفاقی، مدل‌سازی با ست‌ها و اصل شمارش[span_43](start_span)[span_43](end_span)</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="chapter-content">
+                <div class="block-box">
+                    <div class="block-title"><i class="fa-solid fa-dice" style="color:var(--primary-color);"></i> قوانین احتمال و ست‌ها</div>
+                    <p>احتمال حادثه $A$ برابر است با: $P(A) = \frac{n(A)}{n(S)}$[span_44](start_span)[span_44](end_span)</p>
+                    <p>قانون اتحاد حوادث: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$[span_45](start_span)[span_45](end_span)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 ZENVNEX Educational Platform - طراحی مدرن بر اساس نصاب تعلیمی معارف[span_46](start_span)[span_46](end_span)</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Accordion functionality
+        function toggleChapter(element) {
+            const card = element.parentElement;
+            card.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

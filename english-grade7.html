@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انگلیسی - صنف ۷ | ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 40px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 50px;
+            text-align: right;
+        }
+        .page-header .eyebrow {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+        }
+        .page-header h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .page-header p {
+            color: rgba(255,255,255,0.65);
+            font-size: 16px;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        .progress-box {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .progress-info {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            max-width: 300px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #2C6B4C;
+            border-radius: 3px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title span {
+            background: #2C6B4C;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        .unit-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .unit-card:hover {
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-3px);
+        }
+        .unit-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .unit-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .unit-title-en {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .unit-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.5;
+        }
+        .unit-status {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #2C6B4C;
+            font-weight: 500;
+        }
+
+        .coming-soon {
+            opacity: 0.55;
+            pointer-events: none;
+        }
+        .coming-soon .unit-status {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .note {
+            margin-top: 60px;
+            padding: 20px;
+            background: rgba(44,107,76,0.1);
+            border: 1px solid rgba(44,107,76,0.3);
+            border-radius: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 18px 20px; }
+            .container { padding: 30px 20px 60px; }
+            .page-header h1 { font-size: 26px; }
+            .progress-box { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="dashboard.html" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="grade.html?grade=7" class="btn">بازگشت به صنف ۷</a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="page-header">
+            <div class="eyebrow">صنف ۷ · انگلیسی</div>
+            <h1>انگلیسی صنف ۷</h1>
+            <p>
+                دوره رسمی انگلیسی صنف ۷ بر اساس کتاب وزارت معارف افغانستان.<br>
+                ساختار مرتب و مرحله‌به‌مرحله برای یادگیری آسان‌تر.
+            </p>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-info">پیشرفت شما: <strong>۰ از ۱۶ واحد تکمیل شده</strong></div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- بخش ۱ -->
+        <div class="section">
+            <div class="section-title">
+                بخش ۱: مبانی یادگیری
+                <span>واحد ۱ تا ۴</span>
+            </div>
+            <div class="units-grid">
+                <a href="unit.html?grade=7&subject=english&unit=1" class="unit-card">
+                    <div class="unit-number">UNIT 01</div>
+                    <div class="unit-title">صبح بخیر</div>
+                    <div class="unit-title-en">Good Morning</div>
+                    <div class="unit-desc">سلام و احوال‌پرسی، حروف الفبا، اعداد و معرفی خود</div>
+                    <div class="unit-status">آماده برای شروع ←</div>
+                </a>
+                <a href="unit.html?grade=7&subject=english&unit=2" class="unit-card">
+                    <div class="unit-number">UNIT 02</div>
+                    <div class="unit-title">کلاس من</div>
+                    <div class="unit-title-en">My Classroom</div>
+                    <div class="unit-desc">اشیای کلاس، دستورات کلاسی و مفرد و جمع</div>
+                    <div class="unit-status">آماده برای شروع ←</div>
+                </a>
+                <a href="unit.html?grade=7&subject=english&unit=3" class="unit-card">
+                    <div class="unit-number">UNIT 03</div>
+                    <div class="unit-title">مدرسه من</div>
+                    <div class="unit-title-en">My School</div>
+                    <div class="unit-desc">مکان‌های مدرسه، دروس، مشاغل و فعل Be</div>
+                    <div class="unit-status">آماده برای شروع ←</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 04</div>
+                    <div class="unit-title">مرور</div>
+                    <div class="unit-title-en">Review</div>
+                    <div class="unit-desc">مرور واحدهای ۱ تا ۳</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- بخش ۲ -->
+        <div class="section">
+            <div class="section-title">
+                بخش ۲: زندگی شخصی
+                <span>واحد ۵ تا ۸</span>
+            </div>
+            <div class="units-grid">
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 05</div>
+                    <div class="unit-title">خانواده من</div>
+                    <div class="unit-title-en">My Family</div>
+                    <div class="unit-desc">اعضای خانواده، نسبت‌ها و توصیف افراد</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 06</div>
+                    <div class="unit-title">خانه من</div>
+                    <div class="unit-title-en">My House</div>
+                    <div class="unit-desc">اتاق‌های خانه، There is/are و حروف اضافه مکان</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 07</div>
+                    <div class="unit-title">اتاق من</div>
+                    <div class="unit-title-en">My Room</div>
+                    <div class="unit-desc">توصیف اتاق شخصی و وسایل</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 08</div>
+                    <div class="unit-title">مرور</div>
+                    <div class="unit-title-en">Review</div>
+                    <div class="unit-desc">مرور واحدهای ۵ تا ۷</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- بخش ۳ -->
+        <div class="section">
+            <div class="section-title">
+                بخش ۳: زندگی روزمره و خرید
+                <span>واحد ۹ تا ۱۲</span>
+            </div>
+            <div class="units-grid">
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 09</div>
+                    <div class="unit-title">لباس‌های من</div>
+                    <div class="unit-title-en">My Clothes</div>
+                    <div class="unit-desc">لباس‌ها، رنگ‌ها، قیمت و مالکیت</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 10</div>
+                    <div class="unit-title">بدن من</div>
+                    <div class="unit-title-en">My Body</div>
+                    <div class="unit-desc">اعضای بدن</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 11</div>
+                    <div class="unit-title">خرید کردن</div>
+                    <div class="unit-title-en">Shopping</div>
+                    <div class="unit-desc">خرید، قیمت‌ها و گفتگو با فروشنده</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 12</div>
+                    <div class="unit-title">مرور</div>
+                    <div class="unit-title-en">Review</div>
+                    <div class="unit-desc">مرور واحدهای ۹ تا ۱۱</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- بخش ۴ -->
+        <div class="section">
+            <div class="section-title">
+                بخش ۴: فعالیت‌ها و جهان
+                <span>واحد ۱۳ تا ۱۶</span>
+            </div>
+            <div class="units-grid">
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 13</div>
+                    <div class="unit-title">فعالیت‌های روزانه</div>
+                    <div class="unit-title-en">Daily Activities</div>
+                    <div class="unit-desc">روتین‌های روزانه و بیان زمان</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 14</div>
+                    <div class="unit-title">غذا</div>
+                    <div class="unit-title-en">Food</div>
+                    <div class="unit-desc">واژگان غذایی و مکالمات مرتبط</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 15</div>
+                    <div class="unit-title">کشورها</div>
+                    <div class="unit-title-en">Countries</div>
+                    <div class="unit-desc">کشورها، فرهنگ‌ها و جغرافیای ساده</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+                <a href="#" class="unit-card coming-soon">
+                    <div class="unit-number">UNIT 16</div>
+                    <div class="unit-title">مرور نهایی</div>
+                    <div class="unit-title-en">Final Review</div>
+                    <div class="unit-desc">مرور کامل تمام کتاب</div>
+                    <div class="unit-status">به زودی</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="note">
+            این ساختار دقیقاً بر اساس کتاب رسمی انگلیسی صنف ۷ وزارت معارف افغانستان طراحی شده است.<br>
+            محتوا به صورت مرحله‌به‌مرحله و با کیفیت بالا اضافه خواهد شد.
+        </div>
+
+    </div>
+
+</body>
+</html>

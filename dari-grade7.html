@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دری صنف ۷ | ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+        .header-actions { display: flex; gap: 12px; }
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
+        }
+
+        .page-header { margin-bottom: 48px; }
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 10px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 15px;
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        .progress-box {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .progress-info { font-size: 14px; color: rgba(255,255,255,0.7); }
+        .progress-info strong { color: #fff; }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            max-width: 280px;
+            min-width: 160px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2C6B4C, #3d8b63);
+            border-radius: 3px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 40px 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title span {
+            background: #2C6B4C;
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .lesson-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.25s ease;
+        }
+        .lesson-card:hover {
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            background: #0f0f0f;
+        }
+        .lesson-number {
+            font-size: 11px;
+            letter-spacing: 1.2px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .lesson-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        .lesson-status {
+            margin-top: 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #2C6B4C;
+        }
+        .coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .coming-soon .lesson-status {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .note {
+            margin-top: 56px;
+            padding: 18px 22px;
+            background: rgba(44,107,76,0.08);
+            border: 1px solid rgba(44,107,76,0.2);
+            border-radius: 10px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 20px; }
+            .container { padding: 32px 20px 60px; }
+            .page-header h1 { font-size: 26px; }
+            .lessons-grid { grid-template-columns: 1fr; }
+            .progress-box { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="dashboard.html" class="logo">ZENVNEX</a>
+        <div class="header-actions">
+            <a href="grade.html?grade=7" class="btn">بازگشت به صنف ۷</a>
+            <a href="dashboard.html" class="btn">Dashboard</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="page-header">
+            <div class="eyebrow">صنف ۷ · زبان و ادبیات دری</div>
+            <h1>دری صنف ۷</h1>
+            <p>
+                دوره رسمی زبان و ادبیات دری صنف ۷ بر اساس کتاب وزارت معارف افغانستان.<br>
+                ۲۸ درس مرتب و هدفمند برای تقویت مهارت‌های خواندن، نوشتن، درک مطلب و قواعد زبان.
+            </p>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-info">پیشرفت شما: <strong>۰ از ۲۸ درس تکمیل شده</strong></div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- بخش ۱ -->
+        <div class="section-title">
+            بخش اول
+            <span>درس ۱ تا ۹</span>
+        </div>
+        <div class="lessons-grid">
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 01</div>
+                <div class="lesson-title">بهترین سرآغاز</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 02</div>
+                <div class="lesson-title">خرد دانا به نور روی او شد</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 03</div>
+                <div class="lesson-title">امانت‌داری و راست‌کاری</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 04</div>
+                <div class="lesson-title">بشردوستی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 05</div>
+                <div class="lesson-title">هدیه به مادران</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 06</div>
+                <div class="lesson-title">سرزمین من</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 07</div>
+                <div class="lesson-title">سنایی غزنوی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 08</div>
+                <div class="lesson-title">ملت</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 09</div>
+                <div class="lesson-title">نظافت</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+        </div>
+
+        <!-- بخش ۲ -->
+        <div class="section-title">
+            بخش دوم
+            <span>درس ۱۰ تا ۱۸</span>
+        </div>
+        <div class="lessons-grid">
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 10</div>
+                <div class="lesson-title">ارزش آب در زنده‌گی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 11</div>
+                <div class="lesson-title">اسراف</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 12</div>
+                <div class="lesson-title">رقعه‌نویسی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 13</div>
+                <div class="lesson-title">میرغیاث‌الدین غیاثی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 14</div>
+                <div class="lesson-title">فولکلور</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 15</div>
+                <div class="lesson-title">زبان دری</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 16</div>
+                <div class="lesson-title">زیب‌النسا مخفی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 17</div>
+                <div class="lesson-title">ضرب‌المثل‌ها</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 18</div>
+                <div class="lesson-title">حکایت</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+        </div>
+
+        <!-- بخش ۳ -->
+        <div class="section-title">
+            بخش سوم
+            <span>درس ۱۹ تا ۲۸</span>
+        </div>
+        <div class="lessons-grid">
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 19</div>
+                <div class="lesson-title">کمپیوتر</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 20</div>
+                <div class="lesson-title">شایق جمال</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 21</div>
+                <div class="lesson-title">شعر تعلیمی</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 22</div>
+                <div class="lesson-title">درخت بقا</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 23</div>
+                <div class="lesson-title">دکتور عبدالاحمد جاوید</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 24</div>
+                <div class="lesson-title">داستان کوتاه</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 25</div>
+                <div class="lesson-title">ورزش و فواید آن</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 26</div>
+                <div class="lesson-title">مواد مخدر</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 27</div>
+                <div class="lesson-title">ماین چیست و چند نوع دارد؟</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+            <a href="#" class="lesson-card">
+                <div class="lesson-number">LESSON 28</div>
+                <div class="lesson-title">صلح و امنیت</div>
+                <div class="lesson-status">آماده برای شروع ←</div>
+            </a>
+        </div>
+
+        <div class="note">
+            این ساختار دقیقاً بر اساس کتاب رسمی زبان و ادبیات دری صنف ۷ وزارت معارف افغانستان طراحی شده است.<br>
+            محتوا به صورت مرحله‌به‌مرحله و با بالاترین کیفیت آموزشی اضافه خواهد شد.
+        </div>
+
+    </div>
+
+</body>
+</html>
