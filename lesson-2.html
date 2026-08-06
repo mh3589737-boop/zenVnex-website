@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درس ۲ • خانواده من | ZENVNEX Academy</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fbf8f3',
+              100: '#f5eee3',
+              400: '#d9b882',
+              500: '#c5a880',
+              600: '#ab8b5d',
+            }
+          },
+          fontFamily: {
+            vazir: ['Vazirmatn', 'sans-serif'],
+            inter: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      background-color: #020203;
+      color: #f8fafc;
+      font-family: 'Vazirmatn', sans-serif;
+      overflow-x: hidden;
+    }
+    canvas#bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-panel {
+      background: rgba(15, 15, 22, 0.65);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      background: rgba(197, 168, 128, 0.06);
+      border-color: rgba(197, 168, 128, 0.35);
+      transform: translateY(-3px);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #c5a880 50%, #8a6d43 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(197, 168, 128, 0.3);
+    }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 h-20 glass-panel border-b border-white/10 px-6 lg:px-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-amber-200 flex items-center justify-center text-black font-extrabold font-inter text-xl gold-glow">
+          Z
+        </div>
+        <span class="font-inter font-black text-2xl tracking-[0.2em] text-white">
+          ZENVNEX
+        </span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="english-beginner.html" class="px-5 py-2.5 rounded-xl glass-card text-sm border border-white/10 hover:bg-white hover:text-black transition-all">
+          مسیر مبتدی
+        </a>
+        <a href="dashboard.html" class="px-5 py-2.5 rounded-xl glass-card text-sm border border-white/10 hover:bg-white hover:text-black transition-all">
+          داشبورد
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-10 flex flex-col gap-10">
+      
+      <!-- Hero -->
+      <section class="text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-brand-500/30 text-brand-400 text-xs font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+          درس ۲ • سطح مبتدی
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-black text-gradient font-inter mb-3 tracking-tight">
+          My Family
+        </h1>
+        <p class="text-slate-400 text-base max-w-lg mx-auto">
+          خانواده من • یادگیری اعضای خانواده و معرفی آن‌ها
+        </p>
+      </section>
+
+      <!-- Progress -->
+      <div class="glass-panel p-6 rounded-2xl border border-white/10">
+        <div class="flex justify-between items-center text-sm mb-3">
+          <span class="text-slate-300 font-medium">پیشرفت درس</span>
+          <span id="progress-text" class="font-inter font-bold text-brand-400">0% (0 از 4 بخش)</span>
+        </div>
+        <div class="w-full h-3 bg-black/50 rounded-full overflow-hidden">
+          <div id="progress-bar" class="h-full w-0 bg-gradient-to-r from-brand-600 via-brand-500 to-amber-200 rounded-full transition-all duration-700 gold-glow"></div>
+        </div>
+      </div>
+
+      <!-- Section 1: Conversation -->
+      <section id="section-1" class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-10 h-10 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center font-bold font-inter">01</div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Conversation Time</h2>
+            <p class="text-xs text-slate-400">مکالمه درباره خانواده</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 mb-8">
+          <!-- Sara -->
+          <div class="flex gap-3 max-w-[85%] items-start">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-xs font-bold shrink-0">سارا</div>
+            <div class="glass-card p-4 rounded-2xl rounded-tr-none w-full">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs text-brand-400 font-semibold">Sara</span>
+                <button onclick="speak('This is my family.')" class="p-1.5 rounded-lg bg-white/5 text-brand-400">
+                  <i data-lucide="volume-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="font-inter text-lg font-medium text-white">This is my family.</p>
+              <p class="text-xs text-slate-400 mt-1">این خانواده من است.</p>
+            </div>
+          </div>
+
+          <!-- Laila -->
+          <div class="flex gap-3 max-w-[85%] items-start mr-auto flex-row-reverse">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-xs font-bold shrink-0">لیلا</div>
+            <div class="glass-card p-4 rounded-2xl rounded-tl-none w-full bg-white/[0.04]">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs text-emerald-400 font-semibold">Laila</span>
+                <button onclick="speak('Who is this?')" class="p-1.5 rounded-lg bg-white/5 text-emerald-400">
+                  <i data-lucide="volume-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="font-inter text-lg font-medium text-white">Who is this?</p>
+              <p class="text-xs text-slate-400 mt-1">این کیست؟</p>
+            </div>
+          </div>
+
+          <!-- Sara -->
+          <div class="flex gap-3 max-w-[85%] items-start">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-xs font-bold shrink-0">سارا</div>
+            <div class="glass-card p-4 rounded-2xl rounded-tr-none w-full">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs text-brand-400 font-semibold">Sara</span>
+                <button onclick="speak('This is my mother.')" class="p-1.5 rounded-lg bg-white/5 text-brand-400">
+                  <i data-lucide="volume-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="font-inter text-lg font-medium text-white">This is my mother.</p>
+              <p class="text-xs text-slate-400 mt-1">این مادر من است.</p>
+            </div>
+          </div>
+
+          <!-- Laila -->
+          <div class="flex gap-3 max-w-[85%] items-start mr-auto flex-row-reverse">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-xs font-bold shrink-0">لیلا</div>
+            <div class="glass-card p-4 rounded-2xl rounded-tl-none w-full bg-white/[0.04]">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs text-emerald-400 font-semibold">Laila</span>
+                <button onclick="speak('And who is he?')" class="p-1.5 rounded-lg bg-white/5 text-emerald-400">
+                  <i data-lucide="volume-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="font-inter text-lg font-medium text-white">And who is he?</p>
+              <p class="text-xs text-slate-400 mt-1">و او کیست؟</p>
+            </div>
+          </div>
+
+          <!-- Sara -->
+          <div class="flex gap-3 max-w-[85%] items-start">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-xs font-bold shrink-0">سارا</div>
+            <div class="glass-card p-4 rounded-2xl rounded-tr-none w-full">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs text-brand-400 font-semibold">Sara</span>
+                <button onclick="speak('He is my father.')" class="p-1.5 rounded-lg bg-white/5 text-brand-400">
+                  <i data-lucide="volume-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <p class="font-inter text-lg font-medium text-white">He is my father.</p>
+              <p class="text-xs text-slate-400 mt-1">او پدر من است.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
+          <button onclick="speakAll()" class="px-6 py-3 rounded-xl glass-card text-white text-sm flex items-center gap-2 border border-white/10">
+            <i data-lucide="play-circle" class="w-4 h-4 text-brand-400"></i>
+            پخش کل مکالمه
+          </button>
+          <button onclick="markDone(1)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold text-sm flex items-center gap-2 gold-glow mr-auto">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            این بخش را یاد گرفتم
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 2: Words -->
+      <section id="section-2" class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-10 h-10 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center font-bold font-inter">02</div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Word Time</h2>
+            <p class="text-xs text-slate-400">واژگان اعضای خانواده</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+          <div onclick="speak('mother')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">mother</p>
+            <p class="text-xs text-slate-400 mt-1">مادر</p>
+          </div>
+          <div onclick="speak('father')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">father</p>
+            <p class="text-xs text-slate-400 mt-1">پدر</p>
+          </div>
+          <div onclick="speak('sister')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">sister</p>
+            <p class="text-xs text-slate-400 mt-1">خواهر</p>
+          </div>
+          <div onclick="speak('brother')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">brother</p>
+            <p class="text-xs text-slate-400 mt-1">برادر</p>
+          </div>
+          <div onclick="speak('grandmother')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">grandmother</p>
+            <p class="text-xs text-slate-400 mt-1">مادربزرگ</p>
+          </div>
+          <div onclick="speak('grandfather')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">grandfather</p>
+            <p class="text-xs text-slate-400 mt-1">پدربزرگ</p>
+          </div>
+          <div onclick="speak('family')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">family</p>
+            <p class="text-xs text-slate-400 mt-1">خانواده</p>
+          </div>
+          <div onclick="speak('This is my...')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">This is my...</p>
+            <p class="text-xs text-slate-400 mt-1">این ... من است</p>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4 border-t border-white/10">
+          <button onclick="markDone(2)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold text-sm flex items-center gap-2 gold-glow">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            این بخش را یاد گرفتم
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 3: Practice -->
+      <section id="section-3" class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-10 h-10 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center font-bold font-inter">03</div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Practice Time</h2>
+            <p class="text-xs text-slate-400">تمرین و تثبیت</p>
+          </div>
+        </div>
+
+        <div class="space-y-6 mb-8">
+          <div class="glass-card p-5 rounded-2xl">
+            <p class="text-sm font-medium text-slate-200 mb-4">۱. «مادر» به انگلیسی چه می‌شود؟</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="checkAnswer(this, true)" class="p-3 rounded-xl glass-card text-sm">mother</button>
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">father</button>
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">sister</button>
+            </div>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl">
+            <p class="text-sm font-medium text-slate-200 mb-4">۲. برای معرفی پدر چه می‌گویی؟</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">This is my mother.</button>
+              <button onclick="checkAnswer(this, true)" class="p-3 rounded-xl glass-card text-sm">This is my father.</button>
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">He is my sister.</button>
+            </div>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl">
+            <p class="text-sm font-medium text-slate-200 mb-4">۳. «برادر» به انگلیسی چیست؟</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">sister</button>
+              <button onclick="checkAnswer(this, true)" class="p-3 rounded-xl glass-card text-sm">brother</button>
+              <button onclick="checkAnswer(this, false)" class="p-3 rounded-xl glass-card text-sm">family</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4 border-t border-white/10">
+          <button onclick="markDone(3)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold text-sm flex items-center gap-2 gold-glow">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            این بخش را یاد گرفتم
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 4: Sound -->
+      <section id="section-4" class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-10 h-10 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center font-bold font-inter">04</div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Sound Time</h2>
+            <p class="text-xs text-slate-400">تمرین صدای /f/ و /m/</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div onclick="speak('father')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">father</p>
+            <p class="text-xs text-brand-500/80 font-inter mt-1">/ˈfɑːðər/</p>
+          </div>
+          <div onclick="speak('family')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">family</p>
+            <p class="text-xs text-brand-500/80 font-inter mt-1">/ˈfæməli/</p>
+          </div>
+          <div onclick="speak('mother')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">mother</p>
+            <p class="text-xs text-brand-500/80 font-inter mt-1">/ˈmʌðər/</p>
+          </div>
+          <div onclick="speak('my')" class="glass-card p-5 rounded-2xl cursor-pointer text-center">
+            <p class="font-inter font-bold text-lg text-white">my</p>
+            <p class="text-xs text-brand-500/80 font-inter mt-1">/maɪ/</p>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4 border-t border-white/10">
+          <button onclick="markDone(4)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold text-sm flex items-center gap-2 gold-glow">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            این بخش را یاد گرفتم
+          </button>
+        </div>
+      </section>
+
+      <!-- Complete -->
+      <div id="complete-box" class="hidden glass-panel p-8 sm:p-12 rounded-3xl border border-emerald-500/40 text-center bg-gradient-to-b from-emerald-500/10 to-transparent">
+        <div class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/40">
+          <i data-lucide="trophy" class="w-10 h-10"></i>
+        </div>
+        <h3 class="text-3xl font-extrabold text-white mb-2">آفرین! درس ۲ تمام شد</h3>
+        <p class="text-slate-300 text-sm max-w-md mx-auto mb-8">خانواده را یاد گرفتی. حالا می‌توانی به مسیر مبتدی برگردی.</p>
+        <a href="english-beginner.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 text-black font-extrabold text-base">
+          بازگشت به مسیر مبتدی
+        </a>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  
+  <script>
+    lucide.createIcons();
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+      authDomain: "zenvnex.firebaseapp.com",
+      projectId: "zenvnex",
+      storageBucket: "zenvnex.firebasestorage.app",
+      messagingSenderId: "145639804249",
+      appId: "1:145639804249:web:d8d216db1c713986aad048",
+      measurementId: "G-B554BNES3M"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) window.location.href = "index.html";
+    });
+
+    // Three.js Background
+    const canvas = document.getElementById('bg-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const count = 600;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    for(let i = 0; i < count * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 14;
+    }
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.PointsMaterial({ size: 0.025, color: 0xc5a880, transparent: true, opacity: 0.35 });
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+    camera.position.z = 5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      particles.rotation.y += 0.0007;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Speech
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+    }
+
+    function speakAll() {
+      const lines = [
+        "This is my family.",
+        "Who is this?",
+        "This is my mother.",
+        "And who is he?",
+        "He is my father."
+      ];
+      let i = 0;
+      function next() {
+        if (i >= lines.length) return;
+        const u = new SpeechSynthesisUtterance(lines[i]);
+        u.lang = "en-US";
+        u.rate = 0.85;
+        u.onend = () => { i++; setTimeout(next, 450); };
+        speechSynthesis.speak(u);
+      }
+      next();
+    }
+
+    // Progress
+    let done = new Set();
+    function markDone(num) {
+      done.add(num);
+      const pct = (done.size / 4) * 100;
+      document.getElementById("progress-bar").style.width = pct + "%";
+      document.getElementById("progress-text").textContent = Math.round(pct) + `% (${done.size} از 4 بخش)`;
+
+      if (done.size === 4) {
+        document.getElementById("complete-box").classList.remove("hidden");
+        document.getElementById("complete-box").scrollIntoView({ behavior: "smooth" });
+        confetti({ particleCount: 110, spread: 75, origin: { y: 0.65 } });
+      }
+    }
+
+    function checkAnswer(btn, isCorrect) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('button').forEach(b => b.disabled = true);
+      if (isCorrect) {
+        btn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400');
+        confetti({ particleCount: 25, spread: 45, origin: { y: 0.75 } });
+      } else {
+        btn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-400');
+      }
+    }
+  </script>
+</body>
+</html>

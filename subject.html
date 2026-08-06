@@ -23,8 +23,6 @@
         .btn:hover { background: #fff; color: #000; border-color: #fff; }
 
         .main-content { flex: 1; padding: 80px 50px; text-align: center; max-width: 900px; margin: 0 auto; }
-        .title { font-size: 42px; font-weight: 700; margin-bottom: 20px; }
-        .subtitle { font-size: 18px; color: rgba(255,255,255,0.7); margin-bottom: 60px; }
 
         .levels-grid {
             display: grid;
@@ -40,19 +38,16 @@
             padding: 40px 20px;
             transition: all 0.3s;
             cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            display: block;
         }
         .level-card:hover {
             border-color: #fff;
             transform: translateY(-8px);
         }
         .level-card h3 { font-size: 24px; margin-bottom: 8px; }
-        .level-card .eng { font-size: 18px; color: rgba(255,255,255,0.7); }
-
-        .coming-soon {
-            font-size: 20px;
-            color: rgba(255,255,255,0.8);
-            margin-top: 40px;
-        }
+        .level-card p { font-size: 14px; color: rgba(255,255,255,0.6); }
 
         @media(max-width: 768px) {
             .levels-grid { grid-template-columns: 1fr; }
@@ -71,7 +66,8 @@
 
   <div class="main-content" id="content">
     <div style="text-align:center; padding:100px 20px; color:#a1a1aa;">
-      در حال بررسی ورود...
+      در حال بررسی وضعیت لاگین...<br><br>
+      <small>F12 → Console را باز کن</small>
     </div>
   </div>
 
@@ -79,7 +75,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7q1VQC-4",
+      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
       authDomain: "zenvnex.firebaseapp.com",
       projectId: "zenvnex",
       storageBucket: "zenvnex.firebasestorage.app",
@@ -90,62 +86,60 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-
     const content = document.getElementById("content");
 
-    // چک کردن وضعیت لاگین
     auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // اگر لاگین نبود، برو صفحه اصلی
-        window.location.href = "index.html";
-        return;
-      }
+      console.log("===== نتیجه Auth =====");
+      console.log(user);
 
-      // اگر لاگین بود، محتوا را نشان بده
-      const urlParams = new URLSearchParams(window.location.search);
-      const subject = urlParams.get("subject") || "english";
+      if (user) {
+        console.log("✅ لاگین هستی");
+        console.log("UID:", user.uid);
+        console.log("Email:", user.email);
 
-      if (subject === "english") {
-        content.innerHTML = `
-          <div style="text-align:center; margin-bottom:40px;">
-            <h2 style="font-size:28px; margin-bottom:8px;">انگلیسی</h2>
-            <p style="color:#a1a1aa;">سطح مناسب خودت را انتخاب کن</p>
-          </div>
+        const urlParams = new URLSearchParams(window.location.search);
+        const subject = urlParams.get("subject") || "english";
 
-          <div class="levels-grid">
-            <!-- مبتدی -->
-            <a href="english-beginner.html" class="level-card">
-              <div class="level-top beginner">م</div>
-              <div class="level-body">
+        if (subject === "english") {
+          content.innerHTML = `
+            <div style="text-align:center; margin-bottom:40px;">
+              <h2 style="font-size:28px; margin-bottom:8px;">انگلیسی</h2>
+              <p style="color:#a1a1aa;">سطح مناسب خودت را انتخاب کن</p>
+            </div>
+
+            <div class="levels-grid">
+              <a href="english-beginner.html" class="level-card">
                 <h3>مبتدی</h3>
                 <p>شروع از صفر • الفبا تا مکالمه ساده</p>
-              </div>
-            </a>
+              </a>
 
-            <!-- متوسط -->
-            <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
-              <div class="level-top intermediate">م</div>
-              <div class="level-body">
+              <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
                 <h3>متوسط</h3>
                 <p>مکالمه روزمره و گرامر پیشرفته‌تر</p>
-              </div>
-            </a>
+              </a>
 
-            <!-- پیشرفته -->
-            <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
-              <div class="level-top advanced">پ</div>
-              <div class="level-body">
+              <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
                 <h3>پیشرفته</h3>
                 <p>مهارت‌های حرفه‌ای و آکادمیک</p>
-              </div>
-            </a>
-          </div>
-        `;
+              </a>
+            </div>
+          `;
+        } else {
+          content.innerHTML = `
+            <div style="text-align:center; padding:80px 20px;">
+              <p style="font-size:18px; color:#a1a1aa;">این بخش به زودی آماده می‌شود</p>
+              <a href="lesson.html" style="display:inline-block; margin-top:20px; color:#34d399;">بازگشت به انتخاب زبان</a>
+            </div>
+          `;
+        }
       } else {
+        console.log("❌ لاگین نیستی (user = null)");
         content.innerHTML = `
-          <div style="text-align:center; padding:80px 20px;">
-            <p style="font-size:18px; color:#a1a1aa;">این بخش به زودی آماده می‌شود</p>
-            <a href="lesson.html" style="display:inline-block; margin-top:20px; color:#34d399;">بازگشت به انتخاب زبان</a>
+          <div style="text-align:center; padding:80px 20px; color:#f87171;">
+            <h2>کاربر لاگین تشخیص داده نشد</h2>
+            <p style="margin-top:15px;">Firebase کاربر را null برگردانده</p>
+            <br>
+            <a href="index.html" style="color:#34d399;">رفتن به صفحه اصلی</a>
           </div>
         `;
       }
