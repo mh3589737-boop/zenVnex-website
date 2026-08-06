@@ -61,23 +61,25 @@
 </head>
 <body>
 
-    <div class="header">
-        <a href="index.html" class="logo">ZENVNEX</a>
-        <div>
-            <a href="lesson.html" class="btn">بازگشت به انتخاب درس</a>
-            <a href="dashboard.html" class="btn">Dashboard</a>
-        </div>
+  <div class="header">
+    <a href="index.html" class="logo">ZENVNEX</a>
+    <div>
+      <a href="lesson.html" class="btn">بازگشت به انتخاب درس</a>
+      <a href="dashboard.html" class="btn">Dashboard</a>
     </div>
+  </div>
 
-    <div class="main-content" id="content">
-        <!-- JavaScript اینجا محتوا رو پر می‌کنه -->
+  <div class="main-content" id="content">
+    <div style="text-align:center; padding:100px 20px; color:#a1a1aa;">
+      در حال بررسی ورود...
     </div>
+  </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7q1VQC-4",
       authDomain: "zenvnex.firebaseapp.com",
       projectId: "zenvnex",
       storageBucket: "zenvnex.firebasestorage.app",
@@ -85,57 +87,70 @@
       appId: "1:145639804249:web:d8d216db1c713986aad048",
       measurementId: "G-B554BNES3M"
     };
+
     firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged((user) => {
+    const auth = firebase.auth();
+
+    const content = document.getElementById("content");
+
+    // چک کردن وضعیت لاگین
+    auth.onAuthStateChanged((user) => {
       if (!user) {
+        // اگر لاگین نبود، برو صفحه اصلی
         window.location.href = "index.html";
+        return;
+      }
+
+      // اگر لاگین بود، محتوا را نشان بده
+      const urlParams = new URLSearchParams(window.location.search);
+      const subject = urlParams.get("subject") || "english";
+
+      if (subject === "english") {
+        content.innerHTML = `
+          <div style="text-align:center; margin-bottom:40px;">
+            <h2 style="font-size:28px; margin-bottom:8px;">انگلیسی</h2>
+            <p style="color:#a1a1aa;">سطح مناسب خودت را انتخاب کن</p>
+          </div>
+
+          <div class="levels-grid">
+            <!-- مبتدی -->
+            <a href="english-beginner.html" class="level-card">
+              <div class="level-top beginner">م</div>
+              <div class="level-body">
+                <h3>مبتدی</h3>
+                <p>شروع از صفر • الفبا تا مکالمه ساده</p>
+              </div>
+            </a>
+
+            <!-- متوسط -->
+            <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
+              <div class="level-top intermediate">م</div>
+              <div class="level-body">
+                <h3>متوسط</h3>
+                <p>مکالمه روزمره و گرامر پیشرفته‌تر</p>
+              </div>
+            </a>
+
+            <!-- پیشرفته -->
+            <a href="#" class="level-card" onclick="alert('این سطح به زودی اضافه می‌شود 🌱'); return false;">
+              <div class="level-top advanced">پ</div>
+              <div class="level-body">
+                <h3>پیشرفته</h3>
+                <p>مهارت‌های حرفه‌ای و آکادمیک</p>
+              </div>
+            </a>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <div style="text-align:center; padding:80px 20px;">
+            <p style="font-size:18px; color:#a1a1aa;">این بخش به زودی آماده می‌شود</p>
+            <a href="lesson.html" style="display:inline-block; margin-top:20px; color:#34d399;">بازگشت به انتخاب زبان</a>
+          </div>
+        `;
       }
     });
+  </script>
 
-    const params = new URLSearchParams(window.location.search);
-    const subject = params.get('subject');
-    const content = document.getElementById('content');
-
-    if (subject === 'english') {
-        content.innerHTML = `
-            <h1 class="title">انگلیسی</h1>
-            <p class="subtitle">سطح مناسب خود را انتخاب کنید</p>
-            <div class="levels-grid">
-                <a href="lesson-view.html?level=beginner" class="level-card" style="text-decoration:none; color:inherit;">
-                    <h3>مبتدی</h3>
-                    <div class="eng">Beginner</div>
-                </a>
-                
-                <a href="lesson-view.html?level=intermediate" class="level-card" style="text-decoration:none; color:inherit;">
-                    <h3>متوسط</h3>
-                    <div class="eng">Intermediate</div>
-                </a>
-                
-                <a href="lesson-view.html?level=advanced" class="level-card" style="text-decoration:none; color:inherit;">
-                    <h3>پیشرفته</h3>
-                    <div class="eng">Advanced</div>
-                </a>
-            </div>
-        `;
-    } else {
-        // برای بقیه درس‌ها
-        content.innerHTML = `
-            <h1 class="title">${getSubjectName(subject)}</h1>
-            <p class="coming-soon">به زودی محتوای کامل این درس اضافه خواهد شد.<br>در حال آماده‌سازی هستیم.</p>
-        `;
-    }
-
-    function getSubjectName(key) {
-        const names = {
-           
-            dari: "دری",
-            spanish: "اِسپانیایی",
-            art: "هنر",
-            german: "آلمانی",
-            pashto: "پشتو"
-        };
-        return names[key] || "درس";
-    }
-</script>
 </body>
 </html>
