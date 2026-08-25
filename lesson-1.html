@@ -525,12 +525,17 @@
       document.getElementById("progress-bar").style.width = pct + "%";
       document.getElementById("progress-text").textContent = Math.round(pct) + `% (${done.size} از 4 بخش)`;
 
-      if (done.size === 4) {
-        const cBox = document.getElementById("complete-box");
-        cBox.classList.remove("hidden");
-        cBox.scrollIntoView({ behavior: "smooth" });
-        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-      }
+     if (done.size === 4) {
+  // ذخیره پیشرفت
+  const progress = JSON.parse(localStorage.getItem("zenvnex_beginner_progress") || "{}");
+  progress["1"] = "completed";
+  localStorage.setItem("zenvnex_beginner_progress", JSON.stringify(progress));
+
+  const cBox = document.getElementById("complete-box");
+  cBox.classList.remove("hidden");
+  cBox.scrollIntoView({ behavior: "smooth" });
+  confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+}
     }
 
     // --- Interactive Quiz Logic ---

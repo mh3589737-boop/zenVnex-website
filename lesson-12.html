@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آزمون نهایی سطح مبتدی | ZENVNEX Academy</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { brand: { 400: '#d9b882', 500: '#c5a880', 600: '#ab8b5d' } },
+          fontFamily: { vazir: ['Vazirmatn', 'sans-serif'], inter: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body { background: #020203; color: #f8fafc; font-family: 'Vazirmatn', sans-serif; }
+    .glass { background: rgba(15,15,22,0.72); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+    .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); transition: all 0.2s; }
+    .glass-card:hover { border-color: rgba(197,168,128,0.45); }
+    .text-gradient { background: linear-gradient(135deg,#fff 0%,#c5a880 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .option-selected { border-color: #c5a880 !important; background: rgba(197,168,128,0.12) !important; }
+    input:focus { outline: none; border-color: #c5a880; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <div class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="h-18 glass border-b border-white/10 px-6 lg:px-12 flex items-center justify-between sticky top-0 z-50">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-500 to-amber-200 flex items-center justify-center text-black font-extrabold font-inter text-lg">Z</div>
+        <span class="font-inter font-black text-xl tracking-widest text-white">ZENVNEX</span>
+      </a>
+      <div id="timer-box" class="hidden flex items-center gap-3 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/40 text-red-400 font-inter font-bold">
+        <i data-lucide="clock" class="w-4 h-4"></i>
+        <span id="timer">۱۷:۰۰</span>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-8">
+
+      <!-- ========== INTRO ========== -->
+      <div id="intro" class="glass rounded-3xl p-8 sm:p-12 text-center">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-brand-500/10 border border-brand-500/30 flex items-center justify-center">
+          <i data-lucide="clipboard-check" class="w-10 h-10 text-brand-400"></i>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-black text-gradient font-inter mb-4">آزمون نهایی سطح مبتدی</h1>
+        <p class="text-slate-300 leading-relaxed max-w-xl mx-auto mb-8 text-sm sm:text-base">
+          زبان‌آموز عزیز،<br>
+          این آزمون برای سنجش واقعی یادگیری تو طراحی شده است.<br>
+          ۱۷ دقیقه زمان داری • ۲۵ سؤال • ۴ بخش مختلف<br>
+          برخی سؤالات نیاز به تایپ کردن دارند و برخی نیاز به گوش دادن.<br>
+          با تمرکز کامل شرکت کن.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 text-sm">
+          <div class="glass-card rounded-xl p-4"><p class="text-brand-400 font-bold text-2xl">۴</p><p class="text-slate-400">بخش</p></div>
+          <div class="glass-card rounded-xl p-4"><p class="text-brand-400 font-bold text-2xl">۲۵</p><p class="text-slate-400">سؤال</p></div>
+          <div class="glass-card rounded-xl p-4"><p class="text-brand-400 font-bold text-2xl">۱۷</p><p class="text-slate-400">دقیقه</p></div>
+          <div class="glass-card rounded-xl p-4"><p class="text-brand-400 font-bold text-2xl">جدی</p><p class="text-slate-400">آزمون</p></div>
+        </div>
+
+        <button onclick="startExam()" class="px-10 py-4 rounded-2xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold text-lg hover:opacity-90 transition">
+          شروع آزمون نهایی
+        </button>
+      </div>
+
+      <!-- ========== EXAM ========== -->
+      <div id="exam" class="hidden">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <p class="text-xs text-brand-400 mb-1" id="section-label">بخش ۱ از ۴</p>
+            <h2 class="text-xl font-bold text-white" id="section-title">واژگان</h2>
+          </div>
+          <p class="text-sm text-slate-400 font-inter" id="q-counter">۱ / ۲۵</p>
+        </div>
+
+        <div id="question-area" class="glass rounded-3xl p-6 sm:p-8 mb-6 min-h-[280px]"></div>
+
+        <div class="flex justify-between gap-3">
+          <button id="btn-prev" onclick="prevQ()" class="px-5 py-3 rounded-xl glass-card text-sm border border-white/10 hidden">قبلی</button>
+          <button id="btn-next" onclick="nextQ()" class="px-6 py-3 rounded-xl bg-brand-500 text-black font-bold text-sm mr-auto">بعدی</button>
+        </div>
+      </div>
+
+      <!-- ========== RESULT ========== -->
+      <div id="result" class="hidden">
+        <div class="glass rounded-3xl p-8 sm:p-12 text-center">
+          <div id="result-icon" class="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center border"></div>
+          <h2 class="text-3xl font-black text-white mb-2" id="result-level"></h2>
+          <p class="text-5xl font-black text-brand-400 font-inter mb-3" id="result-percent"></p>
+          <p class="text-slate-300 mb-8 leading-relaxed" id="result-msg"></p>
+          <div id="result-tips" class="text-right mb-8 hidden"></div>
+          <a href="english-beginner.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-500 to-amber-200 text-black font-bold">
+            بازگشت به مسیر مبتدی
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    // Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
+      authDomain: "zenvnex.firebaseapp.com",
+      projectId: "zenvnex",
+      storageBucket: "zenvnex.firebasestorage.app",
+      messagingSenderId: "145639804249",
+      appId: "1:145639804249:web:d8d216db1c713986aad048",
+      measurementId: "G-B554BNES3M"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(u => { if (!u) location.href = "index.html"; });
+
+    // ========== DATA ==========
+    const questions = [
+      // 1-8 Vocabulary
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "کلمه «مادر» به انگلیسی چیست؟", options: ["father", "mother", "sister", "brother"], correct: 1 },
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "کلمه «پنجره» به انگلیسی چیست؟", options: ["door", "table", "window", "chair"], correct: 2 },
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "عدد «پانزده» به انگلیسی چیست؟", options: ["fifty", "fifteen", "five", "fourteen"], correct: 1 },
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "رنگ «آبی» به انگلیسی چیست؟", options: ["green", "red", "blue", "black"], correct: 2 },
+      { type: "type", section: "واژگان", sectionNum: 1, q: "کلمه «پیتزا» را به انگلیسی تایپ کن:", correct: "pizza" },
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "«سردرد» به انگلیسی چیست؟", options: ["headache", "tired", "happy", "sick"], correct: 0 },
+      { type: "mc", section: "واژگان", sectionNum: 1, q: "کلمه «معلم» به انگلیسی چیست؟", options: ["doctor", "teacher", "pilot", "nurse"], correct: 1 },
+      { type: "type", section: "واژگان", sectionNum: 1, q: "کلمه «مداد» را به انگلیسی تایپ کن:", correct: "pencil" },
+
+      // 9-15 Grammar
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "برای معرفی خودت چه می‌گویی؟", options: ["How are you?", "My name is...", "What is this?", "I like pizza."], correct: 1 },
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "جمله درست کدام است؟", options: ["I am fifteen years old.", "I is fifteen years old.", "I are fifteen years old.", "I be fifteen years old."], correct: 0 },
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "«کتاب روی میز است» به انگلیسی؟", options: ["The book is under the table.", "The book is on the table.", "The book is in the table.", "The book is table."], correct: 1 },
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "برای گفتن اینکه چیزی را دوست نداری چه می‌گویی؟", options: ["I like...", "I don’t like...", "Do you like...?", "I can..."], correct: 1 },
+      { type: "type", section: "گرامر و جمله", sectionNum: 2, q: "جمله «من می‌توانم بنویسم» را به انگلیسی تایپ کن:", correct: "i can write" },
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "«می‌خوام دکتر بشم» به انگلیسی؟", options: ["I am a doctor.", "I want to be a doctor.", "I like doctor.", "What do you want?"], correct: 1 },
+      { type: "mc", section: "گرامر و جمله", sectionNum: 2, q: "سؤال درست برای پرسیدن سن کدام است؟", options: ["How are you?", "What is your name?", "How old are you?", "Where is the book?"], correct: 2 },
+
+      // 16-20 Listening / Pronunciation
+      { type: "listen", section: "شنیداری و تلفظ", sectionNum: 3, q: "به کلمه گوش بده و گزینه درست را انتخاب کن:", word: "thirteen", options: ["thirty", "thirteen", "threeteen", "tirteen"], correct: 1 },
+      { type: "listen", section: "شنیداری و تلفظ", sectionNum: 3, q: "به کلمه گوش بده و گزینه درست را انتخاب کن:", word: "jacket", options: ["jacket", "packet", "jakit", "chacket"], correct: 0 },
+      { type: "listen", section: "شنیداری و تلفظ", sectionNum: 3, q: "به کلمه گوش بده و گزینه درست را انتخاب کن:", word: "happy", options: ["happy", "hapi", "hepi", "happi"], correct: 0 },
+      { type: "listen", section: "شنیداری و تلفظ", sectionNum: 3, q: "به کلمه گوش بده و گزینه درست را انتخاب کن:", word: "shoes", options: ["shoes", "choes", "shos", "suze"], correct: 0 },
+      { type: "listen", section: "شنیداری و تلفظ", sectionNum: 3, q: "به کلمه گوش بده و گزینه درست را انتخاب کن:", word: "teacher", options: ["teacher", "techer", "ticher", "teachar"], correct: 0 },
+
+      // 21-25 Reading
+      { type: "mc", section: "درک مطلب", sectionNum: 4, q: "Sara says: «This is my mother.» معنی جمله چیست؟", options: ["این پدر من است.", "این مادر من است.", "این خواهر من است.", "این برادر من است."], correct: 1 },
+      { type: "mc", section: "درک مطلب", sectionNum: 4, q: "اگر کسی بگوید «I don’t like salad»، یعنی چه؟", options: ["سالاد دوست دارد.", "سالاد دوست ندارد.", "سالاد می‌خورد.", "سالاد می‌خرد."], correct: 1 },
+      { type: "mc", section: "درک مطلب", sectionNum: 4, q: "جمله «I can draw with a pencil» یعنی چه؟", options: ["من با مداد می‌نویسم.", "من با مداد نقاشی می‌کشم.", "من مداد دارم.", "من مداد می‌خرم."], correct: 1 },
+      { type: "mc", section: "درک مطلب", sectionNum: 4, q: "اگر کسی بپرسد «What do you want to be?» چه جوابی مناسب است؟", options: ["I am fine.", "I want to be a teacher.", "This is my book.", "I like blue."], correct: 1 },
+      { type: "mc", section: "درک مطلب", sectionNum: 4, q: "جمله «My leg hurts» یعنی چه؟", options: ["پایم درد می‌کند.", "سرم درد می‌کند.", "خسته هستم.", "خوشحالم."], correct: 0 }
+    ];
+
+    let current = 0;
+    let answers = new Array(25).fill(null);
+    let timeLeft = 17 * 60;
+    let timerId = null;
+
+    // ========== SPEECH ==========
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.85;
+      // سعی می‌کنیم بهترین صدای انگلیسی را پیدا کنیم
+      const voices = speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.lang.startsWith("en") && (v.name.includes("Google") || v.name.includes("Samantha") || v.name.includes("Microsoft")));
+      if (preferred) u.voice = preferred;
+      speechSynthesis.speak(u);
+    }
+
+    // ========== EXAM FLOW ==========
+    function startExam() {
+      document.getElementById("intro").classList.add("hidden");
+      document.getElementById("exam").classList.remove("hidden");
+      document.getElementById("timer-box").classList.remove("hidden");
+      startTimer();
+      renderQuestion();
+    }
+
+    function startTimer() {
+      timerId = setInterval(() => {
+        timeLeft--;
+        const m = Math.floor(timeLeft / 60);
+        const s = timeLeft % 60;
+        document.getElementById("timer").textContent = `${m}:${s < 10 ? "0" + s : s}`;
+        if (timeLeft <= 60) document.getElementById("timer-box").classList.add("animate-pulse");
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          finishExam();
+        }
+      }, 1000);
+    }
+
+    function renderQuestion() {
+      const q = questions[current];
+      document.getElementById("section-label").textContent = `بخش ${q.sectionNum} از ۴`;
+      document.getElementById("section-title").textContent = q.section;
+      document.getElementById("q-counter").textContent = `${current + 1} / ۲۵`;
+
+      let html = `<p class="text-lg font-medium text-white mb-6 leading-relaxed">${q.q}</p>`;
+
+      if (q.type === "mc" || q.type === "listen") {
+        if (q.type === "listen") {
+          html += `
+            <button onclick="speak('${q.word}')" class="mb-6 px-5 py-2.5 rounded-xl glass-card border border-brand-500/40 text-brand-400 text-sm flex items-center gap-2">
+              <i data-lucide="volume-2" class="w-4 h-4"></i>
+              پخش تلفظ
+            </button>`;
+        }
+        html += q.options.map((opt, i) => `
+          <button onclick="selectMC(${i})" class="w-full text-right p-4 rounded-xl glass-card mb-3 ${answers[current] === i ? 'option-selected' : ''}">
+            ${opt}
+          </button>`).join("");
+      }
+
+      if (q.type === "type") {
+        html += `
+          <input id="type-input" type="text" dir="ltr" placeholder="جواب را اینجا تایپ کن..." 
+            class="w-full p-4 rounded-xl bg-black/40 border border-white/15 text-white text-lg font-inter mb-4"
+            value="${answers[current] || ""}"
+            oninput="answers[current] = this.value.trim().toLowerCase()">
+          <p class="text-xs text-slate-500">حروف کوچک یا بزرگ مهم نیست</p>`;
+      }
+
+      document.getElementById("question-area").innerHTML = html;
+      lucide.createIcons();
+
+      document.getElementById("btn-prev").classList.toggle("hidden", current === 0);
+      document.getElementById("btn-next").textContent = current === 24 ? "پایان آزمون و مشاهده نتیجه" : "سؤال بعدی";
+    }
+
+    function selectMC(i) {
+      answers[current] = i;
+      renderQuestion();
+    }
+
+    function nextQ() {
+      if (current === 24) {
+        finishExam();
+        return;
+      }
+      current++;
+      renderQuestion();
+    }
+
+    function prevQ() {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    }
+
+    function finishExam() {
+      clearInterval(timerId);
+      document.getElementById("exam").classList.add("hidden");
+      document.getElementById("timer-box").classList.add("hidden");
+      document.getElementById("result").classList.remove("hidden");
+
+      let correct = 0;
+      questions.forEach((q, i) => {
+        if (q.type === "type") {
+          if (answers[i] && answers[i].toLowerCase() === q.correct.toLowerCase()) correct++;
+        } else {
+          if (answers[i] === q.correct) correct++;
+        }
+      });
+
+      const percent = Math.round((correct / 25) * 100);
+      let level, msg, iconClass, tips = "";
+
+      if (percent >= 88) {
+        level = "عالی";
+        msg = "تبریک صمیمانه! عملکرد تو در سطح عالی بود. تو آماده‌ای که به سطح متوسط بروی.";
+        iconClass = "bg-emerald-500/20 text-emerald-400 border-emerald-500/40";
+        confetti({ particleCount: 160, spread: 90, origin: { y: 0.6 } });
+      } else if (percent >= 68) {
+        level = "خوب";
+        msg = "آفرین! نتیجه قابل قبولی گرفتی. هنوز جا برای قوی‌تر شدن داری.";
+        iconClass = "bg-blue-500/20 text-blue-400 border-blue-500/40";
+        tips = `<div class="glass-card rounded-2xl p-5 text-sm text-slate-300">
+          <p class="font-bold text-white mb-2">پیشنهاد مرور:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-400">
+            <li>واژگان درس‌های ۵ تا ۷</li>
+            <li>جملات I can و I want to be</li>
+            <li>تلفظ اعداد نوجوانان (thirteen, fifteen...)</li>
+          </ul>
+        </div>`;
+      } else {
+        level = "نیاز به تمرین بیشتر";
+        msg = "نگران نباش. این تازه شروع راه است. با تمرین منظم خیلی قوی‌تر می‌شوی.";
+        iconClass = "bg-amber-500/20 text-amber-400 border-amber-500/40";
+        tips = `<div class="glass-card rounded-2xl p-5 text-sm text-slate-300">
+          <p class="font-bold text-white mb-2">این درس‌ها را دوباره مرور کن:</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-400">
+            <li>درس ۱ و ۲ (سلام و خانواده)</li>
+            <li>درس ۵ (اعداد و سن)</li>
+            <li>درس ۷ (غذا و I like / I don’t like)</li>
+            <li>درس ۹ (بدن و احساسات)</li>
+          </ul>
+        </div>`;
+      }
+
+      document.getElementById("result-icon").className = `w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center border ${iconClass}`;
+      document.getElementById("result-icon").innerHTML = `<i data-lucide="award" class="w-12 h-12"></i>`;
+      document.getElementById("result-level").textContent = level;
+      document.getElementById("result-percent").textContent = percent + "%";
+      document.getElementById("result-msg").textContent = msg;
+      if (tips) {
+        document.getElementById("result-tips").innerHTML = tips;
+        document.getElementById("result-tips").classList.remove("hidden");
+      }
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
