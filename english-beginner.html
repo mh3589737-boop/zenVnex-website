@@ -10,23 +10,33 @@
         body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
         
         .header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            gap: 15px;
+        }
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
         .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
         .btn { 
             background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; 
-            padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; 
+            padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500; 
             font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; 
             transition: 0.3s; 
+            white-space: nowrap;
         }
         .btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        .main-content { flex: 1; padding: 60px 50px; max-width: 800px; margin: 0 auto; width: 100%; }
+        .main-content { flex: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; width: 100%; }
 
         .page-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
         .page-title h1 {
             font-size: 32px;
@@ -42,7 +52,7 @@
             background: #111;
             border-radius: 50px;
             height: 8px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             overflow: hidden;
         }
         .progress-bar {
@@ -121,6 +131,7 @@
             margin-right: auto;
             font-size: 12px;
             color: rgba(255,255,255,0.4);
+            white-space: nowrap;
         }
         .lesson-item.completed .lesson-status {
             color: #34d399;
@@ -129,10 +140,45 @@
             color: #60a5fa;
         }
 
+        /* تنظیمات مخصوص صفحه‌های موبایل */
         @media(max-width: 768px) {
-            .header { padding: 20px; }
-            .main-content { padding: 40px 20px; }
-            .page-title h1 { font-size: 26px; }
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+            .header-btns {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .main-content {
+                padding: 30px 15px;
+            }
+            .page-title h1 {
+                font-size: 24px;
+            }
+            .page-title p {
+                font-size: 14px;
+            }
+            .lesson-item {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+            .lesson-number {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            .lesson-info h3 {
+                font-size: 15px;
+            }
+            .lesson-info p {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -140,7 +186,7 @@
 
   <div class="header">
     <a href="index.html" class="logo">ZENVNEX</a>
-    <div>
+    <div class="header-btns">
       <a href="subject.html?subject=english" class="btn">بازگشت به سطوح</a>
       <a href="dashboard.html" class="btn">Dashboard</a>
     </div>
@@ -176,20 +222,20 @@
     const auth = firebase.auth();
 
     const lessons = [
-      { id: 0, title: "الفبای انگلیسی", desc: "حروف A تا Z + تلفظ", link: "alphabet.html", status: "completed" },
-      { id: "0b", title: "کوئیز الفبا", desc: "تمرین و آزمون حروف", link: "quiz.html", status: "completed" },
-      { id: 1, title: "سلام و معرفی", desc: "Hello, My name is...", link: "lesson-1.html", status: "completed" },
-      { id: 2, title: "خانواده من", desc: "اعضای خانواده", link:"lesson-2.html", status: "completed" },
-      { id: 3, title: "در خانه", desc: "اشیای خانه و مکان‌ها", link:"lesson-3.html", status: "completed" },
-      { id: 4, title: "مرور ۱", desc: "ترکیب درس‌های ۱ تا ۳", link:"lesson-4.html", status: "completed" },
-      { id: 5, title: "اعداد و سن", desc: "اعداد ۱ تا ۲۰ + سن", link:"lesson-5.html", status: "completed" },
-      { id: 6, title: "رنگ‌ها و لباس", desc: "رنگ‌ها و لباس‌ها", link:"lesson-6.html", status: "completed" },
-      { id: 7, title: "غذا و نوشیدنی", desc: "I like / I don’t like", link:"lesson-7.html", status: "locked" },
-      { id: 8, title: "مرور ۲", desc: "ترکیب درس‌های ۵ تا ۷", link: null, status: "locked" },
-      { id: 9, title: "بدن من و سلامتی", desc: "اعضای بدن + احساسات", link: null, status: "locked" },
-      { id: 10, title: "مدرسه و یادگیری", desc: "لوازم مدرسه + I can...", link: null, status: "locked" },
-      { id: 11, title: "رویاهای من", desc: "شغل‌های آینده", link: null, status: "locked" },
-      { id: 12, title: "مرور نهایی", desc: "آزمون جامع سطح مبتدی", link: null, status: "locked" }
+      { id: 0, title: "الفبای انگلیسی", desc: "حروف A تا Z + تلفظ", link: "alphabet.html" },
+      { id: "0b", title: "کوئیز الفبا", desc: "تمرین و آزمون حروف", link: "quiz.html" },
+      { id: 1, title: "سلام و معرفی", desc: "Hello, My name is...", link: "lesson-1.html" },
+      { id: 2, title: "خانواده من", desc: "اعضای خانواده", link: "lesson-2.html" },
+      { id: 3, title: "در خانه", desc: "اشیای خانه و مکان‌ها", link: "lesson-3.html" },
+      { id: 4, title: "مرور ۱", desc: "ترکیب درس‌های ۱ تا ۳", link: "lesson-4.html" },
+      { id: 5, title: "اعداد و سن", desc: "اعداد ۱ تا ۲۰ + سن", link: "lesson-5.html" },
+      { id: 6, title: "رنگ‌ها و لباس", desc: "رنگ‌ها و لباس‌ها", link: "lesson-6.html" },
+      { id: 7, title: "غذا و نوشیدنی", desc: "I like / I don’t like", link: "lesson-7.html" },
+      { id: 8, title: "مرور ۲", desc: "ترکیب درس‌های ۵ تا ۷", link: "lesson-8.html" },
+      { id: 9, title: "بدن من و سلامتی", desc: "اعضای بدن + احساسات", link: "lesson-9.html" },
+      { id: 10, title: "مدرسه و یادگیری", desc: "لوازم مدرسه + I can...", link: "lesson-10.html" },
+      { id: 11, title: "رویاهای من", desc: "شغل‌های آینده", link: "lesson-11.html" },
+      { id: 12, title: "مرور نهایی", desc: "آزمون جامع سطح مبتدی", link: "lesson-12.html" }
     ];
 
     auth.onAuthStateChanged((user) => {
@@ -198,16 +244,31 @@
         return;
       }
 
-      const list = document.getElementById("lessonsList");
+      // خواندن پیشرفت از LocalStorage
+      const progress = JSON.parse(localStorage.getItem("zenvnex_beginner_progress") || "{}");
 
-      lessons.forEach((lesson) => {
-        const item = document.createElement(lesson.link ? "a" : "div");
-        
-        if (lesson.link) {
+      const list = document.getElementById("lessonsList");
+      list.innerHTML = "";
+
+      lessons.forEach((lesson, index) => {
+        let status = "locked";
+
+        // اولین درس همیشه باز است
+        if (index === 0) {
+          status = progress[lesson.id] === "completed" ? "completed" : "current";
+        } else {
+          const prevId = lessons[index - 1].id;
+          if (progress[prevId] === "completed") {
+            status = progress[lesson.id] === "completed" ? "completed" : "current";
+          }
+        }
+
+        const item = document.createElement(status === "locked" ? "div" : "a");
+        if (status !== "locked") {
           item.href = lesson.link;
         }
 
-        item.className = `lesson-item ${lesson.status}`;
+        item.className = `lesson-item ${status}`;
 
         item.innerHTML = `
           <div class="lesson-number">${lesson.id === 0 ? "۰" : lesson.id}</div>
@@ -216,8 +277,8 @@
             <p>${lesson.desc}</p>
           </div>
           <div class="lesson-status">
-            ${lesson.status === "completed" ? "تکمیل شده" : 
-              lesson.status === "current" ? "درس فعلی" : "قفل"}
+            ${status === "completed" ? "تکمیل شده" : 
+              status === "current" ? "درس فعلی" : "قفل"}
           </div>
         `;
 
