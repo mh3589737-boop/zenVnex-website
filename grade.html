@@ -10,57 +10,90 @@
         body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
         
         .header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            gap: 15px;
+        }
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
         .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
         .btn { 
             background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; 
-            padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; 
+            padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500; 
             font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; 
             transition: 0.3s; 
+            white-space: nowrap;
         }
         .btn:hover { background: #fff; color: #000; border-color: #fff; }
 
         .main-content { 
-            flex: 1; padding: 100px 50px; text-align: center; max-width: 900px; margin: 0 auto; 
+            flex: 1; padding: 60px 20px; text-align: center; max-width: 900px; margin: 0 auto; width: 100%;
         }
         .title { font-size: 42px; font-weight: 700; margin-bottom: 20px; }
         .message { 
-            font-size: 20px; color: rgba(255,255,255,0.8); margin-bottom: 60px; line-height: 1.6; 
+            font-size: 20px; color: rgba(255,255,255,0.8); margin-bottom: 40px; line-height: 1.6; 
         }
-.subjects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 800px;
-    margin: 40px auto 0;
-}
-.subject-card {
-    background: #0a0a0a;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 28px 20px;
-    font-size: 18px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-.subject-card:hover {
-    border-color: #fff;
-    transform: translateY(-4px);
-    background: #111;
-}
-@media(max-width: 768px) {
-    .subjects-grid { grid-template-columns: 1fr; }
-}
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+        .subject-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 28px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .subject-card:hover {
+            border-color: #fff;
+            transform: translateY(-4px);
+            background: #111;
+        }
+
+        /* تنظیمات مخصوص صفحه‌های موبایل */
+        @media(max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+            .header-btns {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .title {
+                font-size: 30px;
+            }
+            .message {
+                font-size: 16px;
+            }
+            .subjects-grid { 
+                grid-template-columns: 1fr; 
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="logo">ZENVNEX</a>
-        <div>
+        <div class="header-btns">
             <a href="dashboard.html" class="btn">بازگشت به داشبورد</a>
             <a href="index.html" class="btn">Home</a>
         </div>
@@ -94,74 +127,73 @@
 
         const content = document.getElementById('content');
 
-      const allowedGrades = ['7', '8', '9'];
+        const allowedGrades = ['7', '8', '9'];
 
-const subject = params.get('subject');
+        const subject = params.get('subject');
 
-const subjects = [
-    { key: "math", name: "ریاضی" },
-    { key: "dari", name: "دری" },
-    { key: "english", name: "انگلیسی" },
-    { key: "physics", name: "فیزیک" },
-    { key: "history", name: "تاریخ" },
-    { key: "geography", name: "جغرافیا" },
-    { key: "biology", name: "بیولوژی" },
-    { key: "arabic", name: "عربی" },
-    { key: "chemistry", name: "کیمیا" }
-];
+        const subjects = [
+            { key: "math", name: "ریاضی" },
+            { key: "dari", name: "دری" },
+            { key: "english", name: "انگلیسی" },
+            { key: "physics", name: "فیزیک" },
+            { key: "history", name: "تاریخ" },
+            { key: "geography", name: "جغرافیا" },
+            { key: "biology", name: "بیولوژی" },
+            { key: "arabic", name: "عربی" },
+            { key: "chemistry", name: "کیمیا" }
+        ];
 
-if (grade && allowedGrades.includes(grade)) {
-    if (subject) {
-        const subjectName = subjects.find(s => s.key === subject)?.name || "این مضمون";
-        content.innerHTML = `
-            <h1 class="title">${subjectName} — صنف ${grade}</h1>
-            <p class="message">
-                به زودی محتوای کامل این مضمون اضافه خواهد شد.<br>
-                در حال حاضر در حال آماده‌سازی محتوای باکیفیت برای شما هستیم.
-            </p>
-        `;
-    } else {
-const cardsHtml = subjects.map(s => {
+        if (grade && allowedGrades.includes(grade)) {
+            if (subject) {
+                const subjectName = subjects.find(s => s.key === subject)?.name || "این مضمون";
+                content.innerHTML = `
+                    <h1 class="title">${subjectName} — صنف ${grade}</h1>
+                    <p class="message">
+                        به زودی محتوای کامل این مضمون اضافه خواهد شد.<br>
+                        در حال حاضر در حال آماده‌سازی محتوای باکیفیت برای شما هستیم.
+                    </p>
+                `;
+            } else {
+                const cardsHtml = subjects.map(s => {
+                    if (s.key === "english") {
+                        return `<a href="english-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "math") {
+                        return `<a href="math-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "dari") {
+                        return `<a href="dari-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "physics" || s.key === "physic") {
+                        return `<a href="physic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "history") {
+                        return `<a href="history-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "biology" || s.key === "biologiy") {
+                        return `<a href="biology-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "chemistry" || s.key === "kimia" || s.key === "chem") {
+                        return `<a href="chemistry-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "arabic" || s.key === "arabi") {
+                        return `<a href="arabic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    if (s.key === "geography" || s.key === "geographia" || s.key === "geo") {
+                        return `<a href="geography-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                    }
+                    return `<a href="grade.html?grade=${grade}&subject=${s.key}" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
+                }).join("");
 
-    if (s.key === "english") {
-        return `<a href="english-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "math") {
-        return `<a href="math-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "dari") {
-        return `<a href="dari-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "physics" || s.key === "physic") {
-        return `<a href="physic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "history") {
-        return `<a href="history-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "biology" || s.key === "biologiy") {
-        return `<a href="biology-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "chemistry" || s.key === "kimia" || s.key === "chem") {
-        return `<a href="chemistry-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "arabic" || s.key === "arabi") {
-        return `<a href="arabic-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    if (s.key === "geography" || s.key === "geographia" || s.key === "geo") {
-        return `<a href="geography-grade${grade}.html" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-    }
-    return `<a href="grade.html?grade=${grade}&subject=${s.key}" class="subject-card" style="text-decoration:none; color:inherit; display:block;">${s.name}</a>`;
-}).join("");
-
-        content.innerHTML = `
-            <h1 class="title">صنف ${grade}</h1>
-            <p class="message">مضمون مورد نظر خود را انتخاب کنید</p>
-            <div class="subjects-grid">${cardsHtml}</div>
-        `;
-    }
-} else {
-    content.innerHTML = `<h1 class="title">خطا</h1><p>صنف مورد نظر پیدا نشد.</p>`;
-}
+                content.innerHTML = `
+                    <h1 class="title">صنف ${grade}</h1>
+                    <p class="message">مضمون مورد نظر خود را انتخاب کنید</p>
+                    <div class="subjects-grid">${cardsHtml}</div>
+                `;
+            }
+        } else {
+            content.innerHTML = `<h1 class="title">خطا</h1><p>صنف مورد نظر پیدا نشد.</p>`;
+        }
     </script>
 </body>
 </html>
