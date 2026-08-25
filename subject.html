@@ -10,19 +10,29 @@
         body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
         
         .header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 30px 50px; border-bottom: 1px solid rgba(255,255,255,0.1); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            gap: 15px;
+        }
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
         .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
         .btn { 
             background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; 
-            padding: 10px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; 
+            padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500; 
             font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; 
             transition: 0.3s; 
+            white-space: nowrap;
         }
         .btn:hover { background: #fff; color: #000; border-color: #fff; }
 
-        .main-content { flex: 1; padding: 80px 50px; text-align: center; max-width: 900px; margin: 0 auto; }
+        .main-content { flex: 1; padding: 60px 20px; text-align: center; max-width: 900px; margin: 0 auto; width: 100%; }
 
         .levels-grid {
             display: grid;
@@ -49,8 +59,27 @@
         .level-card h3 { font-size: 24px; margin-bottom: 8px; }
         .level-card p { font-size: 14px; color: rgba(255,255,255,0.6); }
 
+        /* تنظیمات مخصوص صفحه‌های موبایل */
         @media(max-width: 768px) {
-            .levels-grid { grid-template-columns: 1fr; }
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+            .header-btns {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .main-content {
+                padding: 40px 15px;
+            }
+            .levels-grid { 
+                grid-template-columns: 1fr; 
+            }
         }
     </style>
 </head>
@@ -58,14 +87,14 @@
 
   <div class="header">
     <a href="index.html" class="logo">ZENVNEX</a>
-    <div>
+    <div class="header-btns">
       <a href="lesson.html" class="btn">بازگشت به انتخاب درس</a>
       <a href="dashboard.html" class="btn">Dashboard</a>
     </div>
   </div>
 
   <div class="main-content" id="content">
-    <div style="text-align:center; padding:100px 20px; color:#a1a1aa;">
+    <div style="text-align:center; padding:60px 20px; color:#a1a1aa;">
       در حال بررسی وضعیت لاگین...<br><br>
       <small>F12 → Console را باز کن</small>
     </div>
