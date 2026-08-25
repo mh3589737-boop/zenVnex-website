@@ -1,4 +1,210 @@
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسیر مبتدی | ZENVNEX Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{background:#000; color:#fff; font-family:'Inter', sans-serif; min-height:100vh; display:flex; flex-direction:column;}
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 40px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            gap: 15px;
+        }
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .logo { font-size: 20px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        .btn { 
+            background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; 
+            padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500; 
+            font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; 
+            transition: 0.3s; 
+            white-space: nowrap;
+        }
+        .btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+        .main-content { flex: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; width: 100%; }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .page-title p {
+            color: rgba(255,255,255,0.6);
+            font-size: 16px;
+        }
+
+        .progress-bar-container {
+            background: #111;
+            border-radius: 50px;
+            height: 8px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 15%;
+            background: linear-gradient(90deg, #34d399, #10b981);
+            border-radius: 50px;
+            transition: width 0.5s ease;
+        }
+
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s;
+        }
+        .lesson-item:hover {
+            border-color: rgba(255,255,255,0.3);
+            transform: translateX(-4px);
+        }
+        .lesson-item.locked {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        .lesson-item.locked:hover {
+            transform: none;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .lesson-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .lesson-item.completed .lesson-number {
+            background: #10b981;
+            border-color: #10b981;
+            color: #000;
+        }
+        .lesson-item.current .lesson-number {
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .lesson-info h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .lesson-info p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .lesson-status {
+            margin-right: auto;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            white-space: nowrap;
+        }
+        .lesson-item.completed .lesson-status {
+            color: #34d399;
+        }
+        .lesson-item.current .lesson-status {
+            color: #60a5fa;
+        }
+
+        @media(max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+            .header-btns {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .main-content {
+                padding: 30px 15px;
+            }
+            .page-title h1 {
+                font-size: 24px;
+            }
+            .page-title p {
+                font-size: 14px;
+            }
+            .lesson-item {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+            .lesson-number {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            .lesson-info h3 {
+                font-size: 15px;
+            }
+            .lesson-info p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html" class="logo">ZENVNEX</a>
+    <div class="header-btns">
+      <a href="subject.html?subject=english" class="btn">بازگشت به سطوح</a>
+      <a href="dashboard.html" class="btn">Dashboard</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="page-title">
+      <h1>مسیر انگلیسی - سطح مبتدی</h1>
+      <p>از الفبا تا مکالمه‌های ساده • ۱۲ درس اصلی</p>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="lessons-list" id="lessonsList"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script>
     const firebaseConfig = {
@@ -14,9 +220,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // 🔴 تنظیمات باز یا قفل بودن درس‌ها 🔴
-    // الان true است یعنی همه درس‌ها باز هستند.
-    // بعداً اگر خواستی شرطی شود، این را false کن!
+    // 🔴 اگر بخواهی بعداً شرطی شود، این را false کن
     const UNLOCK_ALL = true; 
 
     const lessons = [
@@ -42,9 +246,7 @@
         return;
       }
 
-      // خواندن پیشرفت از LocalStorage
       const progress = JSON.parse(localStorage.getItem("zenvnex_beginner_progress") || "{}");
-
       const list = document.getElementById("lessonsList");
       list.innerHTML = "";
 
@@ -52,10 +254,8 @@
         let status = "locked";
 
         if (UNLOCK_ALL) {
-          // اگر حالت همه باز فعال باشد
           status = progress[lesson.id] === "completed" ? "completed" : "current";
         } else {
-          // منطق شرطی و مرحله‌ای
           if (index === 0) {
             status = progress[lesson.id] === "completed" ? "completed" : "current";
           } else {
@@ -89,3 +289,6 @@
       });
     });
   </script>
+
+</body>
+</html>
