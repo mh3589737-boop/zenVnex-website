@@ -202,17 +202,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
-    authDomain: "zenvnex.firebaseapp.com",
-    projectId: "zenvnex",
-    storageBucket: "zenvnex.firebasestorage.app",
-    messagingSenderId: "145639804249",
-    appId: "1:145639804249:web:d8d216db1c713986aad048",
-    measurementId: "G-B554BNES3M"
-  };
 
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -257,7 +249,7 @@
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      alert("داستان شما با موفقیت و به‌صورت کاملاً امن دریافت شد.");
+      alert("داستان شما با موفقیت دریافت شد. سپاسگزاریم.");
       storyForm.reset();
       window.location.href = "lifestory.html";
 

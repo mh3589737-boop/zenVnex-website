@@ -102,29 +102,16 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
-      authDomain: "zenvnex.firebaseapp.com",
-      projectId: "zenvnex",
-      storageBucket: "zenvnex.firebasestorage.app",
-      messagingSenderId: "145639804249",
-      appId: "1:145639804249:web:d8d216db1c713986aad048",
-      measurementId: "G-B554BNES3M"
-    };
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const content = document.getElementById("content");
 
     auth.onAuthStateChanged((user) => {
-      console.log("===== نتیجه Auth =====");
-      console.log(user);
 
       if (user) {
-        console.log("✅ لاگین هستی");
-        console.log("UID:", user.uid);
-        console.log("Email:", user.email);
 
         const urlParams = new URLSearchParams(window.location.search);
         const subject = urlParams.get("subject") || "english";
@@ -162,7 +149,6 @@
           `;
         }
       } else {
-        console.log("❌ لاگین نیستی (user = null)");
         content.innerHTML = `
           <div style="text-align:center; padding:80px 20px; color:#f87171;">
             <h2>کاربر لاگین تشخیص داده نشد</h2>

@@ -1,3 +1,18 @@
 [build]
-  functions = "netlify/functions"
   publish = "."
+
+# Security headers that are safe to turn on today — they don't touch how
+# scripts/styles load, so they won't break anything on the site.
+#
+# NOT included yet: Content-Security-Policy. The site currently has 400+
+# inline onclick="" handlers and inline <script> blocks; a real CSP would
+# block most of them and break pages. Add CSP only after that cleanup
+# (see the roadmap notes), then test every page before publishing it.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"

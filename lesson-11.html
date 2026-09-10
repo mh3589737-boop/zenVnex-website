@@ -18,7 +18,7 @@
     }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@1.43.0"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -305,19 +305,11 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
   
   <script>
     lucide.createIcons();
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAZD-W1lwdu6bI71T9FW8cIz--7qlVQC-4",
-      authDomain: "zenvnex.firebaseapp.com",
-      projectId: "zenvnex",
-      storageBucket: "zenvnex.firebasestorage.app",
-      messagingSenderId: "145639804249",
-      appId: "1:145639804249:web:d8d216db1c713986aad048",
-      measurementId: "G-B554BNES3M"
-    };
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged(user => {
       if (!user) window.location.href = "index.html";

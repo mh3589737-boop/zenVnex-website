@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: confirm https://zenvnex.org is the real production domain, and
+     add more <url> entries here as you finish/launch more pages. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://zenvnex.org/index.html</loc></url>
+  <url><loc>https://zenvnex.org/donate.html</loc></url>
+  <url><loc>https://zenvnex.org/partner.html</loc></url>
+  <url><loc>https://zenvnex.org/women-rights.html</loc></url>
+  <url><loc>https://zenvnex.org/lifestory.html</loc></url>
+  <url><loc>https://zenvnex.org/stories.html</loc></url>
+  <url><loc>https://zenvnex.org/emergency-aid.html</loc></url>
+  <url><loc>https://zenvnex.org/bamyan-school.html</loc></url>
+  <url><loc>https://zenvnex.org/herat.html</loc></url>
+  <url><loc>https://zenvnex.org/privacy.html</loc></url>
+</urlset>

@@ -1,0 +1,73 @@
+rules_version = '2';
+
+// ============================================================================
+// ZENVNEX — Firestore Security Rules
+//
+// ⚠️ THIS FILE DOES NOTHING UNTIL YOU DEPLOY IT TO FIREBASE.
+// Netlify / GitHub only serve your HTML — they know nothing about Firestore.
+// You must push this file to your actual Firebase project with either:
+//
+//   firebase deploy --only firestore:rules
+//
+// or by pasting its contents into:
+//   Firebase Console → Firestore Database → Rules → Publish
+//
+// Until you do that, your project is still running on whatever rules
+// (often fully open "test mode" rules) are live on Firebase right now.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- support_requests -----------------------------------------------
+    // Written by women-rights.html. Can contain highly sensitive
+    // disclosures (category, free-text message, optional name/contact).
+    // Nobody should be able to read this collection from the browser —
+    // only your own team, via the Firebase Console or an authenticated
+    // admin tool, should ever see these documents.
+    match /support_requests/{requestId} {
+      allow read: if false;                 // no client can ever read these
+      allow update, delete: if false;       // no client can change/remove these
+      allow create: if
+        request.resource.data.keys().hasAll(['category', 'message', 'anonymous', 'status']) &&
+        request.resource.data.category is string &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() > 0 &&
+        request.resource.data.message.size() < 5000 &&
+        request.resource.data.anonymous is bool &&
+        request.resource.data.status == 'new';
+        // Anonymous submission is allowed on purpose (this form has no
+        // login), which is exactly why "read" above must stay false.
+    }
+
+    // ---- stories -----------------------------------------------------------
+    // Written by submit-story.html, only when the user is signed in.
+    // allowPublic/keepPrivate exist in the data model but nothing in the
+    // current site reads this collection back yet (stories.html is still
+    // a static "coming soon" page). Reads stay closed until that feature
+    // is actually built — enable it deliberately, not by accident.
+    match /stories/{storyId} {
+      allow read: if false; // change this only when a real public-stories
+                            // feature exists, and then scope it to
+                            // "resource.data.allowPublic == true", never "true"
+      allow update, delete: if false;
+      allow create: if
+        request.auth != null &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.keys().hasAll(['userId', 'title', 'content']) &&
+        request.resource.data.title is string &&
+        request.resource.data.content is string &&
+        request.resource.data.content.size() > 0 &&
+        request.resource.data.content.size() < 20000;
+    }
+
+    // ---- everything else ---------------------------------------------------
+    // Deny by default. If you add a new collection later, add an explicit
+    // match block for it above — don't rely on this fallback staying safe
+    // forever, and don't loosen it "just to test something" without
+    // remembering to lock it back down.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
