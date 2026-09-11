@@ -6,31 +6,12 @@
   <title>درس ۵ • اعداد و سن | ZENVNEX Academy</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: { brand: { 400: '#d9b882', 500: '#c5a880', 600: '#ab8b5d' } },
-          fontFamily: { vazir: ['Vazirmatn', 'sans-serif'], inter: ['Inter', 'sans-serif'] }
-        }
-      }
-    }
-  </script>
+  <script src="js/tailwind-shell-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@1.43.0"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-  <style>
-    body { background-color: #020203; color: #f8fafc; font-family: 'Vazirmatn', sans-serif; overflow-x: hidden; }
-    canvas#bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
-    .glass-panel { background: rgba(15, 15, 22, 0.65); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
-    .glass-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
-    .glass-card:hover { background: rgba(197, 168, 128, 0.06); border-color: rgba(197, 168, 128, 0.35); transform: translateY(-3px); }
-    .text-gradient { background: linear-gradient(135deg, #ffffff 0%, #c5a880 50%, #8a6d43 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .gold-glow { box-shadow: 0 0 25px rgba(197, 168, 128, 0.3); }
-  </style>
+  <link rel="stylesheet" href="css/lesson-shell.css">
 </head>
 <body class="relative min-h-screen">
 
@@ -318,100 +299,21 @@
     </main>
   </div>
 
+
+  <script>
+    window.LESSON_CONFIG = {
+    number: 5,
+    totalSections: 5,
+    dialogueLines: ["How old are you?", "I am twelve years old. How old are you?", "I am thirteen years old.", "Nice! We are almost the same age."],
+  };
+  </script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="js/firebase-config.js"></script>
-  
+  <script src="js/lesson-common.js"></script>
+
   <script>
-    lucide.createIcons();
-
-    firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged(user => {
-      if (!user) window.location.href = "index.html";
-    });
-
-    // Three.js
-    const canvas = document.getElementById('bg-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const count = 600;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    for(let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 14;
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const material = new THREE.PointsMaterial({ size: 0.025, color: 0xc5a880, transparent: true, opacity: 0.35 });
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-    camera.position.z = 5;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      particles.rotation.y += 0.0007;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    function speak(text) {
-      if (!window.speechSynthesis) return;
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US";
-      u.rate = 0.85;
-      speechSynthesis.speak(u);
-    }
-
-    function speakAll() {
-      const lines = [
-        "How old are you?",
-        "I am twelve years old. How old are you?",
-        "I am thirteen years old.",
-        "Nice! We are almost the same age."
-      ];
-      let i = 0;
-      function next() {
-        if (i >= lines.length) return;
-        const u = new SpeechSynthesisUtterance(lines[i]);
-        u.lang = "en-US";
-        u.rate = 0.85;
-        u.onend = () => { i++; setTimeout(next, 450); };
-        speechSynthesis.speak(u);
-      }
-      next();
-    }
-
-    let done = new Set();
-    function markDone(num) {
-      done.add(num);
-      const pct = (done.size / 5) * 100;
-      document.getElementById("progress-bar").style.width = pct + "%";
-      document.getElementById("progress-text").textContent = Math.round(pct) + `% (${done.size} از 5 بخش)`;
-      if (done.size === 5) {
-        document.getElementById("complete-box").classList.remove("hidden");
-        document.getElementById("complete-box").scrollIntoView({ behavior: "smooth" });
-        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-      }
-    }
-
-    function checkAnswer(btn, isCorrect) {
-      const parent = btn.parentElement;
-      parent.querySelectorAll('button').forEach(b => b.disabled = true);
-      if (isCorrect) {
-        btn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400');
-        confetti({ particleCount: 25, spread: 45, origin: { y: 0.75 } });
-      } else {
-        btn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-400');
-      }
-    }
+    initLessonPage();
   </script>
 </body>
 </html>

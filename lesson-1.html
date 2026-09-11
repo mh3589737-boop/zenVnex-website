@@ -7,89 +7,12 @@
   
   <!-- CDNs: Tailwind, Fonts, Lucide Icons, Three.js, Canvas Confetti -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#fbf8f3',
-              100: '#f5eee3',
-              400: '#d9b882',
-              500: '#c5a880',
-              600: '#ab8b5d',
-              900: '#3a2e1b',
-            },
-            dark: {
-              bg: '#020203',
-              card: 'rgba(12, 12, 16, 0.65)',
-              border: 'rgba(255, 255, 255, 0.08)'
-            }
-          },
-          fontFamily: {
-            vazir: ['Vazirmatn', 'sans-serif'],
-            inter: ['Inter', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
+  <script src="js/tailwind-shell-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@1.43.0"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-  <style>
-    body {
-      background-color: #020203;
-      color: #f8fafc;
-      font-family: 'Vazirmatn', sans-serif;
-      overflow-x: hidden;
-    }
-    canvas#bg-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .glass-panel {
-      background: rgba(15, 15, 22, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card:hover {
-      background: rgba(197, 168, 128, 0.06);
-      border-color: rgba(197, 168, 128, 0.4);
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 12px 30px rgba(197, 168, 128, 0.15);
-    }
-    .text-gradient {
-      background: linear-gradient(135deg, #ffffff 0%, #c5a880 50%, #8a6d43 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .text-gold-gradient {
-      background: linear-gradient(135deg, #f5eee3 0%, #c5a880 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-glow {
-      box-shadow: 0 0 25px rgba(197, 168, 128, 0.35);
-    }
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(197, 168, 128, 0.3); border-radius: 10px; }
-  </style>
+  <link rel="stylesheet" href="css/lesson-shell.css">
 </head>
 <body class="custom-scrollbar relative min-h-screen">
 
@@ -411,186 +334,22 @@
   </div>
 
   <!-- JavaScript Modules -->
+
+  <script>
+    window.LESSON_CONFIG = {
+    number: 1,
+    totalSections: 4,
+    dialogueLines: ["Hello!", "Hi! How are you?", "I'm fine, thank you. What's your name?", "My name is Laila. What's your name?", "I'm Sara. Nice to meet you.", "Nice to meet you too!"],
+    speechTargets: ["hello", "helo"],
+  };
+  </script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="js/firebase-config.js"></script>
-  
+  <script src="js/lesson-common.js"></script>
+
   <script>
-    // --- Initialize Lucide Icons ---
-    lucide.createIcons();
-
-    // --- Firebase Auth Setup ---
-    firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged(user => {
-      if (!user) window.location.href = "index.html";
-    });
-
-    // --- Three.js Cyber Particle System ---
-    const canvas = document.getElementById('bg-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const count = 700;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-
-    for(let i = 0; i < count * 3; i+=3) {
-      positions[i] = (Math.random() - 0.5) * 15;
-      positions[i+1] = (Math.random() - 0.5) * 15;
-      positions[i+2] = (Math.random() - 0.5) * 15;
-
-      colors[i] = 0.77; // R (Gold accent)
-      colors[i+1] = 0.65; // G
-      colors[i+2] = 0.5; // B
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const material = new THREE.PointsMaterial({
-      size: 0.03,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.4
-    });
-
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-    camera.position.z = 5;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      particles.rotation.y += 0.0008;
-      particles.rotation.x += 0.0003;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // --- Speech Synthesis Engine ---
-    function speak(text) {
-      if (!window.speechSynthesis) return;
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US";
-      u.rate = 0.85;
-      u.pitch = 1;
-      speechSynthesis.speak(u);
-    }
-
-    function speakAll() {
-      const lines = [
-        "Hello!",
-        "Hi! How are you?",
-        "I'm fine, thank you. What's your name?",
-        "My name is Laila. What's your name?",
-        "I'm Sara. Nice to meet you.",
-        "Nice to meet you too!"
-      ];
-      let i = 0;
-      function next() {
-        if (i >= lines.length) return;
-        const u = new SpeechSynthesisUtterance(lines[i]);
-        u.lang = "en-US";
-        u.rate = 0.85;
-        u.onend = () => { i++; setTimeout(next, 500); };
-        speechSynthesis.speak(u);
-      }
-      next();
-    }
-
-    // --- Progress Tracker ---
-    let done = new Set();
-    function markDone(num) {
-      done.add(num);
-      const pct = (done.size / 4) * 100;
-      document.getElementById("progress-bar").style.width = pct + "%";
-      document.getElementById("progress-text").textContent = Math.round(pct) + `% (${done.size} از 4 بخش)`;
-
-     if (done.size === 4) {
-  // ذخیره پیشرفت
-  const progress = JSON.parse(localStorage.getItem("zenvnex_beginner_progress") || "{}");
-  progress["1"] = "completed";
-  localStorage.setItem("zenvnex_beginner_progress", JSON.stringify(progress));
-
-  const cBox = document.getElementById("complete-box");
-  cBox.classList.remove("hidden");
-  cBox.scrollIntoView({ behavior: "smooth" });
-  confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-}
-    }
-
-    // --- Interactive Quiz Logic ---
-    function checkAnswer(btn, isCorrect) {
-      const parent = btn.parentElement;
-      parent.querySelectorAll('button').forEach(b => {
-        b.disabled = true;
-        b.classList.remove('hover:border-brand-500/50');
-      });
-      if (isCorrect) {
-        btn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400');
-        confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 } });
-      } else {
-        btn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-400');
-      }
-    }
-
-    // --- Speech Recognition AI Module ---
-    let isListening = false;
-    function toggleSpeechRecognition() {
-      const micBtn = document.getElementById('mic-btn');
-      const micPulse = document.getElementById('mic-pulse');
-      const feedback = document.getElementById('speech-feedback');
-
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        feedback.textContent = "مرورگر شما از Speech Recognition پشتیبانی نمی‌کند.";
-        return;
-      }
-
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'en-US';
-
-      if (!isListening) {
-        recognition.start();
-        isListening = true;
-        micPulse.classList.remove('opacity-0');
-        feedback.textContent = "در حال گوش دادن... بگویید 'Hello'";
-        feedback.className = "text-xs text-brand-400 animate-pulse";
-      }
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.toLowerCase();
-        micPulse.classList.add('opacity-0');
-        isListening = false;
-
-        if (transcript.includes('hello') || transcript.includes('helo')) {
-          feedback.textContent = `تلفظ عالی بود! (دریافت شد: "${transcript}")`;
-          feedback.className = "text-xs text-emerald-400 font-bold";
-          confetti({ particleCount: 40, spread: 60 });
-        } else {
-          feedback.textContent = `دوباره تلاش کنید. (دریافت شد: "${transcript}")`;
-          feedback.className = "text-xs text-rose-400";
-        }
-      };
-
-      recognition.onerror = () => {
-        micPulse.classList.add('opacity-0');
-        isListening = false;
-        feedback.textContent = "خطا در دریافت صدا. مجددا سعی کنید.";
-        feedback.className = "text-xs text-rose-400";
-      };
-    }
+    initLessonPage();
   </script>
 </body>
 </html>
