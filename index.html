@@ -93,13 +93,13 @@
     display:flex; align-items:center; justify-content:space-between;
     height:78px;
   }
-.logo{
+  .logo{
     font-family:'Inter', sans-serif;
     font-size:20px;
     font-weight:700;
     letter-spacing:0.15em;
     display:flex;
-    flex-direction:column; /* این خط باعث می‌شود متون زیر هم بیایند */
+    flex-direction:column;
     align-items:flex-start;
     gap:2px;
     color: #fff;
@@ -137,7 +137,7 @@
     transition:width .25s ease;
   }
   .navlinks a:hover::after{width:100%;}
-  
+
   .btn{
     display:inline-flex; align-items:center; gap:8px;
     padding:11px 24px;
@@ -157,7 +157,7 @@
   .btn-ghost:hover{border-color:#fff;}
   .btn-gold{background:transparent; color:#fff; border:1px solid #fff;}
   .btn-gold:hover{background:#fff; color:#000;}
-  
+
   .navcta{display:flex; align-items:center; gap:18px;}
   .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
   .menu-toggle span{display:block; width:24px; height:1px; background:#fff; margin:6px 0;}
@@ -381,8 +381,11 @@
   }
   .service-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3, minmax(0, 1fr));
     gap:20px;
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .service-card{
     background:var(--panel-space);
@@ -512,7 +515,10 @@
     .pillar-head{grid-template-columns:1fr; gap:20px;}
     .card-grid-3{grid-template-columns:1fr;}
     .afg-layout{grid-template-columns:1fr;}
-    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .service-grid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      max-width:600px;
+    }
     .media-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:220px;}
     .mc1,.mc2,.mc3,.mc4,.mc5,.mc6{grid-column:span 1; grid-row:span 1;}
     .footer-grid{grid-template-columns:repeat(2,1fr);}
@@ -522,97 +528,417 @@
     .stats .wrap{grid-template-columns:1fr 1fr;}
     .footer-grid{grid-template-columns:1fr;}
     .photo-badge{left:0; bottom:-18px; padding:12px 16px;}
+
+    .service-grid{
+      grid-template-columns:1fr;
+      max-width:400px;
+      margin-left:auto;
+      margin-right:auto;
+    }
   }
 
   #google_translate_element { position: absolute; visibility: hidden; }
   .goog-te-banner-frame { display: none !important; }
   body { top: 0 !important; }
 
-  .login-btn{
-    background:transparent; 
-    border:1px solid var(--border-space); 
-    color:var(--text-main); 
-    padding:8px 18px; 
-    border-radius:0px; 
-    font-family:'Share Tech Mono',monospace; 
-    font-weight:600; 
-    font-size:12px; 
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor:pointer;
-    transition: all 0.2s;
+  /* ---- انیمیشن پرواز کبوتر سفید روی مسیر منحنی ---- */
+  .flying-bird-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
   }
-  .login-btn:hover{background:#fff; color:#000; border-color:#fff;}
 
-  .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter: blur(8px); display:flex; align-items:center; justify-content:center; z-index:300; opacity:0; pointer-events:none; transition:opacity 0.3s ease;}
-  .modal-backdrop.visible{opacity:1; pointer-events:auto;}
-
-  .modal{background:var(--panel-space); color:var(--text-main); border: 1px solid var(--border-space); border-radius:0px; padding:44px 40px; width:100%; max-width:380px; text-align:center; margin:20px;}
-  .modal h3{font-family:'Inter', sans-serif; font-size:22px; margin-bottom:10px; letter-spacing: -0.01em;}
-  .modal p{color:var(--text-muted); font-size:13.5px; margin-bottom:28px;}
-
-  .modal-btn{display:block; width:100%; padding:13px; border-radius:0px; font-family:'Inter',sans-serif; font-weight:600; font-size:13px; letter-spacing: 0.05em; text-transform: uppercase; cursor:pointer; margin-bottom:12px; border:1px solid var(--border-space); background:var(--bg-space); color:var(--text-main);}
-  .modal-btn.primary{background:#fff; color:#000; border-color:#fff;}
-  .modal-btn:hover{opacity:0.85;}
-/* ---- انیمیشن پرواز کبوتر سفید روی مسیر منحنی ---- */
-.flying-bird-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* جلوگیری از ایجاد مزاحمت برای کلیک روی دکمه‌ها */
-  overflow: hidden;
-  z-index: 5;
-}
-
-.white-dove {
-  position: absolute;
-  width: 45px;
-  height: auto;
-  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8)); /* ایجاد گلاو و درخشش سفید ملایم */
-  opacity: 0;
-  animation: flyAlongArc 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-@keyframes flyAlongArc {
-  0% {
-    left: -10%;
-    top: 15%;
-    transform: rotate(15deg) scale(0.7);
+  .white-dove {
+    position: absolute;
+    width: 45px;
+    height: auto;
+    filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
     opacity: 0;
+    animation: flyAlongArc 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
-  15% {
-    opacity: 1;
-  }
-  50% {
-    left: 45%;
-    top: 2%; /* بالاتری نقطه‌ی انحنا (قوس بالای متن) */
-    transform: rotate(0deg) scale(1);
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: 105%;
-    top: 22%; /* شیب به سمت پایین و راست، دقیقاً طبق فلش تصویر */
-    transform: rotate(-15deg) scale(0.8);
-    opacity: 0;
-  }
-}
 
-/* بال زدن طبیعی پرنده با SVG */
-.white-dove svg {
-  width: 100%;
-  height: auto;
-  animation: flapWings 0.6s ease-in-out infinite alternate;
-}
+  @keyframes flyAlongArc {
+    0% {
+      left: -10%;
+      top: 15%;
+      transform: rotate(15deg) scale(0.7);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    50% {
+      left: 45%;
+      top: 2%;
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      left: 105%;
+      top: 22%;
+      transform: rotate(-15deg) scale(0.8);
+      opacity: 0;
+    }
+  }
 
-@keyframes flapWings {
-  0% { transform: scaleY(1); }
-  100% { transform: scaleY(0.4) skewX(-10deg); }
+  .white-dove svg {
+    width: 100%;
+    height: auto;
+    animation: flapWings 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes flapWings {
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(0.4) skewX(-10deg); }
+  }
+
+  /* ===================== NEW: ZENVNEX TALENT BRIDGE ===================== */
+  /* All Talent Bridge styles are namespaced to avoid changing existing sections. */
+  #talent-bridge{padding:0 0 108px; scroll-margin-top:100px;}
+  .tb-frame{
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    border:1px solid #30343d;
+    background:
+      radial-gradient(ellipse at 83% 38%, rgba(184,207,232,.10), transparent 41%),
+      linear-gradient(120deg, #101216 0%, #090a0d 62%, #0c1016 100%);
+  }
+  .tb-frame::before{
+    content:'';
+    position:absolute; inset:0;
+    opacity:.35;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:52px 52px;
+    mask-image:linear-gradient(90deg,transparent 15%,#000 100%);
+    pointer-events:none;
+  }
+  .tb-topline{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:17px 38px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    font:600 10px/1.5 'Share Tech Mono',monospace;
+    letter-spacing:.17em;
+    color:#b9c0c9;
+    text-transform:uppercase;
+  }
+  .tb-topline .tb-indicator{display:inline-flex;align-items:center;gap:9px;}
+  .tb-indicator::before{content:'';width:6px;height:6px;background:#e6eaf0;box-shadow:0 0 12px rgba(255,255,255,.35);}
+  .tb-inner{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+    min-height:420px;
+    align-items:center;
+    gap:30px;
+    padding:58px 44px 60px;
+  }
+  .tb-copy{position:relative;z-index:2;}
+  .tb-kicker{
+    font-family:'Share Tech Mono',monospace;
+    color:#b8c3d1;
+    font-size:11px;
+    letter-spacing:.19em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .tb-title{
+    font-size:clamp(40px,5.2vw,68px);
+    line-height:1.02;
+    letter-spacing:-.055em;
+    color:#fff;
+    margin-bottom:19px;
+  }
+  .tb-title span{display:block;color:#aeb8c5;}
+  .tb-tagline{
+    font-size:clamp(14px,1.5vw,17px);
+    font-weight:600;
+    line-height:1.5;
+    color:#f0f2f5;
+    margin-bottom:17px;
+  }
+  .tb-description{
+    color:#adb4bd;
+    font-size:14px;
+    line-height:1.85;
+    max-width:535px;
+  }
+  .tb-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:28px;}
+  .tb-readmore{
+    display:inline-flex;align-items:center;justify-content:space-between;gap:30px;
+    min-width:178px;
+    padding:13px 20px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#050505;
+    background:#fff;
+    border:1px solid #fff;
+    transition:background .2s,color .2s,transform .2s;
+  }
+  .tb-readmore:hover{background:transparent;color:#fff;transform:translateY(-2px);}
+  .tb-status{
+    font:600 10px/1.5 'Share Tech Mono',monospace;
+    color:#aeb6bf;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .tb-art{position:relative;width:100%;max-width:470px;margin:0 auto;}
+  .tb-art svg{display:block;width:100%;height:auto;overflow:visible;}
+  .tb-art .tb-arc{stroke-dasharray:4 8;animation:tb-flow 24s linear infinite;}
+  .tb-art .tb-orbit{transform-origin:50% 50%;animation:tb-orbit 50s linear infinite;}
+  @keyframes tb-flow{to{stroke-dashoffset:-240;}}
+  @keyframes tb-orbit{to{transform:rotate(360deg);}}
+  .tb-bottomline{
+    position:relative;z-index:2;
+    border-top:1px solid rgba(255,255,255,.12);
+    padding:16px 38px;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font:500 10px/1.6 'Share Tech Mono',monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#89939e;
+  }
+
+  /* Same-file Coming Soon overlay opened with the Read More link. */
+  #talent-bridge-coming-soon{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:grid;
+    place-items:center;
+    overflow-y:auto;
+    padding:28px;
+    background:rgba(2,3,5,.96);
+    backdrop-filter:blur(18px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .3s ease,visibility .3s ease;
+  }
+  #talent-bridge-coming-soon:target{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+  }
+  .tb-soon-card{
+    position:relative;
+    width:min(100%,790px);
+    padding:clamp(32px,6vw,74px);
+    border:1px solid #343b47;
+    background:
+      radial-gradient(ellipse at 85% 12%,rgba(186,208,231,.11),transparent 50%),
+      #0c0e12;
+    text-align:center;
+    box-shadow:0 30px 100px rgba(0,0,0,.6);
+  }
+  .tb-soon-card::before{
+    content:'';
+    position:absolute;
+    inset:12px;
+    border:1px solid rgba(255,255,255,.04);
+    pointer-events:none;
+  }
+  .tb-soon-close{
+    position:absolute;top:16px;right:18px;
+    width:38px;height:38px;
+    display:grid;place-items:center;
+    border:1px solid #38404a;
+    font-size:23px;
+    line-height:1;
+    color:#fff;
+    background:#12151a;
+    transition:background .2s;
+  }
+  .tb-soon-close:hover{background:#303640;}
+  .tb-soon-logo{
+    font:700 12px/1.5 'Share Tech Mono',monospace;
+    letter-spacing:.25em;
+    color:#b9c3cf;
+    margin-bottom:30px;
+  }
+  .tb-soon-kicker{
+    font:600 11px/1.5 'Share Tech Mono',monospace;
+    letter-spacing:.22em;
+    color:#9da9b7;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .tb-soon-card h2{
+    font-size:clamp(34px,6vw,65px);
+    letter-spacing:-.045em;
+    margin-bottom:18px;
+    color:#fff;
+  }
+  .tb-soon-card p{
+    color:#adb6c1;
+    font-size:15px;
+    line-height:1.9;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .tb-soon-rule{height:1px;background:linear-gradient(90deg,transparent,#454d59,transparent);margin:33px auto;max-width:380px;}
+  .tb-soon-back{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 23px;
+    border:1px solid #dce0e5;
+    background:#f0f2f5;
+    color:#050505;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-weight:700;
+    transition:background .2s,color .2s;
+  }
+  .tb-soon-back:hover{background:transparent;color:#fff;}
+  body.tb-modal-open{overflow:hidden;}
+
+  @media(max-width:850px){
+    .tb-inner{grid-template-columns:1fr;gap:10px;padding:44px 34px 30px;}
+    .tb-art{max-width:340px;opacity:.85;}
+    .tb-title{font-size:clamp(40px,8vw,62px);}
+  }
+  @media(max-width:560px){
+    #talent-bridge{padding-bottom:86px;}
+    .tb-topline,.tb-bottomline{padding:14px 19px;}
+    .tb-inner{padding:38px 22px 22px;}
+    .tb-title{font-size:clamp(38px,11vw,50px);}
+    .tb-description{font-size:13.5px;}
+    .tb-art{max-width:270px;}
+    #talent-bridge-coming-soon{padding:16px;}
+    .tb-soon-card{padding:58px 24px 38px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .tb-art .tb-arc,.tb-art .tb-orbit{animation:none;}
+    .tb-readmore{transition:none;}
+    #talent-bridge-coming-soon{transition:none;}
+  }
+
+/* ZENVNEX / GLASSMORPHISM DESIGN PREVIEW */
+:root{
+ --bg-space:#070d19;--panel-space:rgba(17,27,45,.47);
+ --border-space:rgba(213,232,255,.18);--text-main:#f4f8ff;
+ --text-muted:#b8c9df;--accent-space:#fff;
 }
+html{scroll-padding-top:92px}
+body{
+ background:
+ radial-gradient(ellipse 75% 48% at 12% 4%,rgba(57,118,219,.28),transparent 75%),
+ radial-gradient(ellipse 65% 45% at 93% 29%,rgba(106,67,201,.23),transparent 72%),
+ radial-gradient(ellipse 65% 50% at 14% 66%,rgba(28,150,177,.15),transparent 75%),
+ linear-gradient(145deg,#050916 0%,#0b1426 46%,#060b17 100%);
+ background-attachment:fixed;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+ background-size:64px 64px}
+header{background:rgba(8,16,31,.62);border-color:rgba(255,255,255,.14);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%)}
+.logo{letter-spacing:.17em}
+.btn,.region-tab,.tb-readmore,.tb-soon-back{border-radius:12px}
+.btn-primary{background:linear-gradient(120deg,#fff,#dceaff);box-shadow:0 7px 30px rgba(120,177,255,.19)}
+.btn-ghost,.btn-gold{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.23);backdrop-filter:blur(15px)}
+.btn-ghost:hover,.btn-gold:hover{background:rgba(255,255,255,.16)}
+.hero{padding-top:125px}
+.hero h1{font-size:clamp(38px,4.7vw,62px);text-shadow:0 8px 40px rgba(85,140,255,.16)}
+.hero h1 em{color:#b7d9ff;border-color:#9bbff7}
+.photo-card,.photo-badge,.info-card,.service-card,.media-card,.tb-frame,.tb-soon-card{
+ background-color:rgba(22,36,61,.42)!important;
+ border:1px solid rgba(220,237,255,.23)!important;
+ border-radius:22px!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 22px 55px rgba(0,0,0,.25);
+ backdrop-filter:blur(22px) saturate(155%);
+ -webkit-backdrop-filter:blur(22px) saturate(155%);
+}
+.photo-card{border-radius:26px!important}
+.photo-badge{border-radius:16px!important}
+.info-card,.service-card{transition:transform .3s,border-color .3s,box-shadow .3s}
+.info-card:hover,.service-card:hover{transform:translateY(-6px);border-color:rgba(227,241,255,.55)!important;box-shadow:0 24px 60px rgba(49,112,210,.18)}
+.info-card .icon{background:rgba(185,214,255,.1);border-radius:12px}
+.stats,.cta-band{background:rgba(13,26,48,.4);border-color:rgba(218,234,255,.16);backdrop-filter:blur(18px)}
+.stat h3{color:#e7f3ff}
+.eyebrow::before{background:#9fcbff;box-shadow:0 0 14px #8bc3ff}
+.path-line{stroke:rgba(175,213,255,.35)}
+.waypoint{fill:#102039;stroke:#bddcff}
+.service-card .tag{border-radius:8px;background:rgba(151,199,255,.11);color:#dbeeff}
+.tb-frame{background:linear-gradient(120deg,rgba(28,51,85,.72),rgba(18,32,61,.52),rgba(45,35,91,.45))!important;border-radius:28px!important}
+.tb-frame:before{opacity:.6}
+.tb-title span{color:#a9d5ff}
+.tb-tagline{color:#f5faff}
+.tb-description{color:#c2d3e8}
+.tb-topline,.tb-bottomline{border-color:rgba(224,240,255,.16)}
+.tb-readmore{background:linear-gradient(110deg,#fff,#d8eaff);color:#09142b}
+.tb-art{filter:drop-shadow(0 0 35px rgba(109,174,255,.28))}
+#talent-bridge-coming-soon{background:radial-gradient(ellipse at 50% 25%,#193b66,#060b17 75%);backdrop-filter:blur(28px)}
+.tb-soon-card{background:rgba(18,34,58,.78)!important}
+footer{background:rgba(4,10,22,.24)}
+.footer-grid{border-color:rgba(221,238,255,.18)}
+.navlinks a:hover,.footer-grid a:hover{color:#fff}
+@media(max-width:980px){.navlinks[style*="display: flex"],.navlinks[style*="display:flex"]{background:rgba(12,23,43,.95)!important;backdrop-filter:blur(22px)}}
+@media(max-width:560px){.hero{padding-top:75px}.photo-card,.info-card,.service-card,.tb-frame{border-radius:18px!important}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+
+/* MONOCHROME BLACK GLASS — final theme override */
+:root{--bg-space:#030303;--panel-space:rgba(19,19,19,.54);--border-space:rgba(255,255,255,.16);--text-main:#f6f6f6;--text-muted:#aaa;--accent-space:#fff}
+html{color-scheme:dark}
+body{
+ background:radial-gradient(ellipse 80% 55% at 50% 2%,rgba(255,255,255,.065),transparent 75%),
+ radial-gradient(ellipse 45% 42% at 90% 56%,rgba(255,255,255,.035),transparent 85%),
+ linear-gradient(160deg,#020202 0%,#090909 44%,#020202 100%)!important;
+ background-attachment:fixed!important;
+ color:#f4f4f4;
+}
+body::before{background-image:linear-gradient(rgba(255,255,255,.014) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.014) 1px,transparent 1px)}
+header{background:rgba(8,8,8,.72)!important;border-color:rgba(255,255,255,.14)!important}
+.hero h1{text-shadow:none!important}
+.hero h1 em{color:#d3d3d3!important;border-color:#666!important}
+.photo-card,.photo-badge,.info-card,.service-card,.media-card,.tb-frame,.tb-soon-card{
+ background-color:rgba(22,22,22,.62)!important;
+ border-color:rgba(255,255,255,.19)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 22px 60px rgba(0,0,0,.48)!important;
+}
+.info-card:hover,.service-card:hover{border-color:rgba(255,255,255,.52)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 25px 60px rgba(0,0,0,.65)!important}
+.info-card .icon{background:rgba(255,255,255,.07)!important}
+.stats,.cta-band{background:rgba(17,17,17,.62)!important;border-color:rgba(255,255,255,.13)!important}
+.stat h3{color:#fff!important}
+.eyebrow::before{background:#eee!important;box-shadow:0 0 10px rgba(255,255,255,.22)!important}
+.path-line{stroke:rgba(255,255,255,.2)!important}
+.waypoint{fill:#101010!important;stroke:#888!important}
+.service-card .tag{background:rgba(255,255,255,.065)!important;color:#ddd!important}
+.tb-frame{background:linear-gradient(135deg,rgba(38,38,38,.75),rgba(13,13,13,.72) 55%,rgba(28,28,28,.7))!important}
+.tb-title span{color:#bfbfbf!important}
+.tb-description{color:#bbb!important}
+.tb-topline,.tb-bottomline{border-color:rgba(255,255,255,.15)!important;color:#aaa!important}
+.tb-readmore,.btn-primary{background:#f5f5f5!important;color:#080808!important;border-color:#f5f5f5!important;box-shadow:none!important}
+.tb-readmore:hover,.btn-primary:hover{background:transparent!important;color:#fff!important}
+.tb-art{filter:grayscale(1) drop-shadow(0 0 24px rgba(255,255,255,.09))!important}
+.tb-art svg{filter:grayscale(1)!important}
+#talent-bridge-coming-soon{background:radial-gradient(ellipse at 50% 25%,#242424,#030303 75%)!important}
+.tb-soon-card{background:rgba(20,20,20,.85)!important}
+.btn-ghost,.btn-gold{background:rgba(255,255,255,.065)!important;border-color:rgba(255,255,255,.22)!important}
+.btn-ghost:hover,.btn-gold:hover{background:rgba(255,255,255,.15)!important}
+.navlinks[style*="display: flex"],.navlinks[style*="display:flex"]{background:rgba(12,12,12,.95)!important}
+footer{background:rgba(5,5,5,.4)!important}
+.footer-grid{border-color:rgba(255,255,255,.13)!important}
+
 </style>
 </head>
 <body>
@@ -643,14 +969,13 @@
 
 <header>
   <nav class="wrap">
-   <a href="#top" class="logo">
-     ZENVNEX<span class="tagline">The New Life</span>
-   </a>
-   <button class="login-btn" id="loginModalBtn">Login</button>
+    <a href="#top" class="logo">
+      ZENVNEX<span class="tagline">The New Life</span>
+    </a>
+
     <div class="navlinks">
-      <a href="#afghanistan">Inside Afghanistan</a>
+      <a href="#afghanistan">Education</a>
       <a href="#diaspora">Diaspora Support</a>
-      <a href="#voices">Voices of Freedom</a>
       <a href="#about">About</a>
     </div>
 
@@ -674,27 +999,29 @@
 <main id="top">
 
   <section class="hero">
-<div class="flying-bird-container">
-  <div class="white-dove">
-    <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#ffffff" d="M50 30
-        C 40 10, 15 8, 2 18
-        C 15 20, 25 24, 32 30
-        C 25 30, 12 34, 2 44
-        C 18 42, 38 40, 48 34
-        C 55 40, 70 44, 90 42
-        C 76 36, 65 32, 58 30
-        C 68 26, 80 22, 92 20
-        C 75 14, 55 16, 50 30 Z"/>
-    </svg>
-  </div>
-</div>
+    <div class="flying-bird-container">
+      <div class="white-dove">
+        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ffffff" d="M50 30
+            C 40 10, 15 8, 2 18
+            C 15 20, 25 24, 32 30
+            C 25 30, 12 34, 2 44
+            C 18 42, 38 40, 48 34
+            C 55 40, 70 44, 90 42
+            C 76 36, 65 32, 58 30
+            C 68 26, 80 22, 92 20
+            C 75 14, 55 16, 50 30 Z"/>
+        </svg>
+      </div>
+    </div>
+
     <svg class="hero-path-svg" viewBox="0 0 500 700" preserveAspectRatio="none">
       <path d="M 60 0 C 220 120, 40 260, 260 380 C 420 470, 200 580, 340 700" stroke="#ffffff" stroke-width="1" fill="none" stroke-dasharray="5 7" opacity="0.4"/>
       <circle cx="60" cy="0" r="3" fill="#fff"/>
       <circle cx="260" cy="380" r="3" fill="#fff"/>
       <circle cx="340" cy="700" r="3" fill="#fff"/>
     </svg>
+
     <div class="wrap hero-grid">
       <div class="hero-copy reveal in">
         <div class="eyebrow hero-eyebrow">Human Rights &amp; Humanitarian Aid</div>
@@ -708,12 +1035,12 @@
       <div class="hero-photo-col reveal in">
         <div class="photo-card" style="background-image: url('women.png.jpg'); background-size: cover; background-position: center;">
           <div style="position: absolute; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.85); color: #fff; padding: 16px; box-sizing: border-box; font-size: 13px; border-bottom: 1px solid var(--border-space); text-align: left; line-height: 1.4; z-index: 10;">
-              Demanding what they have been deprived of for years: the most basic human rights.
+            Demanding what they have been deprived of for years: the most basic human rights.
           </div>
         </div>
         <div class="photo-badge">
-            <div class="num">2026</div>
-            <div class="lbl">Standing alongside brave Afghan women in their darkest hours.</div>
+          <div class="num">2026</div>
+          <div class="lbl">Standing alongside brave Afghan women in their darkest hours.</div>
         </div>
       </div>
     </div>
@@ -722,20 +1049,20 @@
   <div class="stats reveal">
     <div class="wrap">
       <div class="stat">
-          <h3>21.9M</h3>
-          <p>People projected to require critical humanitarian assistance in 2026, making it one of the world’s largest crises.</p>
+        <h3>21.9M</h3>
+        <p>People projected to require critical humanitarian assistance in 2026, making it one of the world’s largest crises.</p>
       </div>
       <div class="stat">
-          <h3>90%</h3>
-          <p>Of female-headed households in Afghanistan currently lack access to adequate food due to systemic economic marginalization.</p>
+        <h3>90%</h3>
+        <p>Of female-headed households in Afghanistan currently lack access to adequate food due to systemic economic marginalization.</p>
       </div>
       <div class="stat">
-          <h3>17.4M</h3>
-          <p>People facing crisis or emergency levels of acute food insecurity, heavily driven by drought and lost livelihoods.</p>
+        <h3>17.4M</h3>
+        <p>People facing crisis or emergency levels of acute food insecurity, heavily driven by drought and lost livelihoods.</p>
       </div>
       <div class="stat">
-          <h3>2/3</h3>
-          <p>Of women-headed families cannot afford even a basic diet, a rate nearly 20% higher than male-headed households.</p>
+        <h3>2/3</h3>
+        <p>Of women-headed families cannot afford even a basic diet, a rate nearly 20% higher than male-headed households.</p>
       </div>
     </div>
   </div>
@@ -753,28 +1080,15 @@
     <div class="wrap">
       <div style="max-width: 820px; margin: 0 auto 50px auto; text-align: center; font-size: 15.5px; line-height: 1.8; color: var(--text-muted);">
         <span style="display: block; font-size: 28px; color: #fff; margin-bottom: 20px; font-weight: 700; text-align: center; line-height: 1.2;">Our Commitment to Humanity</span>
-        With the establishment of this organization, we work alongside local partners, community elders, and women-led networks to protect fundamental freedoms and expand access to education. Despite the existing restrictions, we provide online education to help students regain the knowledge and opportunities they have lost.
-        <br><br>
-        We are committed to delivering humanitarian assistance to families in need. All of our programs are designed and implemented in collaboration with experienced individuals and organizations, with local community participation.
-        <br><br>
-        This organization was established to support Afghan women and girls in the fields of education and humanitarian assistance. We believe that no person should be deprived of help based on nationality, ethnicity, race, or country of origin. Every human being deserves dignity, opportunity, and equal access to support.
+        We believe everyone deserves the opportunity to learn, grow, and build a better future. We begin with accessible education, with special attention to those whose opportunities have been limited.
       </div>
 
       <div style="text-align: center; margin-bottom: 50px;">
         <div class="eyebrow" style="justify-content: center; margin-bottom: 10px;">Waypoint One – Homeland</div>
-        <h2>Inside Afghanistan</h2>
+        <h2>Education for Everyone</h2>
       </div>
 
-      <div class="card-grid-3 reveal" style="margin-bottom: 60px;">
-        <div class="info-card">
-          <div class="icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"/></svg>
-          </div>
-          <a href="women-rights.html" style="text-decoration: none; color: inherit;">
-            <h4>Request Support</h4>
-          </a>
-          <p>We are by your side. Write your request so we can guide you as much as we can, and so you won’t be alone on this path.</p>
-        </div>
+      <div class="card-grid-3 reveal" style="margin-bottom: 60px; display: flex; justify-content: center;">
         <div class="info-card">
           <div class="icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
@@ -784,26 +1098,82 @@
           </a>
           <p>An education system designed to provide learning opportunities for girls and boys deprived of formal schooling, delivered by trained and experienced teachers.</p>
         </div>
-        <div class="info-card">
-          <div class="icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 21s-7-4.6-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-0.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.4-9.5 9-9.5 9z"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEW: TALENT BRIDGE (BETWEEN EDUCATION AND DIASPORA) ===================== -->
+  <section id="talent-bridge" aria-labelledby="talent-bridge-title">
+    <div class="wrap">
+      <div class="tb-frame reveal">
+        <div class="tb-topline">
+          <span class="tb-indicator">A new ZENVNEX initiative</span>
+          <span>Talent · Opportunity · Impact</span>
+        </div>
+        <div class="tb-inner">
+          <div class="tb-copy">
+            <div class="tb-kicker">Connecting potential with possibility</div>
+            <h2 class="tb-title" id="talent-bridge-title">TALENT <span>BRIDGE.</span></h2>
+            <p class="tb-tagline">Discover Talent. Unlock Potential. Create Opportunity.</p>
+            <p class="tb-description">An upcoming space to spotlight Afghan talent — inside Afghanistan and across the diaspora — and build bridges to mentors, supporters, and new opportunities. Every talent deserves the chance to be seen.</p>
+            <div class="tb-actions">
+              <a class="tb-readmore" href="#talent-bridge-coming-soon" aria-haspopup="dialog">Read More <span aria-hidden="true">↗</span></a>
+              <span class="tb-status">In development / 2026</span>
+            </div>
           </div>
-          <a href="emergency-aid.html" style="text-decoration: none; color: inherit;">
-            <h4>Emergency &amp; Humanitarian Aid</h4>
-          </a>
-          <p>Food, shelter, and winter relief for displaced families, delivered through vetted local networks even where access is hardest.</p>
+          <div class="tb-art" aria-hidden="true">
+            <svg viewBox="0 0 460 430" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <defs>
+                <radialGradient id="tb-halo" cx="50%" cy="50%" r="50%">
+                  <stop stop-color="#d8e7f5" stop-opacity=".2"/>
+                  <stop offset="1" stop-color="#d8e7f5" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="tb-stroke" x1="70" y1="75" x2="400" y2="340" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#737f8b" stop-opacity=".15"/>
+                  <stop offset=".55" stop-color="#f0f5fa" stop-opacity=".85"/>
+                  <stop offset="1" stop-color="#737f8b" stop-opacity=".15"/>
+                </linearGradient>
+              </defs>
+              <circle cx="230" cy="215" r="196" fill="url(#tb-halo)"/>
+              <g class="tb-orbit" stroke="#909aa6" stroke-opacity=".24" stroke-width="1">
+                <circle cx="230" cy="215" r="142" stroke-dasharray="3 11"/>
+                <circle cx="230" cy="215" r="101"/>
+                <circle cx="230" cy="215" r="183" stroke-dasharray="1 15"/>
+              </g>
+              <g class="tb-arc" stroke="url(#tb-stroke)" stroke-width="1.5">
+                <path d="M75 135Q138 102 230 215T385 115"/>
+                <path d="M86 305Q165 333 230 215T380 317"/>
+                <path d="M230 65Q185 154 230 215T230 365"/>
+                <path d="M75 135Q215 70 380 317"/>
+              </g>
+              <g fill="#0e1218" stroke="#d2dce6" stroke-width="1.5">
+                <circle cx="75" cy="135" r="8"/>
+                <circle cx="385" cy="115" r="8"/>
+                <circle cx="86" cy="305" r="8"/>
+                <circle cx="380" cy="317" r="8"/>
+                <circle cx="230" cy="65" r="8"/>
+                <circle cx="230" cy="365" r="8"/>
+              </g>
+              <g>
+                <circle cx="230" cy="215" r="50" fill="#141a22" stroke="#e0e8ef" stroke-opacity=".65"/>
+                <circle cx="230" cy="215" r="38" stroke="#d7e1ec" stroke-opacity=".2"/>
+                <path d="M209 231L222 218L233 226L254 200" stroke="#f1f5f9" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"/>
+                <circle cx="254" cy="200" r="3.5" fill="#fff"/>
+              </g>
+              <g font-family="'Share Tech Mono', monospace" fill="#b0bac6" font-size="10" letter-spacing="1.1">
+                <text x="46" y="116">IDEAS</text>
+                <text x="342" y="98">SKILLS</text>
+                <text x="41" y="334">PEOPLE</text>
+                <text x="337" y="347">FUTURE</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="tb-bottomline">
+          <span>From Afghanistan to the world</span>
+          <span>Opportunity knows no borders →</span>
         </div>
       </div>
-
-      <div class="afg-photos reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px; margin: 0 auto;">
-        <a href="herat.html" class="placeholder-photo p1 tall" style="text-decoration: none; display: flex; align-items: flex-end; aspect-ratio: 3/4;">
-          <div class="cap">In a Herat basement, girls study by lamplight after dark</div>
-        </a>
-        <a href="bamyan-school.html" class="placeholder-photo p2 short" style="text-decoration: none; background-image: url('bamyan.png.jpg'); background-size: cover; background-position: center; aspect-ratio: 3/4; display: flex; align-items: flex-end;">
-          <div class="cap">In remote Bamiyan, a school run by an Afghan woman offers hope</div>
-        </a>
-      </div>
-
     </div>
   </section>
 
@@ -814,29 +1184,35 @@
           <div class="eyebrow">Waypoint Two — The Journey Onward</div>
           <h2>Global Diaspora Support</h2>
         </div>
-        <p class="desc">Arrival is not the end of the journey. ZenVnex runs a dedicated hub for Afghan migrants and refugees rebuilding their lives abroad — legal orientation, language and integration pathways, and a community network that never leaves anyone to navigate a new country alone.</p>
+        <p class="desc">Moving to a new country brings new challenges. We hope to share useful learning opportunities and reliable resources for migrants around the world. Dedicated support services are not yet available.</p>
       </div>
 
       <div class="service-grid reveal">
         <div class="service-card">
-          <span class="tag">Legal</span>
-          <h4>Legal Orientation</h4>
-          <p>Guiding refugees through asylum procedures, documentation, and rights in their host countries.</p>
+          <span class="tag">IRAN</span>
+          <h4>SUPPORT FOR AFGHAN REFUGEES</h4>
+          <p>Explore information, useful resources, and future support opportunities for Afghan refugees living in Iran.</p>
+          <a href="iran.html" class="btn btn-ghost" style="margin-top: 20px;">
+            Read More →
+          </a>
         </div>
+
         <div class="service-card">
-          <span class="tag">Integration</span>
-          <h4>Language Pathways</h4>
-          <p>Connecting newcomers with local language classes, mentors, and integration workshops.</p>
+          <span class="tag">EUROPE</span>
+          <h4>SUPPORT FOR AFGHAN REFUGEES</h4>
+          <p>Explore useful information, educational resources, and potential support opportunities for Afghan refugees living in Europe.</p>
+          <a href="europe.html" class="btn btn-ghost" style="margin-top: 20px;">
+            Read More →
+          </a>
         </div>
+
         <div class="service-card">
-          <span class="tag">Community</span>
-          <h4>Peer Network</h4>
-          <p>A trusted community support system helping families adapt and rebuild their social fabric.</p>
-        </div>
-        <div class="service-card">
-          <span class="tag">Careers</span>
-          <h4>Employment Support</h4>
-          <p>Credential translation, career counseling, and job market entry assistance for professionals.</p>
+          <span class="tag">OTHER COUNTRIES</span>
+          <h4>EXPLORE GLOBAL OPPORTUNITIES</h4>
+          <p>Discover immigration pathways, residency options, and essential information for countries around the world.</p>
+          <span class="tag" style="margin-top: 20px; margin-bottom: 0; opacity: 0.6; cursor: default;">
+            COMING SOON
+          </span>
         </div>
       </div>
     </div>
@@ -849,7 +1225,7 @@
           <div class="eyebrow">Waypoint Three — In Their Own Words</div>
           <h2>Voices of Freedom</h2>
         </div>
-        <p class="desc">Stories, culture, and achievements of Afghans inside Afghanistan and across the diaspora — told by Afghans themselves, in their own voices, and never reduced to a single narrative of suffering and loss.</p>
+        <p class="desc">Moving to a new country brings new challenges. We hope to share useful learning opportunities and reliable resources for migrants around the world. Dedicated support services are not yet available.</p>
       </div>
 
       <div class="media-grid reveal">
@@ -868,7 +1244,7 @@
           <div class="eyebrow">Who We Are</div>
           <h2>ZenVnex means <em>the new life</em></h2>
         </div>
-        <p class="desc">We are a team founded in Germany, with members from different cities and communities across the country. Our goal is to grow into a global movement, share our mission with people around the world, and welcome individuals from every corner of the globe who believe in our vision and want to walk alongside us in this journey. Our team consists of humanitarian workers, members of the Afghan diaspora and other communities, as well as individuals with many years of experience in humanitarian and social initiatives. We believe that human dignity should never depend on where someone was born or where they have been forced to live or migrate. For this reason, we design all of our programs around this principle — from the first classroom in Bamyan, Kabul, Herat, and Ghazni, to the first apartment key provided in Berlin.</p>
+        <p class="desc">ZenVnex means “the new life.” We are an independent initiative founded in Germany with a simple belief: everyone deserves a chance to learn and build a better future. We are starting with education, with special attention to people who have been denied access to it.</p>
       </div>
     </div>
   </section>
@@ -880,9 +1256,9 @@
       <h2 style="margin-top:16px;">Dignity is not a distant hope. It is a daily act.</h2>
       <p>Whatever you can give — funding, time, or a professional skill — becomes part of a family's path forward, inside Afghanistan or in a new home abroad.</p>
       <div class="cta-options">
-      <a href="donate.html" class="btn btn-gold">Donate Now</a>
-  <a href="partner.html" class="btn btn-ghost">Become a Partner</a>
-  <a href="lifestory.html" class="btn btn-ghost" style="width: 100%; justify-content: center; margin-top: 10px;">Tell Us Your Story</a>
+        <a href="donate.html" class="btn btn-gold">Donate Now</a>
+        <a href="partner.html" class="btn btn-ghost">Become a Partner</a>
+        <a href="lifestory.html" class="btn btn-ghost" style="width: 100%; justify-content: center; margin-top: 10px;">Tell Us Your Story</a>
       </div>
     </div>
   </section>
@@ -920,7 +1296,7 @@
       <div>
         <h5>Stay Connected</h5>
         <ul>
-            <li><a href="https://www.instagram.com/zenvnex" target="_blank" rel="noopener noreferrer">Instagram</a><br><a href="mailto:hello@zenvnex.org">hello@zenvnex.org</a></li>
+          <li><a href="https://www.instagram.com/zenvnex" target="_blank" rel="noopener noreferrer">Instagram</a><br><a href="mailto:hello@zenvnex.org">hello@zenvnex.org</a></li>
         </ul>
       </div>
     </div>
@@ -934,6 +1310,19 @@
     </div>
   </div>
 </footer>
+
+<!-- ===================== NEW: COMING SOON VIEW (SAME HTML FILE) ===================== -->
+<div id="talent-bridge-coming-soon" role="dialog" aria-modal="true" aria-labelledby="tb-soon-title" tabindex="-1">
+  <div class="tb-soon-card">
+    <a href="#talent-bridge" class="tb-soon-close" aria-label="Close and return to Talent Bridge">×</a>
+    <div class="tb-soon-logo">ZENVNEX / TALENT BRIDGE</div>
+    <div class="tb-soon-kicker">Something meaningful is taking shape</div>
+    <h2 id="tb-soon-title">COMING SOON.</h2>
+    <p>Talent deserves to be discovered. We're developing a new space to celebrate Afghan creativity, skills, and ambition — and to help open doors to opportunity. Stay with us as this vision takes shape.</p>
+    <div class="tb-soon-rule"></div>
+    <a class="tb-soon-back" href="#talent-bridge">← Back to ZENVNEX</a>
+  </div>
+</div>
 
 <script>
   const revealEls = document.querySelectorAll('.reveal');
@@ -954,79 +1343,26 @@
     navlinks.style.display = isOpen ? 'none' : 'flex';
     navlinks.style.cssText += isOpen ? '' : 'position:absolute; top:78px; left:0; right:0; background:#0c0d10; flex-direction:column; padding:24px 32px; border-bottom:1px solid #22262e; gap:20px;';
   });
-</script>
 
-<div class="modal-backdrop" id="authModal">
-  <div class="modal">
-    <h3>Welcome</h3>
-    <p>Sign in to continue, or create a free account to start learning.</p>
-    <button class="modal-btn primary" id="loginBtn">Already have an account — Log in</button>
-    <button class="modal-btn" id="signupBtn">Don't have an account — Sign up</button>
-  </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="js/firebase-config.js"></script>
-<script>
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-</script>
-<script>
-  const authModal = document.getElementById('authModal');
-  const loginModalBtn = document.getElementById('loginModalBtn');
-  const loginBtn = document.getElementById('loginBtn');
-  const signupBtn = document.getElementById('signupBtn');
-
-  if (loginModalBtn) {
-    loginModalBtn.addEventListener('click', () => {
-      if (auth.currentUser) {
-        auth.signOut();
-      } else {
-        authModal.classList.add('visible');
-      }
-    });
+  // NEW: Make the in-page Talent Bridge coming-soon view accessible and prevent background scroll.
+  const tbModal = document.getElementById('talent-bridge-coming-soon');
+  const tbReadMore = document.querySelector('.tb-readmore');
+  function syncTalentModal() {
+    const isOpen = window.location.hash === '#talent-bridge-coming-soon';
+    document.body.classList.toggle('tb-modal-open', isOpen);
+    if (isOpen) {
+      tbModal.focus({ preventScroll: true });
+    } else if (document.activeElement && tbModal.contains(document.activeElement)) {
+      tbReadMore.focus({ preventScroll: true });
+    }
   }
-
-  if (authModal) {
-    authModal.addEventListener('click', (e) => {
-      if (e.target === authModal) authModal.classList.remove('visible');
-    });
-  }
-
-  if (loginBtn) {
-    loginBtn.addEventListener('click', () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-          alert('با موفقیت وارد شدید: ' + result.user.displayName);
-          authModal.classList.remove('visible');
-        })
-        .catch((error) => {
-          alert('خطا در ورود: ' + error.message);
-        });
-    });
-  }
-
-  if (signupBtn) {
-    signupBtn.addEventListener('click', () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-          alert('حساب کاربری ساخته شد و وارد شدید: ' + result.user.displayName);
-          authModal.classList.remove('visible');
-        })
-        .catch((error) => {
-          alert('خطا در ثبت‌نام: ' + error.message);
-        });
-    });
-  }
-
-  if (loginModalBtn) {
-    auth.onAuthStateChanged((user) => {
-      loginModalBtn.textContent = user ? 'Log Out' : 'Login';
-    });
-  }
+  window.addEventListener('hashchange', syncTalentModal);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && window.location.hash === '#talent-bridge-coming-soon') {
+      window.location.hash = 'talent-bridge';
+    }
+  });
+  syncTalentModal();
 </script>
 </body>
 </html>
